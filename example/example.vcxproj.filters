@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxButton.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxColorPicker.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxInputField.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxLabel.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxPanel.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\DoublyConnectedEdgeList.cpp">
+			<Filter>addons\ofxPolygonTriangulation\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\ofxPolygonTriangulation.cpp">
+			<Filter>addons\ofxPolygonTriangulation\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\SplitToMonotone.cpp">
+			<Filter>addons\ofxPolygonTriangulation\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\TriangulateMonotone.cpp">
+			<Filter>addons\ofxPolygonTriangulation\src</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons">
+			<UniqueIdentifier>{6E3E1F5B--0D2-3-4A-8F-B-2BD-5B2E3AB5BF88}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxGui">
+			<UniqueIdentifier>{2775924D--F77-2-4B-74-B-567-AB385127AB4E}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxGui\src">
+			<UniqueIdentifier>{801630A8--4A0-E-45-52-8-4D2-47A8868FE3BF}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxPolygonTriangulation">
+			<UniqueIdentifier>{7CC6CE1B--505-F-48-01-B-38E-39558C5C75D2}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxPolygonTriangulation\src">
+			<UniqueIdentifier>{341937B2--1CB-6-47-E6-9-279-5A9E4F2FB521}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxColorPicker.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGui.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiUtils.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxInputField.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxLabel.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxPanel.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\DoublyConnectedEdgeList.h">
+			<Filter>addons\ofxPolygonTriangulation\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\HalfEdgeSweepComparer.h">
+			<Filter>addons\ofxPolygonTriangulation\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\ofxPolygonTriangulation.h">
+			<Filter>addons\ofxPolygonTriangulation\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\SplitToMonotone.h">
+			<Filter>addons\ofxPolygonTriangulation\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\TriangulateMonotone.h">
+			<Filter>addons\ofxPolygonTriangulation\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\VertexSweepComparer.h">
+			<Filter>addons\ofxPolygonTriangulation\src</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc" />
+	</ItemGroup>
+</Project>
