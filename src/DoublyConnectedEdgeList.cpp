@@ -2,32 +2,32 @@
 #include <stdexcept>
 #include "DoublyConnectedEdgeList.h"
 
-inline DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::Vertex::getIncidentEdge() const
+DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::Vertex::getIncidentEdge() const
 {
 	return DoublyConnectedEdgeList::HalfEdge(m_Dcel, m_Dcel->m_Vertices[m_Index].incidentEdge);
 }
 
-inline void DoublyConnectedEdgeList::Vertex::setIncidentEdge(const DoublyConnectedEdgeList::HalfEdge& halfEdge)
+void DoublyConnectedEdgeList::Vertex::setIncidentEdge(const DoublyConnectedEdgeList::HalfEdge& halfEdge)
 {
 	m_Dcel->m_Vertices[m_Index].incidentEdge = halfEdge.getIndex();
 }
 
-inline DoublyConnectedEdgeList::Vertex DoublyConnectedEdgeList::HalfEdge::getOrigin() const
+DoublyConnectedEdgeList::Vertex DoublyConnectedEdgeList::HalfEdge::getOrigin() const
 {
 	return DoublyConnectedEdgeList::Vertex(m_Dcel, m_Dcel->m_Edges[m_Index].origin);
 }
 
-inline void DoublyConnectedEdgeList::HalfEdge::setOrigin(const DoublyConnectedEdgeList::Vertex& vertex)
+void DoublyConnectedEdgeList::HalfEdge::setOrigin(const DoublyConnectedEdgeList::Vertex& vertex)
 {
 	m_Dcel->m_Edges[m_Index].origin = vertex.getIndex();
 }
 
-inline DoublyConnectedEdgeList::Face DoublyConnectedEdgeList::HalfEdge::getIncidentFace() const
+DoublyConnectedEdgeList::Face DoublyConnectedEdgeList::HalfEdge::getIncidentFace() const
 {
 	return DoublyConnectedEdgeList::Face(m_Dcel, m_Dcel->m_Edges[m_Index].incidentFace);
 }
 
-inline void DoublyConnectedEdgeList::HalfEdge::setIncidentFace(const DoublyConnectedEdgeList::Face& face)
+void DoublyConnectedEdgeList::HalfEdge::setIncidentFace(const DoublyConnectedEdgeList::Face& face)
 {
 	m_Dcel->m_Edges[m_Index].incidentFace = face.getIndex();
 }
@@ -37,7 +37,7 @@ glm::vec2 DoublyConnectedEdgeList::HalfEdge::getDirection() const
 	return getDestination().getPosition() - getOrigin().getPosition();
 }
 
-inline DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::Face::getOuterComponent() const
+DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::Face::getOuterComponent() const
 {
 	return DoublyConnectedEdgeList::HalfEdge(m_Dcel, m_Dcel->m_Faces[m_Index].outerComponent);
 }

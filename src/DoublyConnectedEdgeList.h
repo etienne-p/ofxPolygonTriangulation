@@ -14,6 +14,15 @@ enum class WindingOrder
 
 class DoublyConnectedEdgeList
 {
+private:
+	template <typename T>
+	struct IndexEquality
+	{
+		// < operator needed as we'll use the type as key in maps.
+		friend inline bool operator<(const T& lhs, const T& rhs) { return lhs.getIndex() < rhs.getIndex(); }
+		friend inline bool operator==(const T& lhs, const T& rhs) { return lhs.getIndex() == rhs.getIndex(); }
+		friend inline bool operator!=(const T& lhs, const T& rhs) { return !(lhs == rhs); }
+	};
 
 public:
 
@@ -33,9 +42,11 @@ public:
 		Destination
 	};
 
+	// Forward declaration as Vertex, HalfEdge and Face depend on one another.
 	struct HalfEdge;
+	struct Face;
 
-	struct Vertex
+	struct Vertex : IndexEquality<Vertex>
 	{
 	public:
 		Vertex() : m_Dcel(nullptr), m_Index(0) {}
@@ -54,19 +65,12 @@ public:
 		inline HalfEdge getIncidentEdge() const;
 		inline void setIncidentEdge(const HalfEdge& halfEdge);
 
-		explicit operator glm::vec2() const { return getPosition(); };
-
-		friend inline bool operator==(const Vertex& lhs, const Vertex& rhs) { return lhs.getIndex() == rhs.getIndex(); }
-		friend inline bool operator!=(const Vertex& lhs, const Vertex& rhs) { return !(lhs == rhs); }
-
 	private:
 		std::size_t m_Index;
 		DoublyConnectedEdgeList* m_Dcel;
 	};
 
-	struct Face;
-
-	struct DoublyConnectedEdgeList::HalfEdge
+	struct HalfEdge : IndexEquality<HalfEdge>
 	{
 	public:
 		HalfEdge() : m_Dcel(nullptr), m_Index(0) {}
@@ -77,14 +81,14 @@ public:
 
 		inline std::size_t getIndex() const { return m_Index; }
 
-		inline HalfEdge getTwin() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].twin); } // TODO Use ref?
+		inline HalfEdge getTwin() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].twin); }
 		inline void setTwin(const HalfEdge& halfEdge) { m_Dcel->m_Edges[m_Index].twin = halfEdge.getIndex(); }
 
-		inline HalfEdge getPrev() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].prev); } // TODO Use ref?
-		inline void setPrev(const HalfEdge& halfEdge) { m_Dcel->m_Edges[m_Index].prev = halfEdge.getIndex(); } // TODO Use ref?
+		inline HalfEdge getPrev() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].prev); }
+		inline void setPrev(const HalfEdge& halfEdge) { m_Dcel->m_Edges[m_Index].prev = halfEdge.getIndex(); }
 
-		inline HalfEdge getNext() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].next); } // TODO Use ref?
-		inline void setNext(const HalfEdge& halfEdge) { m_Dcel->m_Edges[m_Index].next = halfEdge.getIndex(); } // TODO Use ref?
+		inline HalfEdge getNext() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].next); }
+		inline void setNext(const HalfEdge& halfEdge) { m_Dcel->m_Edges[m_Index].next = halfEdge.getIndex(); }
 
 		inline Vertex getOrigin() const;
 		inline void setOrigin(const Vertex& vertex);
@@ -96,17 +100,12 @@ public:
 
 		glm::vec2 getDirection() const;
 
-		// < operator needed as we'll use the type as key in maps.
-		friend inline bool operator<(const HalfEdge& lhs, const HalfEdge& rhs) { return lhs.m_Index < rhs.m_Index; }
-		friend inline bool operator==(const HalfEdge& lhs, const HalfEdge& rhs) { return lhs.getIndex() == rhs.getIndex(); }
-		friend inline bool operator!=(const HalfEdge& lhs, const HalfEdge& rhs) { return !(lhs == rhs); }
-
 	private:
 		std::size_t m_Index;
 		DoublyConnectedEdgeList* m_Dcel;
 	};
 
-	struct DoublyConnectedEdgeList::Face
+	struct Face : IndexEquality<Face>
 	{
 	public:
 		Face() : m_Dcel(nullptr), m_Index(0) {}
@@ -117,9 +116,6 @@ public:
 
 		inline HalfEdge getOuterComponent() const;
 		inline void setOuterComponent(const HalfEdge& halfEdge);
-
-		friend inline bool operator==(const Face& lhs, const Face& rhs) { return lhs.getIndex() == rhs.getIndex(); }
-		friend inline bool operator!=(const Face& lhs, const Face& rhs) { return !(lhs == rhs); }
 
 	private:
 		std::size_t m_Index;
