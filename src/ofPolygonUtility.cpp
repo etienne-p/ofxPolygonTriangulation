@@ -1,7 +1,7 @@
-#include "PolygonUtility.h"
+#include "ofPolygonUtility.h"
 #include "ofMain.h"
 
-void PolygonUtility::createPolygonRandom(std::vector<glm::vec3> & points, size_t numPoints) {
+void ofPolygonUtility::createPolygonRandom(std::vector<glm::vec3> & points, size_t numPoints) {
 	constexpr auto angleNoiseY = 0.4f;
 	constexpr auto radiusNoiseY = 4.0f;
 	auto noiseX = 0.f;
@@ -15,7 +15,7 @@ void PolygonUtility::createPolygonRandom(std::vector<glm::vec3> & points, size_t
 	}
 }
 
-void PolygonUtility::createPolygonRandomMonotone(std::vector<glm::vec3> & points, size_t numPoints) {
+void ofPolygonUtility::createPolygonRandomMonotone(std::vector<glm::vec3> & points, size_t numPoints) {
 	constexpr auto xNoiseY = 0.4f;
 	constexpr auto noiseDx = 0.4f;
 	constexpr auto yNoiseY = 0.8f;

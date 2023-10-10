@@ -11,7 +11,7 @@ enum class WindingOrder {
 	CounterClockWise,
 };
 
-class DoublyConnectedEdgeList {
+class ofDoublyConnectedEdgeList {
 private:
 	template <typename T>
 	struct IndexEquality {
@@ -45,7 +45,7 @@ public:
 		Vertex()
 			: m_Dcel(nullptr)
 			, m_Index(0) { }
-		Vertex(DoublyConnectedEdgeList * dcel, std::size_t index)
+		Vertex(ofDoublyConnectedEdgeList * dcel, std::size_t index)
 			: m_Dcel(dcel)
 			, m_Index(index) { }
 
@@ -63,7 +63,7 @@ public:
 
 	private:
 		std::size_t m_Index;
-		DoublyConnectedEdgeList * m_Dcel;
+		ofDoublyConnectedEdgeList * m_Dcel;
 	};
 
 	struct HalfEdge : IndexEquality<HalfEdge> {
@@ -71,7 +71,7 @@ public:
 		HalfEdge()
 			: m_Dcel(nullptr)
 			, m_Index(0) { }
-		HalfEdge(DoublyConnectedEdgeList * dcel, std::size_t index)
+		HalfEdge(ofDoublyConnectedEdgeList * dcel, std::size_t index)
 			: m_Dcel(dcel)
 			, m_Index(index) { }
 		HalfEdge(const HalfEdge & other)
@@ -101,7 +101,7 @@ public:
 
 	private:
 		std::size_t m_Index;
-		DoublyConnectedEdgeList * m_Dcel;
+		ofDoublyConnectedEdgeList * m_Dcel;
 	};
 
 	struct Face : IndexEquality<Face> {
@@ -109,7 +109,7 @@ public:
 		Face()
 			: m_Dcel(nullptr)
 			, m_Index(0) { }
-		Face(DoublyConnectedEdgeList * dcel, std::size_t index)
+		Face(ofDoublyConnectedEdgeList * dcel, std::size_t index)
 			: m_Dcel(dcel)
 			, m_Index(index) { }
 
@@ -120,7 +120,7 @@ public:
 
 	private:
 		std::size_t m_Index;
-		DoublyConnectedEdgeList * m_Dcel;
+		ofDoublyConnectedEdgeList * m_Dcel;
 	};
 
 	Face getInnerFace();
@@ -202,12 +202,12 @@ public:
 
 	struct FacesIterator {
 	private:
-		DoublyConnectedEdgeList * m_Dcel;
+		ofDoublyConnectedEdgeList * m_Dcel;
 		Face m_Current;
 		std::size_t m_Index;
 
 	public:
-		FacesIterator(DoublyConnectedEdgeList & dcel)
+		FacesIterator(ofDoublyConnectedEdgeList & dcel)
 			: m_Dcel(&dcel)
 			, m_Current(Face(m_Dcel, 0))
 			, m_Index(0) { }

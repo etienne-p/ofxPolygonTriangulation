@@ -1,7 +1,7 @@
 #pragma once
 
-#include "SplitToMonotone.h"
-#include "TriangulateMonotone.h"
+#include "ofSplitToMonotone.h"
+#include "ofTriangulateMonotone.h"
 #include "ofMain.h"
 #include "ofxGui.h"
 
@@ -30,9 +30,9 @@ private:
 	void triangulateButtonPressed();
 	void resetButtonPressed();
 
-	DoublyConnectedEdgeList m_Dcel;
-	SplitToMonotone m_SplitToMonotone;
-	TriangulateMonotone m_TriangulateMonotone;
+	ofDoublyConnectedEdgeList m_Dcel;
+	ofSplitToMonotone m_SplitToMonotone;
+	ofTriangulateMonotone m_TriangulateMonotone;
 
 	vector<ofPolyline> m_Lines;
 	ofMesh m_Mesh;
@@ -42,7 +42,7 @@ private:
 	// Can we use vec2?
 	vector<glm::vec3> m_Vertices;
 	vector<ofIndexType> m_Indices;
-	stack<DoublyConnectedEdgeList::Face> m_FacesPendingTriangulation;
+	stack<ofDoublyConnectedEdgeList::Face> m_FacesPendingTriangulation;
 
 	void updatePolygon(ofPolyline & line);
 };

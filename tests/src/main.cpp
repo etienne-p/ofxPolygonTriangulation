@@ -1,11 +1,11 @@
-#include "DoublyConnectedEdgeList.h"
+#include "ofDoublyConnectedEdgeList.h"
 #include "ofAppNoWindow.h"
 #include "ofMain.h"
 #include "ofxUnitTests.h"
 
 class ofApp : public ofxUnitTestsApp {
 private:
-	DoublyConnectedEdgeList m_Dcel;
+	ofDoublyConnectedEdgeList m_Dcel;
 
 public:
 	void run() {

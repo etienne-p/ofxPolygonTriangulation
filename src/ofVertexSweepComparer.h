@@ -1,11 +1,11 @@
 #pragma once
 
-#include "DoublyConnectedEdgeList.h"
+#include "ofDoublyConnectedEdgeList.h"
 
-struct VertexSweepComparer {
+struct ofVertexSweepComparer {
 	inline bool operator()(
-		const DoublyConnectedEdgeList::Vertex & first,
-		const DoublyConnectedEdgeList::Vertex & last) {
+		const ofDoublyConnectedEdgeList::Vertex & first,
+		const ofDoublyConnectedEdgeList::Vertex & last) {
 		// Strict comparison is deliberate.
 		if (first.getY() == last.getY()) {
 			return first.getX() < last.getX();

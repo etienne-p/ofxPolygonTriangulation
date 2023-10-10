@@ -1,54 +1,54 @@
-#include "DoublyConnectedEdgeList.h"
+#include "ofDoublyConnectedEdgeList.h"
 #include <cassert>
 #include <stdexcept>
 
-DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::Vertex::getIncidentEdge() const {
-	return DoublyConnectedEdgeList::HalfEdge(m_Dcel, m_Dcel->m_Vertices[m_Index].incidentEdge);
+ofDoublyConnectedEdgeList::HalfEdge ofDoublyConnectedEdgeList::Vertex::getIncidentEdge() const {
+	return ofDoublyConnectedEdgeList::HalfEdge(m_Dcel, m_Dcel->m_Vertices[m_Index].incidentEdge);
 }
 
-void DoublyConnectedEdgeList::Vertex::setIncidentEdge(const DoublyConnectedEdgeList::HalfEdge & halfEdge) {
+void ofDoublyConnectedEdgeList::Vertex::setIncidentEdge(const ofDoublyConnectedEdgeList::HalfEdge & halfEdge) {
 	m_Dcel->m_Vertices[m_Index].incidentEdge = halfEdge.getIndex();
 }
 
-DoublyConnectedEdgeList::Vertex DoublyConnectedEdgeList::HalfEdge::getOrigin() const {
-	return DoublyConnectedEdgeList::Vertex(m_Dcel, m_Dcel->m_Edges[m_Index].origin);
+ofDoublyConnectedEdgeList::Vertex ofDoublyConnectedEdgeList::HalfEdge::getOrigin() const {
+	return ofDoublyConnectedEdgeList::Vertex(m_Dcel, m_Dcel->m_Edges[m_Index].origin);
 }
 
-void DoublyConnectedEdgeList::HalfEdge::setOrigin(const DoublyConnectedEdgeList::Vertex & vertex) {
+void ofDoublyConnectedEdgeList::HalfEdge::setOrigin(const ofDoublyConnectedEdgeList::Vertex & vertex) {
 	m_Dcel->m_Edges[m_Index].origin = vertex.getIndex();
 }
 
-DoublyConnectedEdgeList::Face DoublyConnectedEdgeList::HalfEdge::getIncidentFace() const {
-	return DoublyConnectedEdgeList::Face(m_Dcel, m_Dcel->m_Edges[m_Index].incidentFace);
+ofDoublyConnectedEdgeList::Face ofDoublyConnectedEdgeList::HalfEdge::getIncidentFace() const {
+	return ofDoublyConnectedEdgeList::Face(m_Dcel, m_Dcel->m_Edges[m_Index].incidentFace);
 }
 
-void DoublyConnectedEdgeList::HalfEdge::setIncidentFace(const DoublyConnectedEdgeList::Face & face) {
+void ofDoublyConnectedEdgeList::HalfEdge::setIncidentFace(const ofDoublyConnectedEdgeList::Face & face) {
 	m_Dcel->m_Edges[m_Index].incidentFace = face.getIndex();
 }
 
-glm::vec2 DoublyConnectedEdgeList::HalfEdge::getDirection() const {
+glm::vec2 ofDoublyConnectedEdgeList::HalfEdge::getDirection() const {
 	return getDestination().getPosition() - getOrigin().getPosition();
 }
 
-DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::Face::getOuterComponent() const {
-	return DoublyConnectedEdgeList::HalfEdge(m_Dcel, m_Dcel->m_Faces[m_Index].outerComponent);
+ofDoublyConnectedEdgeList::HalfEdge ofDoublyConnectedEdgeList::Face::getOuterComponent() const {
+	return ofDoublyConnectedEdgeList::HalfEdge(m_Dcel, m_Dcel->m_Faces[m_Index].outerComponent);
 }
 
-inline void DoublyConnectedEdgeList::Face::setOuterComponent(const DoublyConnectedEdgeList::HalfEdge & halfEdge) {
+inline void ofDoublyConnectedEdgeList::Face::setOuterComponent(const ofDoublyConnectedEdgeList::HalfEdge & halfEdge) {
 	m_Dcel->m_Faces[m_Index].outerComponent = halfEdge.getIndex();
 }
 
-DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::createEdge() {
+ofDoublyConnectedEdgeList::HalfEdge ofDoublyConnectedEdgeList::createEdge() {
 	m_Edges.push_back(HalfEdgeData());
 	return HalfEdge(this, m_Edges.size() - 1);
 }
 
-DoublyConnectedEdgeList::Face DoublyConnectedEdgeList::createFace() {
+ofDoublyConnectedEdgeList::Face ofDoublyConnectedEdgeList::createFace() {
 	m_Faces.push_back(FaceData());
 	return Face(this, m_Faces.size() - 1);
 }
 
-int countHalfEdges(DoublyConnectedEdgeList::Face & face) {
+int countHalfEdges(ofDoublyConnectedEdgeList::Face & face) {
 	int count = 0;
 	auto edge = face.getOuterComponent();
 	do {
@@ -59,7 +59,7 @@ int countHalfEdges(DoublyConnectedEdgeList::Face & face) {
 	return count;
 }
 
-void DoublyConnectedEdgeList::extractTriangles(
+void ofDoublyConnectedEdgeList::extractTriangles(
 	std::vector<glm::vec3> & vertices, std::vector<unsigned int> & indices) {
 	vertices.resize(m_Vertices.size());
 	indices.resize((m_Faces.size() - 1) * 3); // -1 to exclude outer face.
@@ -91,8 +91,8 @@ void DoublyConnectedEdgeList::extractTriangles(
 }
 
 bool canSplitFace(
-	DoublyConnectedEdgeList::HalfEdge & edgeA,
-	DoublyConnectedEdgeList::HalfEdge & edgeB,
+	ofDoublyConnectedEdgeList::HalfEdge & edgeA,
+	ofDoublyConnectedEdgeList::HalfEdge & edgeB,
 	int & halfEdgesOnFace, std::string & errorMessage) {
 	if (edgeA == edgeB) {
 		errorMessage = "Edges are equal.";
@@ -108,7 +108,7 @@ bool canSplitFace(
 	}
 
 #if _DEBUG
-	if (edgeA.getIncidentFace().getIndex() == DoublyConnectedEdgeList::getOuterFaceIndex()) {
+	if (edgeA.getIncidentFace().getIndex() == ofDoublyConnectedEdgeList::getOuterFaceIndex()) {
 		errorMessage = "Cannot split outer face.";
 		halfEdgesOnFace = 0;
 		return false;
@@ -147,8 +147,8 @@ bool canSplitFace(
 #endif
 }
 
-DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::splitFaceInternal(
-	DoublyConnectedEdgeList::HalfEdge & edgeA, DoublyConnectedEdgeList::HalfEdge & edgeB, DoublyConnectedEdgeList::EdgeAssign edgeAssign) {
+ofDoublyConnectedEdgeList::HalfEdge ofDoublyConnectedEdgeList::splitFaceInternal(
+	ofDoublyConnectedEdgeList::HalfEdge & edgeA, ofDoublyConnectedEdgeList::HalfEdge & edgeB, ofDoublyConnectedEdgeList::EdgeAssign edgeAssign) {
 	auto face = edgeA.getIncidentFace();
 
 	// Create two new edges and a new face;
@@ -196,8 +196,8 @@ DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::splitFaceInternal(
 	return newEdge;
 }
 
-DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::splitFace(
-	DoublyConnectedEdgeList::HalfEdge & edgeA, DoublyConnectedEdgeList::HalfEdge & edgeB, DoublyConnectedEdgeList::EdgeAssign edgeAssign) {
+ofDoublyConnectedEdgeList::HalfEdge ofDoublyConnectedEdgeList::splitFace(
+	ofDoublyConnectedEdgeList::HalfEdge & edgeA, ofDoublyConnectedEdgeList::HalfEdge & edgeB, ofDoublyConnectedEdgeList::EdgeAssign edgeAssign) {
 #if _DEBUG
 	auto halfEdgesOnFace = 0;
 	std::string errorMessage;
@@ -220,8 +220,8 @@ DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::splitFace(
 	return newEdge;
 }
 
-DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::splitFace(
-	DoublyConnectedEdgeList::HalfEdge & edge, DoublyConnectedEdgeList::Vertex & vertex, DoublyConnectedEdgeList::EdgeAssign edgeAssign) {
+ofDoublyConnectedEdgeList::HalfEdge ofDoublyConnectedEdgeList::splitFace(
+	ofDoublyConnectedEdgeList::HalfEdge & edge, ofDoublyConnectedEdgeList::Vertex & vertex, ofDoublyConnectedEdgeList::EdgeAssign edgeAssign) {
 	std::string error;
 	int _ = 0;
 
@@ -238,8 +238,8 @@ DoublyConnectedEdgeList::HalfEdge DoublyConnectedEdgeList::splitFace(
 }
 
 // DRY with proper iterators.
-WindingOrder DoublyConnectedEdgeList::getOrder(const DoublyConnectedEdgeList::Face & face) {
-	auto halfEdgeIterator = DoublyConnectedEdgeList::HalfEdgesIterator(face);
+WindingOrder ofDoublyConnectedEdgeList::getOrder(const ofDoublyConnectedEdgeList::Face & face) {
+	auto halfEdgeIterator = ofDoublyConnectedEdgeList::HalfEdgesIterator(face);
 	auto sum = 0.0f;
 
 	do {
@@ -277,16 +277,16 @@ WindingOrder getVerticesOrder(const std::vector<vecN> & vertices) {
 }
 
 // Leans on a convention, see k_InnerFaceIndex.
-DoublyConnectedEdgeList::Face DoublyConnectedEdgeList::getInnerFace() {
+ofDoublyConnectedEdgeList::Face ofDoublyConnectedEdgeList::getInnerFace() {
 	if (m_Faces.size() < k_InnerFaceIndex + 1) {
 		throw std::runtime_error("Cannot access inner face.");
 	}
 
-	return DoublyConnectedEdgeList::Face(this, k_InnerFaceIndex);
+	return ofDoublyConnectedEdgeList::Face(this, k_InnerFaceIndex);
 }
 
 template <class vecN>
-void DoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector<vecN> & vertices) {
+void ofDoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector<vecN> & vertices) {
 #if _DEBUG
 	if (getVerticesOrder(vertices) != WindingOrder::CounterClockWise) {
 		throw std::runtime_error("Passed vertices should be in counter clockwise order.");
@@ -308,7 +308,7 @@ void DoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector<vecN> 
 	for (auto i = 0; i != len; ++i) {
 		VertexData vert;
 		vert.position = vertices[i];
-		vert.chain = DoublyConnectedEdgeList::Chain::None;
+		vert.chain = ofDoublyConnectedEdgeList::Chain::None;
 		vert.incidentEdge = i;
 		m_Vertices[i] = vert;
 
@@ -329,10 +329,10 @@ void DoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector<vecN> 
 	}
 }
 
-void DoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector<glm::vec2> & vertices) {
+void ofDoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector<glm::vec2> & vertices) {
 	initializeFromCCWVertices<glm::vec2>(vertices);
 }
 
-void DoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector<glm::vec3> & vertices) {
+void ofDoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector<glm::vec3> & vertices) {
 	initializeFromCCWVertices<glm::vec3>(vertices);
 }

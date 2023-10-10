@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-class PolygonUtility {
+class ofPolygonUtility {
 public:
 	// No self-intersection by construction.
 	static void createPolygonRandom(std::vector<glm::vec3> & points, size_t numPoints);

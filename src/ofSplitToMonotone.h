@@ -1,13 +1,13 @@
 #pragma once
 
-#include "DoublyConnectedEdgeList.h"
-#include "HalfEdgeSweepComparer.h"
+#include "ofDoublyConnectedEdgeList.h"
+#include "ofHalfEdgeSweepComparer.h"
 #include <algorithm>
 #include <map>
 #include <stdexcept>
 #include <vector>
 
-class SplitToMonotone {
+class ofSplitToMonotone {
 public:
 	// TODO Exposed for tests?
 	// Used to classify vertices when splitting a polygon to monotone polygons.
@@ -30,7 +30,7 @@ public:
 			m_HalfEdges.clear();
 		}
 
-		DoublyConnectedEdgeList::Vertex getHelper(const DoublyConnectedEdgeList::HalfEdge & edge) {
+		ofDoublyConnectedEdgeList::Vertex getHelper(const ofDoublyConnectedEdgeList::HalfEdge & edge) {
 			auto it = m_EdgeToHelperMap.find(edge);
 
 			if (it == m_EdgeToHelperMap.end()) {
@@ -40,13 +40,13 @@ public:
 			return it->second;
 		}
 
-		typedef typename std::map<DoublyConnectedEdgeList::HalfEdge, DoublyConnectedEdgeList::Vertex>::const_iterator EdgesAndHelpersIterator;
+		typedef typename std::map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex>::const_iterator EdgesAndHelpersIterator;
 
 		// Exposed so that external code may iterate.
 		EdgesAndHelpersIterator getEdgesAndHelpersBeginIterator() const { return m_EdgeToHelperMap.begin(); }
 		EdgesAndHelpersIterator getEdgesAndHelpersEndIterator() const { return m_EdgeToHelperMap.end(); }
 
-		DoublyConnectedEdgeList::HalfEdge findLeft(DoublyConnectedEdgeList::Vertex vertex) {
+		ofDoublyConnectedEdgeList::HalfEdge findLeft(ofDoublyConnectedEdgeList::Vertex vertex) {
 			// Reverse order as rightmost edges will be at the end of the list.
 			for (auto i = m_HalfEdges.size() - 1; i != -1; --i) {
 				auto edge = m_HalfEdges[i];
@@ -55,7 +55,7 @@ public:
 				}
 
 				bool intersectionFound;
-				auto intersect = HalfEdgeSweepComparer::sweepIntersection(edge, m_SweepLineY, intersectionFound);
+				auto intersect = ofHalfEdgeSweepComparer::sweepIntersection(edge, m_SweepLineY, intersectionFound);
 				if (intersectionFound && vertex.getX() > intersect.x) {
 					return edge;
 				}
@@ -64,18 +64,18 @@ public:
 			throw std::runtime_error("Could not find left edge.");
 		}
 
-		void emplace(DoublyConnectedEdgeList::HalfEdge edge, DoublyConnectedEdgeList::Vertex helper) {
+		void emplace(ofDoublyConnectedEdgeList::HalfEdge edge, ofDoublyConnectedEdgeList::Vertex helper) {
 			m_EdgeToHelperMap.emplace(edge, helper);
 			m_HalfEdges.push_back(edge);
-			std::sort(m_HalfEdges.begin(), m_HalfEdges.end(), HalfEdgeSweepComparer(m_SweepLineY));
+			std::sort(m_HalfEdges.begin(), m_HalfEdges.end(), ofHalfEdgeSweepComparer(m_SweepLineY));
 		}
 
-		void remove(DoublyConnectedEdgeList::HalfEdge edge) {
+		void remove(ofDoublyConnectedEdgeList::HalfEdge edge) {
 			m_EdgeToHelperMap.erase(edge);
 			m_HalfEdges.erase(std::remove(m_HalfEdges.begin(), m_HalfEdges.end(), edge), m_HalfEdges.end());
 		}
 
-		void updateHelper(DoublyConnectedEdgeList::HalfEdge edge, DoublyConnectedEdgeList::Vertex helper) {
+		void updateHelper(ofDoublyConnectedEdgeList::HalfEdge edge, ofDoublyConnectedEdgeList::Vertex helper) {
 			auto it = m_EdgeToHelperMap.find(edge);
 
 			if (it == m_EdgeToHelperMap.end()) {
@@ -86,16 +86,16 @@ public:
 		}
 
 	private:
-		std::map<DoublyConnectedEdgeList::HalfEdge, DoublyConnectedEdgeList::Vertex> m_EdgeToHelperMap;
-		std::map<DoublyConnectedEdgeList::HalfEdge, DoublyConnectedEdgeList::HalfEdge> m_EdgeToPrevMap;
-		std::vector<DoublyConnectedEdgeList::HalfEdge> m_HalfEdges;
+		std::map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex> m_EdgeToHelperMap;
+		std::map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::HalfEdge> m_EdgeToPrevMap;
+		std::vector<ofDoublyConnectedEdgeList::HalfEdge> m_HalfEdges;
 		float m_SweepLineY;
 	};
 
-	void execute(DoublyConnectedEdgeList & dcel, DoublyConnectedEdgeList::Face & face);
+	void execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face);
 
 private:
 	SweepStatus m_SweepStatus;
 	std::map<std::size_t, VertexType> m_VerticesClassification;
-	std::vector<DoublyConnectedEdgeList::Vertex> m_Vertices;
+	std::vector<ofDoublyConnectedEdgeList::Vertex> m_Vertices;
 };

@@ -1,19 +1,19 @@
 #pragma once
 
-#include "DoublyConnectedEdgeList.h"
+#include "ofDoublyConnectedEdgeList.h"
 
-struct HalfEdgeSweepComparer {
+struct ofHalfEdgeSweepComparer {
 public:
-	static glm::vec2 sweepIntersection(const DoublyConnectedEdgeList::HalfEdge & edge, float sweepY, bool & found) {
+	static glm::vec2 sweepIntersection(const ofDoublyConnectedEdgeList::HalfEdge & edge, float sweepY, bool & found) {
 		return sweepIntersection(edge.getOrigin().getPosition(), edge.getDestination().getPosition(), sweepY, found);
 	}
 
-	HalfEdgeSweepComparer(float sweepLineY)
+	ofHalfEdgeSweepComparer(float sweepLineY)
 		: m_SweepLineY(sweepLineY) { }
 
 	inline bool operator()(
-		const DoublyConnectedEdgeList::HalfEdge & first,
-		const DoublyConnectedEdgeList::HalfEdge & last) {
+		const ofDoublyConnectedEdgeList::HalfEdge & first,
+		const ofDoublyConnectedEdgeList::HalfEdge & last) {
 		bool _;
 		auto leftX = sweepIntersection(first, m_SweepLineY, _).x;
 		auto rightX = sweepIntersection(last, m_SweepLineY, _).x;

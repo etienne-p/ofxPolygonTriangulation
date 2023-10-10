@@ -1,84 +1,84 @@
-#include "TriangulateMonotone.h"
-#include "VertexSweepComparer.h"
+#include "ofTriangulateMonotone.h"
+#include "ofVertexSweepComparer.h"
 #include <cassert>
 #include <glm/gtx/vector_angle.hpp>
 
-using VertexAndIndex = std::pair<DoublyConnectedEdgeList::Vertex, std::size_t>;
+using VertexAndIndex = std::pair<ofDoublyConnectedEdgeList::Vertex, std::size_t>;
 
 bool isInside(
-	const DoublyConnectedEdgeList::Vertex & vertex,
-	const DoublyConnectedEdgeList::Chain vertexChain,
-	const DoublyConnectedEdgeList::Vertex & popped,
-	const DoublyConnectedEdgeList::Vertex & prevPopped) {
+	const ofDoublyConnectedEdgeList::Vertex & vertex,
+	const ofDoublyConnectedEdgeList::Chain vertexChain,
+	const ofDoublyConnectedEdgeList::Vertex & popped,
+	const ofDoublyConnectedEdgeList::Vertex & prevPopped) {
 	auto currentEdge = popped.getPosition() - vertex.getPosition();
 	auto prevEdge = prevPopped.getPosition() - vertex.getPosition();
 	auto alpha = glm::orientedAngle(glm::normalize(prevEdge), glm::normalize(currentEdge));
 
-	if (vertexChain == DoublyConnectedEdgeList::Chain::Left) {
+	if (vertexChain == ofDoublyConnectedEdgeList::Chain::Left) {
 		return alpha <= 0;
 	}
 
 	return alpha >= 0;
 }
 
-DoublyConnectedEdgeList::EdgeAssign getEdgeAssign(
-	const DoublyConnectedEdgeList::Vertex & origin,
-	const DoublyConnectedEdgeList::Vertex & destination) {
+ofDoublyConnectedEdgeList::EdgeAssign getEdgeAssign(
+	const ofDoublyConnectedEdgeList::Vertex & origin,
+	const ofDoublyConnectedEdgeList::Vertex & destination) {
 	if (origin.getChain() == destination.getChain()) {
 		// We reassign so that the edge whose normal points inside is used
-		if (origin.getChain() == DoublyConnectedEdgeList::Chain::Left) {
+		if (origin.getChain() == ofDoublyConnectedEdgeList::Chain::Left) {
 			// Rebind the edge that points down.
-			return origin.getY() > destination.getY() ? DoublyConnectedEdgeList::EdgeAssign::Origin : DoublyConnectedEdgeList::EdgeAssign::Destination;
+			return origin.getY() > destination.getY() ? ofDoublyConnectedEdgeList::EdgeAssign::Origin : ofDoublyConnectedEdgeList::EdgeAssign::Destination;
 		}
 
-		return origin.getY() < destination.getY() ? DoublyConnectedEdgeList::EdgeAssign::Origin : DoublyConnectedEdgeList::EdgeAssign::Destination;
+		return origin.getY() < destination.getY() ? ofDoublyConnectedEdgeList::EdgeAssign::Origin : ofDoublyConnectedEdgeList::EdgeAssign::Destination;
 	}
 
 	// Otherwise, we reassign so that the deg whose normal points downwards is used.
-	return origin.getChain() == DoublyConnectedEdgeList::Chain::Left ? DoublyConnectedEdgeList::EdgeAssign::Destination : DoublyConnectedEdgeList::EdgeAssign::Origin;
+	return origin.getChain() == ofDoublyConnectedEdgeList::Chain::Left ? ofDoublyConnectedEdgeList::EdgeAssign::Destination : ofDoublyConnectedEdgeList::EdgeAssign::Origin;
 }
 
 void getTopAndBottomVertices(
-	const DoublyConnectedEdgeList::Face & face,
-	DoublyConnectedEdgeList::HalfEdge & top,
-	DoublyConnectedEdgeList::HalfEdge & bottom) {
+	const ofDoublyConnectedEdgeList::Face & face,
+	ofDoublyConnectedEdgeList::HalfEdge & top,
+	ofDoublyConnectedEdgeList::HalfEdge & bottom) {
 	top = face.getOuterComponent();
 	bottom = face.getOuterComponent();
 
-	auto halfEdgesIterator = DoublyConnectedEdgeList::HalfEdgesIterator(face);
+	auto halfEdgesIterator = ofDoublyConnectedEdgeList::HalfEdgesIterator(face);
 
 	do {
 		auto edge = halfEdgesIterator.getCurrent();
 
-		if (VertexSweepComparer()(edge.getOrigin(), top.getOrigin())) {
+		if (ofVertexSweepComparer()(edge.getOrigin(), top.getOrigin())) {
 			top = edge;
-		} else if (VertexSweepComparer()(bottom.getOrigin(), edge.getOrigin())) {
+		} else if (ofVertexSweepComparer()(bottom.getOrigin(), edge.getOrigin())) {
 			bottom = edge;
 		}
 
 	} while (halfEdgesIterator.moveNext());
 }
 
-void labelChains(const DoublyConnectedEdgeList::HalfEdge & top, const DoublyConnectedEdgeList::HalfEdge & bottom) {
+void labelChains(const ofDoublyConnectedEdgeList::HalfEdge & top, const ofDoublyConnectedEdgeList::HalfEdge & bottom) {
 	auto edge = top;
 
 	// Label left chain.
 	do {
-		edge.getOrigin().setChain(DoublyConnectedEdgeList::Chain::Left);
+		edge.getOrigin().setChain(ofDoublyConnectedEdgeList::Chain::Left);
 		edge = edge.getNext();
 	} while (edge != bottom);
 
 	// Label right chain.
 	do {
-		edge.getOrigin().setChain(DoublyConnectedEdgeList::Chain::Right);
+		edge.getOrigin().setChain(ofDoublyConnectedEdgeList::Chain::Right);
 		edge = edge.getNext();
 	} while (edge != top);
 }
 
-void TriangulateMonotone::sortSweepMonotone(
-	std::vector<DoublyConnectedEdgeList::Vertex> & vertices,
-	DoublyConnectedEdgeList::HalfEdge & top,
-	DoublyConnectedEdgeList::HalfEdge & bottom) {
+void ofTriangulateMonotone::sortSweepMonotone(
+	std::vector<ofDoublyConnectedEdgeList::Vertex> & vertices,
+	ofDoublyConnectedEdgeList::HalfEdge & top,
+	ofDoublyConnectedEdgeList::HalfEdge & bottom) {
 	// We use a queue for the left chain as we'll receive top vertices first.
 	// We use a stack for the right chain as we'll receive bottom vertices first.
 	// To merge we'll start from the top.
@@ -101,7 +101,7 @@ void TriangulateMonotone::sortSweepMonotone(
 
 	// Merge chains.
 	while (!m_SweepQueue.empty() && !m_SweepStack.empty()) {
-		if (VertexSweepComparer()(m_SweepQueue.front(), m_SweepStack.top())) {
+		if (ofVertexSweepComparer()(m_SweepQueue.front(), m_SweepStack.top())) {
 			vertices.push_back(m_SweepQueue.front());
 			m_SweepQueue.pop();
 		} else {
@@ -129,9 +129,9 @@ void clearStack(std::stack<T> & stack) {
 	}
 }
 
-void TriangulateMonotone::execute(DoublyConnectedEdgeList & dcel, DoublyConnectedEdgeList::Face & face) {
-	DoublyConnectedEdgeList::HalfEdge top;
-	DoublyConnectedEdgeList::HalfEdge bottom;
+void ofTriangulateMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face) {
+	ofDoublyConnectedEdgeList::HalfEdge top;
+	ofDoublyConnectedEdgeList::HalfEdge bottom;
 	getTopAndBottomVertices(face, top, bottom);
 
 	// Label each vertex with the chain (left or right) it belongs to.
@@ -212,7 +212,7 @@ void TriangulateMonotone::execute(DoublyConnectedEdgeList & dcel, DoublyConnecte
 		auto vertex = m_PendingDiagonalVertices.top();
 		m_PendingDiagonalVertices.pop();
 
-		auto edgeAssign = glm::orientedAngle(glm::vec2(0, 1), glm::normalize(vertex.getIncidentEdge().getDirection())) > 0 ? DoublyConnectedEdgeList::EdgeAssign::Origin : DoublyConnectedEdgeList::EdgeAssign::Destination;
+		auto edgeAssign = glm::orientedAngle(glm::vec2(0, 1), glm::normalize(vertex.getIncidentEdge().getDirection())) > 0 ? ofDoublyConnectedEdgeList::EdgeAssign::Origin : ofDoublyConnectedEdgeList::EdgeAssign::Destination;
 		dcel.splitFace(vertex.getIncidentEdge(), m_Vertices.back().getIncidentEdge(), edgeAssign);
 	}
 }

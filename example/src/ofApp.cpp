@@ -1,6 +1,6 @@
 #include "ofApp.h"
-#include "PolygonUtility.h"
-#include "Triangulatemonotone.h"
+#include "ofPolygonUtility.h"
+#include "ofTriangulatemonotone.h"
 #include <cassert>
 #include <random>
 
@@ -79,15 +79,15 @@ void ofApp::splitToMonotoneButtonPressed() {
 	m_Lines.clear();
 	m_LineColors.clear();
 
-	auto facesIterator = DoublyConnectedEdgeList::FacesIterator(m_Dcel);
+	auto facesIterator = ofDoublyConnectedEdgeList::FacesIterator(m_Dcel);
 	do {
 		auto face = facesIterator.getCurrent();
 
-		if (face.getIndex() == DoublyConnectedEdgeList::getOuterFaceIndex()) {
+		if (face.getIndex() == ofDoublyConnectedEdgeList::getOuterFaceIndex()) {
 			continue;
 		}
 
-		auto halfEdgesIterator = DoublyConnectedEdgeList::HalfEdgesIterator(face);
+		auto halfEdgesIterator = ofDoublyConnectedEdgeList::HalfEdgesIterator(face);
 
 		auto line = ofPolyline();
 
@@ -113,7 +113,7 @@ enum class FaceType {
 	Quad
 };
 
-FaceType getFaceType(DoublyConnectedEdgeList::Face face) {
+FaceType getFaceType(ofDoublyConnectedEdgeList::Face face) {
 	// The limited walk along the edge cycle allows us to unroll the loop.
 	// Note that NO face ever has less than 3 edges.
 	const auto firstEdge = face.getOuterComponent();
@@ -138,7 +138,7 @@ FaceType getFaceType(DoublyConnectedEdgeList::Face face) {
 }
 
 void ofApp::triangulateButtonPressed() {
-	auto facesIterator = DoublyConnectedEdgeList::FacesIterator(m_Dcel);
+	auto facesIterator = ofDoublyConnectedEdgeList::FacesIterator(m_Dcel);
 
 	do {
 		auto face = facesIterator.getCurrent();
@@ -157,7 +157,7 @@ void ofApp::triangulateButtonPressed() {
 		case FaceType::Quad: {
 			auto edgeA = face.getOuterComponent();
 			auto edgeB = edgeA.getNext().getNext();
-			m_Dcel.splitFace(edgeA, edgeB, DoublyConnectedEdgeList::EdgeAssign::None);
+			m_Dcel.splitFace(edgeA, edgeB, ofDoublyConnectedEdgeList::EdgeAssign::None);
 		}
 			continue;
 
@@ -174,11 +174,11 @@ void ofApp::triangulateButtonPressed() {
 #if _DEBUG
 
 		// By this point, we are iterating through the faces of the original DCEL.
-		assert(DoublyConnectedEdgeList::getOrder(face) == WindingOrder::CounterClockWise);
+		assert(ofDoublyConnectedEdgeList::getOrder(face) == WindingOrder::CounterClockWise);
 #endif
 
 		// We must ensure that all the vertices we are about to process have an incident edge on the current face.
-		auto halfEdgeIterator = DoublyConnectedEdgeList::HalfEdgesIterator(face);
+		auto halfEdgeIterator = ofDoublyConnectedEdgeList::HalfEdgesIterator(face);
 		do {
 			auto edge = halfEdgeIterator.getCurrent();
 			edge.getOrigin().setIncidentEdge(edge);
@@ -206,9 +206,9 @@ void ofApp::updatePolygon(ofPolyline & line) {
 	m_Vertices.resize(m_NumPoints);
 
 	if (m_IsMonotone) {
-		PolygonUtility::createPolygonRandomMonotone(m_Vertices, m_NumPoints);
+		ofPolygonUtility::createPolygonRandomMonotone(m_Vertices, m_NumPoints);
 	} else {
-		PolygonUtility::createPolygonRandom(m_Vertices, m_NumPoints);
+		ofPolygonUtility::createPolygonRandom(m_Vertices, m_NumPoints);
 	}
 
 	line.clear();

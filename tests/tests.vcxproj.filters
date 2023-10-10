@@ -7,19 +7,19 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\DoublyConnectedEdgeList.cpp">
+    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\ofDoublyConnectedEdgeList.cpp">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonTriangulation.cpp">
+    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\ofPolygonTriangulation.cpp">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonUtility.cpp">
+    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\ofPolygonUtility.cpp">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\SplitToMonotone.cpp">
+    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\ofSplitToMonotone.cpp">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\TriangulateMonotone.cpp">
+    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\ofTriangulateMonotone.cpp">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -28,41 +28,41 @@
       <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons">
-      <UniqueIdentifier>{2AD9761A--E08-0-49-E1-A-A42-AB0F81F96439}</UniqueIdentifier>
+      <UniqueIdentifier>{5DEAC862--CE8-4-49-68-9-6F9-26B005AFFB4F}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxPolygonTriangulation">
-      <UniqueIdentifier>{FB3CC7AE--BE9-8-45-D3-B-725-63CD028943B3}</UniqueIdentifier>
+      <UniqueIdentifier>{144581BF--0AA-0-45-BE-8-4B7-EDF965209DBA}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxPolygonTriangulation\src">
-      <UniqueIdentifier>{F5B83E2E--5EE-F-4C-96-B-46C-5A595C514A61}</UniqueIdentifier>
+      <UniqueIdentifier>{EFE4FB5A--F5C-B-46-B9-9-39A-AC5252063A56}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxUnitTests">
-      <UniqueIdentifier>{9385F8E0--6CA-D-44-90-A-0D7-65DD271C5674}</UniqueIdentifier>
+      <UniqueIdentifier>{71393B0C--98F-1-45-50-A-EC4-A1E2EF74E61D}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxUnitTests\src">
-      <UniqueIdentifier>{BC02EE6E--0C5-9-4A-6A-B-21F-67F38CDD61DA}</UniqueIdentifier>
+      <UniqueIdentifier>{A070E5DF--A36-D-4E-A9-A-2D1-96F27AAF52A3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\DoublyConnectedEdgeList.h">
+    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\ofDoublyConnectedEdgeList.h">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\HalfEdgeSweepComparer.h">
+    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\ofHalfEdgeSweepComparer.h">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonTriangulation.h">
+    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\ofPolygonTriangulation.h">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonUtility.h">
+    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\ofPolygonUtility.h">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\SplitToMonotone.h">
+    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\ofSplitToMonotone.h">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\TriangulateMonotone.h">
+    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\ofTriangulateMonotone.h">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\VertexSweepComparer.h">
+    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\ofVertexSweepComparer.h">
       <Filter>addons\ofxPolygonTriangulation\src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxUnitTests\src\ofxUnitTests.h">

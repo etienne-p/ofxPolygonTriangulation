@@ -116,11 +116,11 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\DoublyConnectedEdgeList.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonTriangulation.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonUtility.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\SplitToMonotone.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\TriangulateMonotone.cpp" />
+    <ClCompile Include="..\src\ofDoublyConnectedEdgeList.cpp" />
+    <ClCompile Include="..\src\ofPolygonTriangulation.cpp" />
+    <ClCompile Include="..\src\ofPolygonUtility.cpp" />
+    <ClCompile Include="..\src\ofSplitToMonotone.cpp" />
+    <ClCompile Include="..\src\ofTriangulateMonotone.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ofApp.h" />
@@ -136,13 +136,13 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\DoublyConnectedEdgeList.h" />
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\HalfEdgeSweepComparer.h" />
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonTriangulation.h" />
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonUtility.h" />
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\SplitToMonotone.h" />
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\TriangulateMonotone.h" />
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\VertexSweepComparer.h" />
+    <ClInclude Include="..\src\ofDoublyConnectedEdgeList.h" />
+    <ClInclude Include="..\src\ofHalfEdgeSweepComparer.h" />
+    <ClInclude Include="..\src\ofPolygonTriangulation.h" />
+    <ClInclude Include="..\src\ofPolygonUtility.h" />
+    <ClInclude Include="..\src\ofSplitToMonotone.h" />
+    <ClInclude Include="..\src\ofTriangulateMonotone.h" />
+    <ClInclude Include="..\src\ofVertexSweepComparer.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
