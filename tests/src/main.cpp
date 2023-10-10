@@ -1,22 +1,18 @@
-#include "ofMain.h"
-#include "ofAppNoWindow.h"
-#include "ofxUnitTests.h"
 #include "DoublyConnectedEdgeList.h"
+#include "ofAppNoWindow.h"
+#include "ofMain.h"
+#include "ofxUnitTests.h"
 
-class ofApp : public ofxUnitTestsApp 
-{
+class ofApp : public ofxUnitTestsApp {
 private:
 	DoublyConnectedEdgeList m_Dcel;
 
 public:
-	void run() 
-	{
-		
+	void run() {
 	}
 };
 
-int main() 
-{
+int main() {
 	ofInit();
 	auto window = std::make_shared<ofAppNoWindow>();
 	auto app = std::make_shared<ofApp>();

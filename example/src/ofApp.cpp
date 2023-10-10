@@ -1,11 +1,10 @@
+#include "ofApp.h"
+#include "PolygonUtility.h"
+#include "Triangulatemonotone.h"
 #include <cassert>
 #include <random>
-#include "Triangulatemonotone.h"
-#include "PolygonUtility.h"
-#include "ofApp.h"
 
-void ofApp::setup()
-{
+void ofApp::setup() {
 	ofSetVerticalSync(true);
 
 	// Always at least one line available.
@@ -26,8 +25,7 @@ void ofApp::setup()
 	m_Gui.add(m_ResetButton.setup("Reset"));
 }
 
-void ofApp::exit()
-{
+void ofApp::exit() {
 	m_NumPointsSlider.removeListener(this, &ofApp::numPointsChanged);
 	m_IsMonotoneToggle.removeListener(this, &ofApp::isMonotoneChanged);
 	m_SplitToMonotoneButton.removeListener(this, &ofApp::splitToMonotoneButtonPressed);
@@ -35,10 +33,9 @@ void ofApp::exit()
 	m_ResetButton.removeListener(this, &ofApp::resetButtonPressed);
 }
 
-void ofApp::update() {}
+void ofApp::update() { }
 
-void ofApp::draw()
-{
+void ofApp::draw() {
 	auto width = ofGetWidth();
 	auto height = ofGetHeight();
 
@@ -52,8 +49,7 @@ void ofApp::draw()
 
 	// TODO Minor ick
 	auto index = 0;
-	for (const auto& line : m_Lines)
-	{
+	for (const auto & line : m_Lines) {
 		ofSetColor(m_LineColors[index]);
 		line.draw();
 		++index;
@@ -64,20 +60,17 @@ void ofApp::draw()
 	m_Gui.draw();
 }
 
-void ofApp::numPointsChanged(int& numPoints)
-{
+void ofApp::numPointsChanged(int & numPoints) {
 	m_NumPoints = numPoints;
 	updatePolygon(m_Lines[0]);
 }
 
-void ofApp::isMonotoneChanged(bool& isMonotone)
-{
+void ofApp::isMonotoneChanged(bool & isMonotone) {
 	m_IsMonotone = isMonotone;
 	updatePolygon(m_Lines[0]);
 }
 
-void ofApp::splitToMonotoneButtonPressed()
-{
+void ofApp::splitToMonotoneButtonPressed() {
 	m_Dcel.initializeFromCCWVertices(m_Vertices);
 	auto innerFace = m_Dcel.getInnerFace();
 	m_SplitToMonotone.execute(m_Dcel, innerFace);
@@ -87,12 +80,10 @@ void ofApp::splitToMonotoneButtonPressed()
 	m_LineColors.clear();
 
 	auto facesIterator = DoublyConnectedEdgeList::FacesIterator(m_Dcel);
-	do
-	{
+	do {
 		auto face = facesIterator.getCurrent();
 
-		if (face.getIndex() == DoublyConnectedEdgeList::getOuterFaceIndex())
-		{
+		if (face.getIndex() == DoublyConnectedEdgeList::getOuterFaceIndex()) {
 			continue;
 		}
 
@@ -100,8 +91,7 @@ void ofApp::splitToMonotoneButtonPressed()
 
 		auto line = ofPolyline();
 
-		do
-		{
+		do {
 			auto vertex = halfEdgesIterator.getCurrent().getOrigin().getPosition();
 			line.addVertex(glm::vec3(vertex.x, vertex.y, 0));
 		} while (halfEdgesIterator.moveNext());
@@ -111,22 +101,19 @@ void ofApp::splitToMonotoneButtonPressed()
 
 	m_LineColors.resize(m_Lines.size());
 
-	for (auto i = 0; i != m_LineColors.size(); ++i)
-	{
+	for (auto i = 0; i != m_LineColors.size(); ++i) {
 		m_LineColors[i].setHsb(ofRandom(255), ofRandom(150, 255), ofRandom(150, 255));
 	}
 }
 
 // TODO Belongs in separate triangulation type.
-enum class FaceType
-{
+enum class FaceType {
 	Other,
 	Triangle,
 	Quad
 };
 
-FaceType getFaceType(DoublyConnectedEdgeList::Face face)
-{
+FaceType getFaceType(DoublyConnectedEdgeList::Face face) {
 	// The limited walk along the edge cycle allows us to unroll the loop.
 	// Note that NO face ever has less than 3 edges.
 	const auto firstEdge = face.getOuterComponent();
@@ -136,15 +123,13 @@ FaceType getFaceType(DoublyConnectedEdgeList::Face face)
 	edge = edge.getNext().getNext();
 
 	// If the current edge point to the first, we have 3 edges and a triangle.
-	if (edge.getNext() == firstEdge)
-	{
+	if (edge.getNext() == firstEdge) {
 		return FaceType::Triangle;
 	}
 
 	// One more jump. If the current edge point to the first, we have 4 edges and a quad.
 	edge = edge.getNext();
-	if (edge.getNext() == firstEdge)
-	{
+	if (edge.getNext() == firstEdge) {
 		return FaceType::Quad;
 	}
 
@@ -152,34 +137,29 @@ FaceType getFaceType(DoublyConnectedEdgeList::Face face)
 	return FaceType::Other;
 }
 
-void ofApp::triangulateButtonPressed()
-{
+void ofApp::triangulateButtonPressed() {
 	auto facesIterator = DoublyConnectedEdgeList::FacesIterator(m_Dcel);
 
-	do
-	{
+	do {
 		auto face = facesIterator.getCurrent();
 
-		if (face.getIndex() == m_Dcel.getOuterFaceIndex())
-		{
+		if (face.getIndex() == m_Dcel.getOuterFaceIndex()) {
 			continue;
 		}
 
-		switch (getFaceType(face))
-		{
+		switch (getFaceType(face)) {
 			// No further triangulation needed.
 		case FaceType::Triangle:
 			continue;
 
 			// Quad is trivially reduced to triangles,
 			// no need to run a full monotone triangulation.
-		case FaceType::Quad:
-		{
+		case FaceType::Quad: {
 			auto edgeA = face.getOuterComponent();
 			auto edgeB = edgeA.getNext().getNext();
 			m_Dcel.splitFace(edgeA, edgeB, DoublyConnectedEdgeList::EdgeAssign::None);
 		}
-		continue;
+			continue;
 
 		// Needs monotone triangulation.
 		case FaceType::Other:
@@ -188,8 +168,7 @@ void ofApp::triangulateButtonPressed()
 		}
 	} while (facesIterator.moveNext());
 
-	while (!m_FacesPendingTriangulation.empty())
-	{
+	while (!m_FacesPendingTriangulation.empty()) {
 		auto face = m_FacesPendingTriangulation.top();
 		m_FacesPendingTriangulation.pop();
 #if _DEBUG
@@ -200,8 +179,7 @@ void ofApp::triangulateButtonPressed()
 
 		// We must ensure that all the vertices we are about to process have an incident edge on the current face.
 		auto halfEdgeIterator = DoublyConnectedEdgeList::HalfEdgesIterator(face);
-		do
-		{
+		do {
 			auto edge = halfEdgeIterator.getCurrent();
 			edge.getOrigin().setIncidentEdge(edge);
 		} while (halfEdgeIterator.moveNext());
@@ -216,25 +194,20 @@ void ofApp::triangulateButtonPressed()
 	m_Mesh.addIndices(m_Indices);
 }
 
-void ofApp::resetButtonPressed()
-{
+void ofApp::resetButtonPressed() {
 	// TODO clumsy.
-	// Leave 1 line for base polygon. 
+	// Leave 1 line for base polygon.
 	m_Lines.resize(1);
 	m_LineColors.resize(1);
 	m_Mesh.clear();
 }
 
-void ofApp::updatePolygon(ofPolyline& line)
-{
+void ofApp::updatePolygon(ofPolyline & line) {
 	m_Vertices.resize(m_NumPoints);
 
-	if (m_IsMonotone)
-	{
+	if (m_IsMonotone) {
 		PolygonUtility::createPolygonRandomMonotone(m_Vertices, m_NumPoints);
-	}
-	else
-	{
+	} else {
 		PolygonUtility::createPolygonRandom(m_Vertices, m_NumPoints);
 	}
 
@@ -242,4 +215,3 @@ void ofApp::updatePolygon(ofPolyline& line)
 	line.addVertices(m_Vertices);
 	line.setClosed(true);
 }
-

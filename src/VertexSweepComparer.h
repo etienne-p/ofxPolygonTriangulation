@@ -2,15 +2,12 @@
 
 #include "DoublyConnectedEdgeList.h"
 
-struct VertexSweepComparer
-{
-	inline bool operator() (
-		const DoublyConnectedEdgeList::Vertex& first,
-		const DoublyConnectedEdgeList::Vertex& last)
-	{
+struct VertexSweepComparer {
+	inline bool operator()(
+		const DoublyConnectedEdgeList::Vertex & first,
+		const DoublyConnectedEdgeList::Vertex & last) {
 		// Strict comparison is deliberate.
-		if (first.getY() == last.getY())
-		{
+		if (first.getY() == last.getY()) {
 			return first.getX() < last.getX();
 		}
 
@@ -18,4 +15,3 @@ struct VertexSweepComparer
 		return last.getY() < first.getY();
 	}
 };
-

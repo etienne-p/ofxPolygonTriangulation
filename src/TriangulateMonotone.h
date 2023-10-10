@@ -1,15 +1,14 @@
 #pragma once
 
-#include <utility>
-#include <stack>
-#include <queue>
-#include <vector>
 #include "DoublyConnectedEdgeList.h"
+#include <queue>
+#include <stack>
+#include <utility>
+#include <vector>
 
-class TriangulateMonotone
-{
+class TriangulateMonotone {
 public:
-	void execute(DoublyConnectedEdgeList& dcel, DoublyConnectedEdgeList::Face& face);
+	void execute(DoublyConnectedEdgeList & dcel, DoublyConnectedEdgeList::Face & face);
 
 private:
 	std::stack<DoublyConnectedEdgeList::Vertex> m_PendingDiagonalVertices;
@@ -20,8 +19,7 @@ private:
 	std::queue<DoublyConnectedEdgeList::Vertex> m_SweepQueue;
 
 	void sortSweepMonotone(
-		std::vector<DoublyConnectedEdgeList::Vertex>& vertices,
-		DoublyConnectedEdgeList::HalfEdge& top,
-		DoublyConnectedEdgeList::HalfEdge& bottom);
+		std::vector<DoublyConnectedEdgeList::Vertex> & vertices,
+		DoublyConnectedEdgeList::HalfEdge & top,
+		DoublyConnectedEdgeList::HalfEdge & bottom);
 };
-
