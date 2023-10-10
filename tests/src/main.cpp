@@ -1,17 +1,28 @@
 #include "ofMain.h"
-#include "ofApp.h"
+#include "ofAppNoWindow.h"
+#include "ofxUnitTests.h"
+#include "DoublyConnectedEdgeList.h"
 
-//========================================================================
-int main( ){
+class ofApp : public ofxUnitTestsApp 
+{
+private:
+	DoublyConnectedEdgeList m_Dcel;
 
-	//Use ofGLFWWindowSettings for more options like multi-monitor fullscreen
-	ofGLWindowSettings settings;
-	settings.setSize(1024, 768);
-	settings.windowMode = OF_WINDOW; //can also be OF_FULLSCREEN
+public:
+	void run() 
+	{
+		
+	}
+};
 
-	auto window = ofCreateWindow(settings);
-
-	ofRunApp(window, make_shared<ofApp>());
-	ofRunMainLoop();
-
+int main() 
+{
+	ofInit();
+	auto window = std::make_shared<ofAppNoWindow>();
+	auto app = std::make_shared<ofApp>();
+	// this kicks off the running of my app
+	// can be OF_WINDOW or OF_FULLSCREEN
+	// pass in width and height too:
+	ofRunApp(window, app);
+	return ofRunMainLoop();
 }

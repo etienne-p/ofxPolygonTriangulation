@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Condition="'$(WindowsTargetPlatformVersion)'==''">
     <LatestTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</LatestTargetPlatformVersion>
-    <WindowsTargetPlatformVersion Condition="'$(WindowsTargetPlatformVersion)' == ''">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(WindowsTargetPlatformVersion)' == ''">$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
     <TargetPlatformVersion>$(WindowsTargetPlatformVersion)</TargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Label="Globals">
@@ -30,7 +30,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
@@ -117,7 +117,8 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
     <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\DoublyConnectedEdgeList.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\ofxPolygonTriangulation.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonTriangulation.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonUtility.cpp" />
     <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\SplitToMonotone.cpp" />
     <ClCompile Include="..\..\..\addons\ofxPolygonTriangulation\src\TriangulateMonotone.cpp" />
   </ItemGroup>
@@ -137,7 +138,8 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\DoublyConnectedEdgeList.h" />
     <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\HalfEdgeSweepComparer.h" />
-    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\ofxPolygonTriangulation.h" />
+    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonTriangulation.h" />
+    <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\PolygonUtility.h" />
     <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\SplitToMonotone.h" />
     <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\TriangulateMonotone.h" />
     <ClInclude Include="..\..\..\addons\ofxPolygonTriangulation\src\VertexSweepComparer.h" />

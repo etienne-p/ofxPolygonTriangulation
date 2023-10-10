@@ -13,19 +13,7 @@ public:
 	void update();
 	void draw();
 
-	void keyPressed(int key);
-	void keyReleased(int key);
-	void mouseMoved(int x, int y);
-	void mouseDragged(int x, int y, int button);
-	void mousePressed(int x, int y, int button);
-	void mouseReleased(int x, int y, int button);
-	void mouseEntered(int x, int y);
-	void mouseExited(int x, int y);
-	void windowResized(int w, int h);
-	void dragEvent(ofDragInfo dragInfo);
-	void gotMessage(ofMessage msg);
 private:
-
 	bool m_IsMonotone;
 
 	// GUI
@@ -57,6 +45,4 @@ private:
 	stack<DoublyConnectedEdgeList::Face> m_FacesPendingTriangulation;
 
 	void updatePolygon(ofPolyline& line);
-	static void createPolygonRandom(vector<glm::vec3>& points, size_t numPoints);
-	static void createPolygonRandomMonotone(vector<glm::vec3>& points, size_t numPoints);
 };
