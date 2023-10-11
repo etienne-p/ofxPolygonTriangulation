@@ -51,46 +51,6 @@ void ofSplitToMonotone::diagonalToLeftEdgeHelper(
 	m_SweepStatus.updateHelper(leftEdge, vertex);
 }
 
-void ofSplitToMonotone::handleStartVertex(
-	ofDoublyConnectedEdgeList::Vertex & vertex) {
-	m_SweepStatus.emplace(vertex.getIncidentEdge(), vertex);
-}
-
-void ofSplitToMonotone::handleStopVertex(
-	ofDoublyConnectedEdgeList & dcel,
-	ofDoublyConnectedEdgeList::Vertex & vertex) {
-	diagonalToPreviousEdgeHelper(dcel, vertex);
-}
-
-void ofSplitToMonotone::handleSplitVertex(
-	ofDoublyConnectedEdgeList & dcel,
-	ofDoublyConnectedEdgeList::Vertex & vertex) {
-	auto leftEdge = m_SweepStatus.findLeft(vertex);
-	auto leftHelper = m_SweepStatus.getHelper(leftEdge);
-	dcel.splitFace(vertex.getIncidentEdge(), leftHelper, ofDoublyConnectedEdgeList::EdgeAssign::None);
-	m_SweepStatus.updateHelper(leftEdge, vertex);
-	m_SweepStatus.emplace(vertex.getIncidentEdge(), vertex);
-}
-
-void ofSplitToMonotone::handleMergeVertex(
-	ofDoublyConnectedEdgeList & dcel,
-	ofDoublyConnectedEdgeList::Vertex & vertex) {
-	diagonalToPreviousEdgeHelper(dcel, vertex);
-	diagonalToLeftEdgeHelper(dcel, vertex);
-}
-
-void ofSplitToMonotone::handleRegularVertex(
-	ofDoublyConnectedEdgeList & dcel,
-	ofDoublyConnectedEdgeList::Vertex & vertex) {
-	// if the interior of the polygon lies to the right of vertex
-	if (glm::orientedAngle(glm::vec2(1, 0), glm::normalize(vertex.getIncidentEdge().getDirection())) <= 0) {
-		diagonalToPreviousEdgeHelper(dcel, vertex);
-		m_SweepStatus.emplace(vertex.getIncidentEdge(), vertex);
-	} else {
-		diagonalToLeftEdgeHelper(dcel, vertex);
-	}
-}
-
 void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face) {
 	// Collect and label vertices on face.
 	auto edge = face.getOuterComponent();
@@ -109,25 +69,40 @@ void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnec
 		m_SweepStatus.setSweepLineY(it->getY());
 
 		switch (m_VerticesClassification[it->getIndex()]) {
-		case ofSplitToMonotone::VertexType::Start:
-			handleStartVertex(*it);
-			break;
+		case ofSplitToMonotone::VertexType::Start: {
+			m_SweepStatus.emplace(it->getIncidentEdge(), *it);
 
-		case ofSplitToMonotone::VertexType::Stop:
-			handleStopVertex(dcel, *it);
-			break;
+		} break;
 
-		case ofSplitToMonotone::VertexType::Split:
-			handleSplitVertex(dcel, *it);
-			break;
+		case ofSplitToMonotone::VertexType::Stop: {
+			diagonalToPreviousEdgeHelper(dcel, *it);
 
-		case ofSplitToMonotone::VertexType::Merge:
-			handleMergeVertex(dcel, *it);
-			break;
+		} break;
 
-		case ofSplitToMonotone::VertexType::Regular:
-			handleRegularVertex(dcel, *it);
-			break;
+		case ofSplitToMonotone::VertexType::Split: {
+			auto vertex = *it;
+			auto leftEdge = m_SweepStatus.findLeft(vertex);
+			auto leftHelper = m_SweepStatus.getHelper(leftEdge);
+			dcel.splitFace(vertex.getIncidentEdge(), leftHelper, ofDoublyConnectedEdgeList::EdgeAssign::None);
+			m_SweepStatus.updateHelper(leftEdge, vertex);
+			m_SweepStatus.emplace(vertex.getIncidentEdge(), vertex);
+		} break;
+
+		case ofSplitToMonotone::VertexType::Merge: {
+			diagonalToPreviousEdgeHelper(dcel, *it);
+			diagonalToLeftEdgeHelper(dcel, *it);
+		} break;
+
+		case ofSplitToMonotone::VertexType::Regular: {
+			// If the interior of the polygon lies to the right of vertex.
+			auto vertex = *it;
+			if (glm::orientedAngle(glm::vec2(1, 0), glm::normalize(vertex.getIncidentEdge().getDirection())) <= 0) {
+				diagonalToPreviousEdgeHelper(dcel, vertex);
+				m_SweepStatus.emplace(vertex.getIncidentEdge(), vertex);
+			} else {
+				diagonalToLeftEdgeHelper(dcel, vertex);
+			}
+		} break;
 		}
 	}
 

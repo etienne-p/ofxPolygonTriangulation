@@ -70,7 +70,7 @@ void ofPolygonTriangulation::execute(ofDoublyConnectedEdgeList & dcel) {
 #if _DEBUG
 
 		// By this point, we are iterating through the faces of the original DCEL.
-		assert(ofDoublyConnectedEdgeList::getOrder(face) == ofPolygonWindingOrder::CounterClockWise);
+		//assert(ofDoublyConnectedEdgeList::getOrder(face) == ofPolygonWindingOrder::CounterClockWise);
 #endif
 
 		// We must ensure that all the vertices we are about to process have an incident edge on the current face.

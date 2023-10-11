@@ -112,23 +112,4 @@ private:
 	void diagonalToLeftEdgeHelper(
 		ofDoublyConnectedEdgeList & dcel,
 		ofDoublyConnectedEdgeList::Vertex & vertex);
-
-	void handleStartVertex(
-		ofDoublyConnectedEdgeList::Vertex & vertex);
-
-	void handleStopVertex(
-		ofDoublyConnectedEdgeList & dcel,
-		ofDoublyConnectedEdgeList::Vertex & vertex);
-
-	void handleSplitVertex(
-		ofDoublyConnectedEdgeList & dcel,
-		ofDoublyConnectedEdgeList::Vertex & vertex);
-
-	void handleMergeVertex(
-		ofDoublyConnectedEdgeList & dcel,
-		ofDoublyConnectedEdgeList::Vertex & vertex);
-
-	void handleRegularVertex(
-		ofDoublyConnectedEdgeList & dcel,
-		ofDoublyConnectedEdgeList::Vertex & vertex);
 };
