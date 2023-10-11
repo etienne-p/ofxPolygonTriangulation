@@ -1,16 +1,21 @@
+/// \file ofDoublyConnectedEdgeList.h
 #pragma once
 
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
 
-// Winding order.
-enum class WindingOrder {
+/// \brief Winding order of a polygon vertices.
+enum class ofPolygonWindingOrder {
+	/// @brief Vertices are in undetermined order.
 	None,
+	/// @brief Vertices are in clockwise order.
 	ClockWise,
+	/// @brief Vertices are in counter clockWise order.
 	CounterClockWise,
 };
 
+/// @brief A class implementing a doubly connected edge list data structure.
 class ofDoublyConnectedEdgeList {
 private:
 	template <typename T>
@@ -22,17 +27,25 @@ private:
 	};
 
 public:
-	// Identify vertex chains on monotone polygons.
+	/// @brief Identifies vertex chains on monotone polygons.
 	enum class Chain {
+		/// @brief The chain is undetermined.
 		None,
+		/// @brief Right chain.
 		Right,
+		/// @brief Left chain.
 		Left
 	};
 
-	// Used for vertex' incident edge reassignment when splitting faces.
+	/// @brief Describes the reassignment of a vertex' incident edge when splitting faces.
+	///
+	/// This concept allows for more efficient manipulation of the data structure when splitting face.
 	enum class EdgeAssign {
+		/// @brief No reassignment occurs.
 		None,
+		/// @brief The incident edge of the vertex at the origin of the new edge is reassigned.
 		Origin,
+		/// @brief The incident edge of the vertex at the destination of the new edge is reassigned.
 		Destination
 	};
 
@@ -40,6 +53,7 @@ public:
 	struct HalfEdge;
 	struct Face;
 
+	/// @brief A handle to a vertex.
 	struct Vertex : IndexEquality<Vertex> {
 	public:
 		Vertex()
@@ -66,6 +80,7 @@ public:
 		ofDoublyConnectedEdgeList * m_Dcel;
 	};
 
+	/// @brief A handle to an half edge.
 	struct HalfEdge : IndexEquality<HalfEdge> {
 	public:
 		HalfEdge()
@@ -104,6 +119,7 @@ public:
 		ofDoublyConnectedEdgeList * m_Dcel;
 	};
 
+	/// @brief A handle to a face.
 	struct Face : IndexEquality<Face> {
 	public:
 		Face()
@@ -123,9 +139,23 @@ public:
 		ofDoublyConnectedEdgeList * m_Dcel;
 	};
 
+	/// @brief Exposes the inner face of the doubly connected edge list.
+	/// @return The inner face of the doubly connected edge list.
 	Face getInnerFace();
+
+	/// @brief Initializes the doubly connected edge list from a list of points representing a polygon.
+	/// @param vertices A vector of polygon points in 2 dimensions.
+	///
+	/// Points are expected to be sorted in count clockwise order.
 	void initializeFromCCWVertices(const std::vector<glm::vec2> & vertices);
+
+	/// @brief Initializes the doubly connected edge list from a list of points representing a polygon.
+	/// @param vertices A vector of polygon points in 3 dimensions.
+	///
+	/// Points are expected to be sorted in count clockwise order.
+	/// The 3rd dimensions is ignored and accepted as a parameter for compatibility reasons.
 	void initializeFromCCWVertices(const std::vector<glm::vec3> & vertices);
+
 	HalfEdge splitFace(HalfEdge & edge, Vertex & vertex, EdgeAssign edgeAssign);
 	HalfEdge splitFace(HalfEdge & edgeA, HalfEdge & edgeB, EdgeAssign edgeAssign);
 
@@ -167,15 +197,28 @@ private:
 	std::vector<FaceData> m_Faces;
 
 public:
-	// TODO template to handle vertex/index types?
+	/// @brief Write the doubly connected edge list topology in arrays of vertices and indices.
+	/// @param vertices The geometry vertices.
+	/// @param indices The geometry indices.
+	///
+	/// Intended for rendering.
+	/// The doubly connected edge list must have been triangulated beforehand.
 	void extractTriangles(std::vector<glm::vec3> & vertices, std::vector<unsigned int> & indices);
+
+	/// @brief Returns the index of the outer face.
 	constexpr static int getOuterFaceIndex() { return k_OuterFaceIndex; }
+
+	/// @brief Returns the index of the inner face.
 	constexpr static int getInnerFaceIndex() { return k_InnerFaceIndex; }
-	static WindingOrder getOrder(const Face & face);
 
-	typedef typename std::vector<VertexData>::const_iterator VertexIterator;
-	typedef typename std::vector<FaceData>::const_iterator FaceIterator;
+	/// @brief Evaluates the winding order of the vertices of a face.
+	/// @param face The face.
+	/// @return The winding order of the vertices
+	static ofPolygonWindingOrder getOrder(const Face & face);
 
+	/// @brief A utility to iterate over the half edges of a face.
+	///
+	/// Note that this is not an iterator as understood by the standard library.
 	struct HalfEdgesIterator {
 	private:
 		bool m_MovedOnce { false };
@@ -200,6 +243,9 @@ public:
 		};
 	};
 
+	/// @brief A utility to iterate over the faces of the doubly connected edge list.
+	///
+	/// Note that this is not an iterator as understood by the standard library.
 	struct FacesIterator {
 	private:
 		ofDoublyConnectedEdgeList * m_Dcel;

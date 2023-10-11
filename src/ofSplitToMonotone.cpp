@@ -27,66 +27,67 @@ ofSplitToMonotone::VertexType classifyVertex(ofDoublyConnectedEdgeList::Vertex v
 	return ofSplitToMonotone::VertexType::Regular;
 }
 
-void diagonalToPreviousEdgeHelper(
-	ofDoublyConnectedEdgeList & dcel, ofSplitToMonotone::SweepStatus & sweepStatus,
-	std::map<std::size_t, ofSplitToMonotone::VertexType> & verticesClassification, ofDoublyConnectedEdgeList::Vertex & vertex) {
-	auto helper = sweepStatus.getHelper(vertex.getIncidentEdge().getPrev());
+void ofSplitToMonotone::diagonalToPreviousEdgeHelper(
+	ofDoublyConnectedEdgeList & dcel,
+	ofDoublyConnectedEdgeList::Vertex & vertex) {
+	auto helper = m_SweepStatus.getHelper(vertex.getIncidentEdge().getPrev());
 
-	if (verticesClassification[helper.getIndex()] == ofSplitToMonotone::VertexType::Merge) {
+	if (m_VerticesClassification[helper.getIndex()] == ofSplitToMonotone::VertexType::Merge) {
 		dcel.splitFace(vertex.getIncidentEdge(), helper, ofDoublyConnectedEdgeList::EdgeAssign::None);
 	}
 
-	sweepStatus.remove(vertex.getIncidentEdge().getPrev());
+	m_SweepStatus.remove(vertex.getIncidentEdge().getPrev());
 }
 
-void diagonalToLeftEdgeHelper(
-	ofDoublyConnectedEdgeList & dcel, ofSplitToMonotone::SweepStatus & sweepStatus,
-	std::map<std::size_t, ofSplitToMonotone::VertexType> & verticesClassification, ofDoublyConnectedEdgeList::Vertex & vertex) {
-	auto leftEdge = sweepStatus.findLeft(vertex);
-	auto leftHelper = sweepStatus.getHelper(leftEdge);
-	if (verticesClassification[leftHelper.getIndex()] == ofSplitToMonotone::VertexType::Merge) {
+void ofSplitToMonotone::diagonalToLeftEdgeHelper(
+	ofDoublyConnectedEdgeList & dcel,
+	ofDoublyConnectedEdgeList::Vertex & vertex) {
+	auto leftEdge = m_SweepStatus.findLeft(vertex);
+	auto leftHelper = m_SweepStatus.getHelper(leftEdge);
+	if (m_VerticesClassification[leftHelper.getIndex()] == ofSplitToMonotone::VertexType::Merge) {
 		dcel.splitFace(vertex.getIncidentEdge(), leftHelper, ofDoublyConnectedEdgeList::EdgeAssign::None);
 	}
 
-	sweepStatus.updateHelper(leftEdge, vertex);
+	m_SweepStatus.updateHelper(leftEdge, vertex);
 }
 
-void handleStartVertex(ofSplitToMonotone::SweepStatus & sweepStatus, ofDoublyConnectedEdgeList::Vertex & vertex) {
-	sweepStatus.emplace(vertex.getIncidentEdge(), vertex);
-}
-
-void handleStopVertex(
-	ofDoublyConnectedEdgeList & dcel, ofSplitToMonotone::SweepStatus & sweepStatus,
-	std::map<std::size_t, ofSplitToMonotone::VertexType> & verticesClassification, ofDoublyConnectedEdgeList::Vertex & vertex) {
-	diagonalToPreviousEdgeHelper(dcel, sweepStatus, verticesClassification, vertex);
-}
-
-void handleSplitVertex(
-	ofDoublyConnectedEdgeList & dcel, ofSplitToMonotone::SweepStatus & sweepStatus,
+void ofSplitToMonotone::handleStartVertex(
 	ofDoublyConnectedEdgeList::Vertex & vertex) {
-	auto leftEdge = sweepStatus.findLeft(vertex);
-	auto leftHelper = sweepStatus.getHelper(leftEdge);
+	m_SweepStatus.emplace(vertex.getIncidentEdge(), vertex);
+}
+
+void ofSplitToMonotone::handleStopVertex(
+	ofDoublyConnectedEdgeList & dcel,
+	ofDoublyConnectedEdgeList::Vertex & vertex) {
+	diagonalToPreviousEdgeHelper(dcel, vertex);
+}
+
+void ofSplitToMonotone::handleSplitVertex(
+	ofDoublyConnectedEdgeList & dcel,
+	ofDoublyConnectedEdgeList::Vertex & vertex) {
+	auto leftEdge = m_SweepStatus.findLeft(vertex);
+	auto leftHelper = m_SweepStatus.getHelper(leftEdge);
 	dcel.splitFace(vertex.getIncidentEdge(), leftHelper, ofDoublyConnectedEdgeList::EdgeAssign::None);
-	sweepStatus.updateHelper(leftEdge, vertex);
-	sweepStatus.emplace(vertex.getIncidentEdge(), vertex);
+	m_SweepStatus.updateHelper(leftEdge, vertex);
+	m_SweepStatus.emplace(vertex.getIncidentEdge(), vertex);
 }
 
-void handleMergeVertex(
-	ofDoublyConnectedEdgeList & dcel, ofSplitToMonotone::SweepStatus & sweepStatus,
-	std::map<std::size_t, ofSplitToMonotone::VertexType> & verticesClassification, ofDoublyConnectedEdgeList::Vertex & vertex) {
-	diagonalToPreviousEdgeHelper(dcel, sweepStatus, verticesClassification, vertex);
-	diagonalToLeftEdgeHelper(dcel, sweepStatus, verticesClassification, vertex);
+void ofSplitToMonotone::handleMergeVertex(
+	ofDoublyConnectedEdgeList & dcel,
+	ofDoublyConnectedEdgeList::Vertex & vertex) {
+	diagonalToPreviousEdgeHelper(dcel, vertex);
+	diagonalToLeftEdgeHelper(dcel, vertex);
 }
 
-void handleRegularVertex(
-	ofDoublyConnectedEdgeList & dcel, ofSplitToMonotone::SweepStatus & sweepStatus,
-	std::map<std::size_t, ofSplitToMonotone::VertexType> & verticesClassification, ofDoublyConnectedEdgeList::Vertex & vertex) {
+void ofSplitToMonotone::handleRegularVertex(
+	ofDoublyConnectedEdgeList & dcel,
+	ofDoublyConnectedEdgeList::Vertex & vertex) {
 	// if the interior of the polygon lies to the right of vertex
 	if (glm::orientedAngle(glm::vec2(1, 0), glm::normalize(vertex.getIncidentEdge().getDirection())) <= 0) {
-		diagonalToPreviousEdgeHelper(dcel, sweepStatus, verticesClassification, vertex);
-		sweepStatus.emplace(vertex.getIncidentEdge(), vertex);
+		diagonalToPreviousEdgeHelper(dcel, vertex);
+		m_SweepStatus.emplace(vertex.getIncidentEdge(), vertex);
 	} else {
-		diagonalToLeftEdgeHelper(dcel, sweepStatus, verticesClassification, vertex);
+		diagonalToLeftEdgeHelper(dcel, vertex);
 	}
 }
 
@@ -113,23 +114,23 @@ void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnec
 
 		switch (m_VerticesClassification[it->getIndex()]) {
 		case ofSplitToMonotone::VertexType::Start:
-			handleStartVertex(m_SweepStatus, *it);
+			handleStartVertex(*it);
 			break;
 
 		case ofSplitToMonotone::VertexType::Stop:
-			handleStopVertex(dcel, m_SweepStatus, m_VerticesClassification, *it);
+			handleStopVertex(dcel, *it);
 			break;
 
 		case ofSplitToMonotone::VertexType::Split:
-			handleSplitVertex(dcel, m_SweepStatus, *it);
+			handleSplitVertex(dcel, *it);
 			break;
 
 		case ofSplitToMonotone::VertexType::Merge:
-			handleMergeVertex(dcel, m_SweepStatus, m_VerticesClassification, *it);
+			handleMergeVertex(dcel, *it);
 			break;
 
 		case ofSplitToMonotone::VertexType::Regular:
-			handleRegularVertex(dcel, m_SweepStatus, m_VerticesClassification, *it);
+			handleRegularVertex(dcel, *it);
 			break;
 		}
 	}

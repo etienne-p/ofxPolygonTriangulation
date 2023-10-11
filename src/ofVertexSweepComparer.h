@@ -2,6 +2,7 @@
 
 #include "ofDoublyConnectedEdgeList.h"
 
+/// @brief A functor implementing the comparison of vertices.
 struct ofVertexSweepComparer {
 	inline bool operator()(
 		const ofDoublyConnectedEdgeList::Vertex & first,

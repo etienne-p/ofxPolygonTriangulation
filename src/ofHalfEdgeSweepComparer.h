@@ -2,12 +2,20 @@
 
 #include "ofDoublyConnectedEdgeList.h"
 
+/// @brief A functor implementing the comparison of half edges.
 struct ofHalfEdgeSweepComparer {
 public:
+	/// @brief Determines the intersection of the sweep line and an half edge.
+	/// @param edge The half edge.
+	/// @param sweepY The sweep line coordinate.
+	/// @param found True if an intersection was found, false otherwise.
+	/// @return The intersection coordinates.
 	static glm::vec2 sweepIntersection(const ofDoublyConnectedEdgeList::HalfEdge & edge, float sweepY, bool & found) {
 		return sweepIntersection(edge.getOrigin().getPosition(), edge.getDestination().getPosition(), sweepY, found);
 	}
 
+	/// @brief Construct a functor with an initial sweep line coordinate.
+	/// @param sweepLineY The sweep line coordinate.
 	ofHalfEdgeSweepComparer(float sweepLineY)
 		: m_SweepLineY(sweepLineY) { }
 

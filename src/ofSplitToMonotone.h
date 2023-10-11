@@ -1,3 +1,5 @@
+/// \file ofSplitToMonotone.h
+
 #pragma once
 
 #include "ofDoublyConnectedEdgeList.h"
@@ -7,18 +9,29 @@
 #include <stdexcept>
 #include <vector>
 
+/// @brief A class implementing the split of a polygon into monotone polygons.
 class ofSplitToMonotone {
 public:
-	// TODO Exposed for tests?
-	// Used to classify vertices when splitting a polygon to monotone polygons.
+	/// @brief Vertex classification when splitting a polygon to monotone polygons.
 	enum class VertexType {
+		/// @brief A vertex whose neighbors lie below and the interior angle is less than pi.
 		Start,
+		/// @brief A vertex whose neighbors lie above and the interior angle is less than pi.
 		Stop,
+		/// @brief A vertex whose neighbors lie below and the interior angle is greater than pi.
 		Split,
+		/// @brief A vertex whose neighbors lie above and the interior angle is greater than pi.
 		Merge,
+		/// @brief A vertex whose neighbors lie above and below.
 		Regular
 	};
 
+	/// @brief Split a face of a doubly connected edge list into monotone polygons.
+	/// @param dcel The doubly connected edge list.
+	/// @param face The face.
+	void execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face);
+
+private:
 	class SweepStatus {
 	public:
 		float getSweepLineY() const { return m_SweepLineY; }
@@ -92,10 +105,34 @@ public:
 		float m_SweepLineY;
 	};
 
-	void execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face);
-
-private:
 	SweepStatus m_SweepStatus;
 	std::map<std::size_t, VertexType> m_VerticesClassification;
 	std::vector<ofDoublyConnectedEdgeList::Vertex> m_Vertices;
+
+	void diagonalToPreviousEdgeHelper(
+		ofDoublyConnectedEdgeList & dcel,
+		ofDoublyConnectedEdgeList::Vertex & vertex);
+
+	void diagonalToLeftEdgeHelper(
+		ofDoublyConnectedEdgeList & dcel,
+		ofDoublyConnectedEdgeList::Vertex & vertex);
+
+	void handleStartVertex(
+		ofDoublyConnectedEdgeList::Vertex & vertex);
+
+	void handleStopVertex(
+		ofDoublyConnectedEdgeList & dcel,
+		ofDoublyConnectedEdgeList::Vertex & vertex);
+
+	void handleSplitVertex(
+		ofDoublyConnectedEdgeList & dcel,
+		ofDoublyConnectedEdgeList::Vertex & vertex);
+
+	void handleMergeVertex(
+		ofDoublyConnectedEdgeList & dcel,
+		ofDoublyConnectedEdgeList::Vertex & vertex);
+
+	void handleRegularVertex(
+		ofDoublyConnectedEdgeList & dcel,
+		ofDoublyConnectedEdgeList::Vertex & vertex);
 };

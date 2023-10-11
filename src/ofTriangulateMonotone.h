@@ -6,8 +6,14 @@
 #include <utility>
 #include <vector>
 
+/// @brief A class implementing the triangulation of monotone polygons.
 class ofTriangulateMonotone {
 public:
+	/// @brief Triangulates a face of a doubly connected edge list.
+	/// @param dcel The doubly connected edge list.
+	/// @param face The face.
+	///
+	/// The face is assumed to be monotone.
 	void execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face);
 
 private:
