@@ -92,10 +92,6 @@ void ofSplitToMonotone::handleRegularVertex(
 }
 
 void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face) {
-	m_SweepStatus.clear();
-	m_VerticesClassification.clear();
-	m_Vertices.clear();
-
 	// Collect and label vertices on face.
 	auto edge = face.getOuterComponent();
 	do {
@@ -134,4 +130,8 @@ void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnec
 			break;
 		}
 	}
+
+	m_SweepStatus.clear();
+	m_VerticesClassification.clear();
+	m_Vertices.clear();
 }

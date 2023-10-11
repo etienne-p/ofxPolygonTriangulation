@@ -55,10 +55,6 @@ private:
 
 		typedef typename std::map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex>::const_iterator EdgesAndHelpersIterator;
 
-		// Exposed so that external code may iterate.
-		EdgesAndHelpersIterator getEdgesAndHelpersBeginIterator() const { return m_EdgeToHelperMap.begin(); }
-		EdgesAndHelpersIterator getEdgesAndHelpersEndIterator() const { return m_EdgeToHelperMap.end(); }
-
 		ofDoublyConnectedEdgeList::HalfEdge findLeft(ofDoublyConnectedEdgeList::Vertex vertex) {
 			// Reverse order as rightmost edges will be at the end of the list.
 			for (auto i = m_HalfEdges.size() - 1; i != -1; --i) {

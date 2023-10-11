@@ -137,12 +137,7 @@ void ofTriangulateMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyCo
 	// Label each vertex with the chain (left or right) it belongs to.
 	labelChains(top, bottom);
 
-	m_Vertices.clear();
 	sortSweepMonotone(m_Vertices, top, bottom);
-
-	// Clear stacks.
-	clearStack(m_VertexStack);
-	clearStack(m_PendingDiagonalVertices);
 
 	// The stack holds vertices we still (possibly) have edges to connect to.
 	m_VertexStack.push(VertexAndIndex(m_Vertices[0], 0));
@@ -215,4 +210,8 @@ void ofTriangulateMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyCo
 		auto edgeAssign = glm::orientedAngle(glm::vec2(0, 1), glm::normalize(vertex.getIncidentEdge().getDirection())) > 0 ? ofDoublyConnectedEdgeList::EdgeAssign::Origin : ofDoublyConnectedEdgeList::EdgeAssign::Destination;
 		dcel.splitFace(vertex.getIncidentEdge(), m_Vertices.back().getIncidentEdge(), edgeAssign);
 	}
+
+	m_Vertices.clear();
+	clearStack(m_VertexStack);
+	clearStack(m_PendingDiagonalVertices);
 }
