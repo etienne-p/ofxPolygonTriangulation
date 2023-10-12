@@ -99,27 +99,27 @@ bool canSplitFace(
 	int & halfEdgesOnFace, std::string & errorMessage) {
 	if (edgeA == edgeB) {
 		errorMessage = "Edges are equal.";
-		halfEdgesOnFace = 0;
+		halfEdgesOnFace = -1;
 		return false;
 	}
 
 	// We always test for faces, and have additional test in debug mode.
 	if (edgeA.getIncidentFace() != edgeB.getIncidentFace()) {
 		errorMessage = "Edges are not on the same face.";
-		halfEdgesOnFace = 0;
+		halfEdgesOnFace = -1;
 		return false;
 	}
 
 #if _DEBUG
 	if (edgeA.getIncidentFace().getIndex() == dcel::getOuterFaceIndex()) {
 		errorMessage = "Cannot split outer face.";
-		halfEdgesOnFace = 0;
+		halfEdgesOnFace = -1;
 		return false;
 	}
 
 	if (edgeA.getOrigin() == edgeB.getDestination() || edgeA.getDestination() == edgeB.getOrigin()) {
 		errorMessage = "Edges are already connected.";
-		halfEdgesOnFace = 0;
+		halfEdgesOnFace = -1;
 		return false;
 	}
 
@@ -129,6 +129,7 @@ bool canSplitFace(
 		return false;
 	}
 
+	// TODO
 	// That test should not be needed, redundant.
 	auto e = edgeA;
 	do {
@@ -144,7 +145,7 @@ bool canSplitFace(
 	return false;
 #else
 	// halfEdgesOnFace is only used for checks in _DEBUG mode.
-	halfEdgesOnFace = 0;
+	halfEdgesOnFace = -1;
 	errorMessage = "";
 	return true;
 #endif

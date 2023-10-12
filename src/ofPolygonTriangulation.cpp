@@ -82,8 +82,4 @@ void ofPolygonTriangulation::execute(ofDoublyConnectedEdgeList & dcel) {
 
 		m_TriangulateMonotone.execute(dcel, face);
 	}
-
-	while (!m_FacesPendingTriangulation.empty()) {
-		m_FacesPendingTriangulation.pop();
-	}
 }

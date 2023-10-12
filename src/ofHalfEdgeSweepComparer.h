@@ -34,7 +34,6 @@ private:
 	static glm::vec2 sweepIntersection(glm::vec2 origin, glm::vec2 destination, float sweepY, bool & found) {
 		auto r = (origin.y - sweepY) / (origin.y - destination.y);
 
-		// add a bit of tolerance as some vertices may have the same Y coordinate
 		if (r > 1 || r < 0) {
 			found = false;
 			return glm::vec2(0.0f, 0.0f);

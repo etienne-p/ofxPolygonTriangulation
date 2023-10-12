@@ -25,9 +25,9 @@ void ofPolygonUtility::createPolygonRandomMonotone(std::vector<glm::vec3> & poin
 
 	auto noiseX = 0.f;
 	auto dY = 2.0f / (float)(midPoint - 1);
-	auto yAcc = -1.0f;
+	auto yAcc = 1.0f;
 
-	points[0] = glm::vec3(0, -1, 0);
+	points[0] = glm::vec3(0, 1, 0);
 
 	// Left chain.
 	for (auto i = 1; i != midPoint; ++i) {
@@ -35,13 +35,13 @@ void ofPolygonUtility::createPolygonRandomMonotone(std::vector<glm::vec3> & poin
 		auto y = glm::mix(yAcc + epsilon, yAcc + dY - epsilon, ofNoise(noiseX, yNoiseY));
 		points[i] = glm::vec3(x, y, 0);
 		noiseX += noiseDx;
-		yAcc += dY;
+		yAcc -= dY;
 	}
 
-	points[midPoint] = glm::vec3(0, 1, 0);
+	points[midPoint] = glm::vec3(0, -1, 0);
 
 	dY = 2.0f / (float)(numPoints - midPoint - 1);
-	yAcc = 1.0f;
+	yAcc = -1.0f;
 
 	// Right chain.
 	for (auto i = midPoint + 1; i != numPoints; ++i) {
@@ -49,6 +49,6 @@ void ofPolygonUtility::createPolygonRandomMonotone(std::vector<glm::vec3> & poin
 		auto y = glm::mix(yAcc - dY + epsilon, yAcc - epsilon, ofNoise(noiseX, yNoiseY));
 		points[i] = glm::vec3(x, y, 0);
 		noiseX += noiseDx;
-		yAcc -= dY;
+		yAcc += dY;
 	}
 }

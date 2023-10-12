@@ -5,6 +5,7 @@
 #include "ofDoublyConnectedEdgeList.h"
 #include "ofHalfEdgeSweepComparer.h"
 #include <algorithm>
+#include <limits>
 #include <map>
 #include <stdexcept>
 #include <vector>
@@ -32,14 +33,13 @@ public:
 	void execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face);
 
 private:
-	class SweepStatus {
+	class SweepLineStatus {
 	public:
-		float getSweepLineY() const { return m_SweepLineY; }
-		void setSweepLineY(float sweepLineY) { m_SweepLineY = sweepLineY; }
+		float getCoordinate() const { return m_Coordinate; }
+		void setCoordinate(float coordinate) { m_Coordinate = coordinate; }
 
 		void clear() {
 			m_EdgeToHelperMap.clear();
-			m_EdgeToPrevMap.clear();
 			m_HalfEdges.clear();
 		}
 
@@ -54,29 +54,39 @@ private:
 		}
 
 		typedef typename std::map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex>::const_iterator EdgesAndHelpersIterator;
-
+		
+		// Find the edge directly to the left.
 		ofDoublyConnectedEdgeList::HalfEdge findLeft(ofDoublyConnectedEdgeList::Vertex vertex) {
-			// Reverse order as rightmost edges will be at the end of the list.
-			for (auto i = m_HalfEdges.size() - 1; i != -1; --i) {
-				auto edge = m_HalfEdges[i];
+			auto oneOrMoreIntersectionFound = false;
+			auto lastIntersectX = -std::numeric_limits<float>::max();
+			ofDoublyConnectedEdgeList::HalfEdge leftEdge;
+
+			for (auto it = m_HalfEdges.begin(); it != m_HalfEdges.end(); ++it) {
+				auto edge = *it;
 				if (edge.getDestination() == vertex) {
 					continue;
 				}
 
-				bool intersectionFound;
-				auto intersect = ofHalfEdgeSweepComparer::sweepIntersection(edge, m_SweepLineY, intersectionFound);
-				if (intersectionFound && vertex.getX() > intersect.x) {
-					return edge;
+				auto intersectionFound = false;
+				auto intersect = ofHalfEdgeSweepComparer::sweepIntersection(edge, m_Coordinate, intersectionFound);
+				if (intersectionFound && vertex.getX() > intersect.x && intersect.x > lastIntersectX) {
+					oneOrMoreIntersectionFound = true;
+					lastIntersectX = intersect.x;
+					leftEdge = edge;
 				}
 			}
 
-			throw std::runtime_error("Could not find left edge.");
+			if (!oneOrMoreIntersectionFound) {
+				throw std::runtime_error("Could not find left edge.");
+			}
+
+			return leftEdge;
 		}
 
 		void emplace(ofDoublyConnectedEdgeList::HalfEdge edge, ofDoublyConnectedEdgeList::Vertex helper) {
 			m_EdgeToHelperMap.emplace(edge, helper);
 			m_HalfEdges.push_back(edge);
-			std::sort(m_HalfEdges.begin(), m_HalfEdges.end(), ofHalfEdgeSweepComparer(m_SweepLineY));
+			std::sort(m_HalfEdges.begin(), m_HalfEdges.end(), ofHalfEdgeSweepComparer(m_Coordinate));
 		}
 
 		void remove(ofDoublyConnectedEdgeList::HalfEdge edge) {
@@ -96,12 +106,11 @@ private:
 
 	private:
 		std::map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex> m_EdgeToHelperMap;
-		std::map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::HalfEdge> m_EdgeToPrevMap;
 		std::vector<ofDoublyConnectedEdgeList::HalfEdge> m_HalfEdges;
-		float m_SweepLineY;
+		float m_Coordinate;
 	};
 
-	SweepStatus m_SweepStatus;
+	SweepLineStatus m_SweepLineStatus;
 	std::map<std::size_t, VertexType> m_VerticesClassification;
 	std::vector<ofDoublyConnectedEdgeList::Vertex> m_Vertices;
 

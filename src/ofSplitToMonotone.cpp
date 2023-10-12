@@ -30,25 +30,26 @@ ofSplitToMonotone::VertexType classifyVertex(ofDoublyConnectedEdgeList::Vertex v
 void ofSplitToMonotone::diagonalToPreviousEdgeHelper(
 	ofDoublyConnectedEdgeList & dcel,
 	ofDoublyConnectedEdgeList::Vertex & vertex) {
-	auto helper = m_SweepStatus.getHelper(vertex.getIncidentEdge().getPrev());
+	auto prevEdge = vertex.getIncidentEdge().getPrev();
+	auto helper = m_SweepLineStatus.getHelper(prevEdge);
 
 	if (m_VerticesClassification[helper.getIndex()] == ofSplitToMonotone::VertexType::Merge) {
 		dcel.splitFace(vertex.getIncidentEdge(), helper, ofDoublyConnectedEdgeList::EdgeAssign::None);
 	}
 
-	m_SweepStatus.remove(vertex.getIncidentEdge().getPrev());
+	m_SweepLineStatus.remove(prevEdge);
 }
 
 void ofSplitToMonotone::diagonalToLeftEdgeHelper(
 	ofDoublyConnectedEdgeList & dcel,
 	ofDoublyConnectedEdgeList::Vertex & vertex) {
-	auto leftEdge = m_SweepStatus.findLeft(vertex);
-	auto leftHelper = m_SweepStatus.getHelper(leftEdge);
+	auto leftEdge = m_SweepLineStatus.findLeft(vertex);
+	auto leftHelper = m_SweepLineStatus.getHelper(leftEdge);
 	if (m_VerticesClassification[leftHelper.getIndex()] == ofSplitToMonotone::VertexType::Merge) {
 		dcel.splitFace(vertex.getIncidentEdge(), leftHelper, ofDoublyConnectedEdgeList::EdgeAssign::None);
 	}
 
-	m_SweepStatus.updateHelper(leftEdge, vertex);
+	m_SweepLineStatus.updateHelper(leftEdge, vertex);
 }
 
 void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face) {
@@ -66,26 +67,24 @@ void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnec
 
 	for (auto it = m_Vertices.begin(); it != m_Vertices.end(); ++it) {
 		// update comparer with sweep line position
-		m_SweepStatus.setSweepLineY(it->getY());
+		m_SweepLineStatus.setCoordinate(it->getY());
 
 		switch (m_VerticesClassification[it->getIndex()]) {
 		case ofSplitToMonotone::VertexType::Start: {
-			m_SweepStatus.emplace(it->getIncidentEdge(), *it);
-
+			m_SweepLineStatus.emplace(it->getIncidentEdge(), *it);
 		} break;
 
 		case ofSplitToMonotone::VertexType::Stop: {
 			diagonalToPreviousEdgeHelper(dcel, *it);
-
 		} break;
 
 		case ofSplitToMonotone::VertexType::Split: {
 			auto vertex = *it;
-			auto leftEdge = m_SweepStatus.findLeft(vertex);
-			auto leftHelper = m_SweepStatus.getHelper(leftEdge);
+			auto leftEdge = m_SweepLineStatus.findLeft(vertex);
+			auto leftHelper = m_SweepLineStatus.getHelper(leftEdge);
 			dcel.splitFace(vertex.getIncidentEdge(), leftHelper, ofDoublyConnectedEdgeList::EdgeAssign::None);
-			m_SweepStatus.updateHelper(leftEdge, vertex);
-			m_SweepStatus.emplace(vertex.getIncidentEdge(), vertex);
+			m_SweepLineStatus.updateHelper(leftEdge, vertex);
+			m_SweepLineStatus.emplace(vertex.getIncidentEdge(), vertex);
 		} break;
 
 		case ofSplitToMonotone::VertexType::Merge: {
@@ -94,11 +93,16 @@ void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnec
 		} break;
 
 		case ofSplitToMonotone::VertexType::Regular: {
-			// If the interior of the polygon lies to the right of vertex.
 			auto vertex = *it;
-			if (glm::orientedAngle(glm::vec2(1, 0), glm::normalize(vertex.getIncidentEdge().getDirection())) <= 0) {
+
+			// if (glm::orientedAngle(glm::vec2(1, 0), glm::normalize(vertex.getIncidentEdge().getDirection())) <= 0)
+			auto prevY = vertex.getIncidentEdge().getPrev().getOrigin().getY();
+			auto nextY = vertex.getIncidentEdge().getDestination().getY();
+
+			// If the interior of the polygon lies to the right of vertex.
+			if (prevY > nextY) {
 				diagonalToPreviousEdgeHelper(dcel, vertex);
-				m_SweepStatus.emplace(vertex.getIncidentEdge(), vertex);
+				m_SweepLineStatus.emplace(vertex.getIncidentEdge(), vertex);
 			} else {
 				diagonalToLeftEdgeHelper(dcel, vertex);
 			}
@@ -106,7 +110,7 @@ void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnec
 		}
 	}
 
-	m_SweepStatus.clear();
+	m_SweepLineStatus.clear();
 	m_VerticesClassification.clear();
 	m_Vertices.clear();
 }

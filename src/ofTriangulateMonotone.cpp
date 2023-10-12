@@ -207,7 +207,10 @@ void ofTriangulateMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyCo
 		auto vertex = m_PendingDiagonalVertices.top();
 		m_PendingDiagonalVertices.pop();
 
-		auto edgeAssign = glm::orientedAngle(glm::vec2(0, 1), glm::normalize(vertex.getIncidentEdge().getDirection())) > 0 ? ofDoublyConnectedEdgeList::EdgeAssign::Origin : ofDoublyConnectedEdgeList::EdgeAssign::Destination;
+		auto angle = glm::orientedAngle(glm::vec2(0, 1), glm::normalize(vertex.getIncidentEdge().getDirection()));
+		auto edgeAssign = angle > 0.0f ? 
+			ofDoublyConnectedEdgeList::EdgeAssign::Origin : 
+			ofDoublyConnectedEdgeList::EdgeAssign::Destination;
 		dcel.splitFace(vertex.getIncidentEdge(), m_Vertices.back().getIncidentEdge(), edgeAssign);
 	}
 
