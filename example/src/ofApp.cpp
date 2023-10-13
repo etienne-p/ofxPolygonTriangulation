@@ -81,19 +81,17 @@ void ofApp::splitToMonotoneButtonPressed() {
 	auto facesIterator = ofDoublyConnectedEdgeList::FacesIterator(m_Dcel);
 	do {
 		auto face = facesIterator.getCurrent();
-
-		if (face.getIndex() == ofDoublyConnectedEdgeList::getOuterFaceIndex()) {
-			continue;
-		}
-
 		auto halfEdgesIterator = ofDoublyConnectedEdgeList::HalfEdgesIterator(face);
-
 		auto line = ofPolyline();
 
 		do {
 			auto vertex = halfEdgesIterator.getCurrent().getOrigin().getPosition();
 			line.addVertex(glm::vec3(vertex.x, vertex.y, 0));
 		} while (halfEdgesIterator.moveNext());
+
+		// Close the line.
+		auto vertex = halfEdgesIterator.getCurrent().getOrigin().getPosition();
+		line.addVertex(glm::vec3(vertex.x, vertex.y, 0));
 
 		m_Lines.push_back(line);
 	} while (facesIterator.moveNext());
@@ -142,23 +140,18 @@ void ofApp::triangulateButtonPressed() {
 	do {
 		auto face = facesIterator.getCurrent();
 
-		if (face.getIndex() == m_Dcel.getOuterFaceIndex()) {
-			continue;
-		}
-
 		switch (getFaceType(face)) {
-			// No further triangulation needed.
+		// No further triangulation needed.
 		case FaceType::Triangle:
-			continue;
+			break;
 
-			// Quad is trivially reduced to triangles,
-			// no need to run a full monotone triangulation.
+		// Quad is trivially decomposed into triangles,
+		// no need to run a full monotone triangulation.
 		case FaceType::Quad: {
 			auto edgeA = face.getOuterComponent();
 			auto edgeB = edgeA.getNext().getNext();
-			m_Dcel.splitFace(edgeA, edgeB, ofDoublyConnectedEdgeList::EdgeAssign::None);
-		}
-			continue;
+			m_Dcel.splitFace(edgeA, edgeB);
+		} break;
 
 		// Needs monotone triangulation.
 		case FaceType::Other:

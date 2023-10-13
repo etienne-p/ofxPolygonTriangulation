@@ -54,7 +54,7 @@ private:
 		}
 
 		typedef typename std::map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex>::const_iterator EdgesAndHelpersIterator;
-		
+
 		// Find the edge directly to the left.
 		ofDoublyConnectedEdgeList::HalfEdge findLeft(ofDoublyConnectedEdgeList::Vertex vertex) {
 			auto oneOrMoreIntersectionFound = false;

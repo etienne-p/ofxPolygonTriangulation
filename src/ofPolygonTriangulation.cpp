@@ -39,10 +39,6 @@ void ofPolygonTriangulation::execute(ofDoublyConnectedEdgeList & dcel) {
 	do {
 		auto face = facesIterator.getCurrent();
 
-		if (face.getIndex() == dcel.getOuterFaceIndex()) {
-			continue;
-		}
-
 		switch (getFaceType(face)) {
 			// No further triangulation needed.
 		case FaceType::Triangle:

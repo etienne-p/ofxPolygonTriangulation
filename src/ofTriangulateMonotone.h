@@ -17,7 +17,6 @@ public:
 	void execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face);
 
 private:
-	std::stack<ofDoublyConnectedEdgeList::Vertex> m_PendingDiagonalVertices;
 	std::vector<ofDoublyConnectedEdgeList::Vertex> m_Vertices;
 	std::stack<ofDoublyConnectedEdgeList::Vertex> m_VertexStack;
 

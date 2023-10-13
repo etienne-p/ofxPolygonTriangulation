@@ -41,18 +41,6 @@ public:
 		Bottom
 	};
 
-	/// @brief Describes the reassignment of a vertex' incident edge when splitting faces.
-	///
-	/// This concept allows for more efficient manipulation of the data structure when splitting face.
-	enum class EdgeAssign {
-		/// @brief No reassignment occurs.
-		None,
-		/// @brief The incident edge of the vertex at the origin of the new edge is reassigned.
-		Origin,
-		/// @brief The incident edge of the vertex at the destination of the new edge is reassigned.
-		Destination
-	};
-
 	// Forward declaration as Vertex, HalfEdge and Face depend on one another.
 	struct HalfEdge;
 	struct Face;
@@ -76,8 +64,8 @@ public:
 		inline Chain getChain() const { return m_Dcel->m_Vertices[m_Index].chain; }
 		inline void setChain(Chain chain) { m_Dcel->m_Vertices[m_Index].chain = chain; }
 
-		inline HalfEdge getIncidentEdge() const;
-		inline void setIncidentEdge(const HalfEdge & halfEdge);
+		HalfEdge getIncidentEdge() const;
+		void setIncidentEdge(const HalfEdge & halfEdge);
 
 	private:
 		std::size_t m_Index;
@@ -108,13 +96,13 @@ public:
 		inline HalfEdge getNext() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].next); }
 		inline void setNext(const HalfEdge & halfEdge) { m_Dcel->m_Edges[m_Index].next = halfEdge.getIndex(); }
 
-		inline Vertex getOrigin() const;
-		inline void setOrigin(const Vertex & vertex);
+		Vertex getOrigin() const;
+		void setOrigin(const Vertex & vertex);
 
 		inline Vertex getDestination() const { return getTwin().getOrigin(); }
 
-		inline Face getIncidentFace() const;
-		inline void setIncidentFace(const Face & face);
+		Face getIncidentFace() const;
+		void setIncidentFace(const Face & face);
 
 		glm::vec2 getDirection() const;
 
@@ -160,12 +148,9 @@ public:
 	/// The 3rd dimensions is ignored and accepted as a parameter for compatibility reasons.
 	void initializeFromCCWVertices(const std::vector<glm::vec3> & vertices);
 
-	bool canSplitFace(
-		HalfEdge & edgeA,
-		HalfEdge & edgeB,
-		int & halfEdgesOnFace, std::string & errorMessage);
-	HalfEdge splitFace(HalfEdge & edge, Vertex & vertex, EdgeAssign edgeAssign);
-	HalfEdge splitFace(HalfEdge & edgeA, HalfEdge & edgeB, EdgeAssign edgeAssign);
+	HalfEdge splitFace(Vertex & vertexA, Vertex & vertexB);
+
+	HalfEdge splitFace(HalfEdge & edgeA, HalfEdge & edgeB);
 
 private:
 	struct VertexData {
@@ -186,14 +171,16 @@ private:
 		std::size_t next;
 	};
 
+	bool tryFindSharedFace(
+		const Vertex & vertexA, const Vertex & vertexB,
+		HalfEdge & halfEdgeA, HalfEdge & halfEdgeB);
+
 	// Private template, DRY but safe API.
 	template <class vecN>
 	void initializeFromCCWVertices(const std::vector<vecN> & vertices);
 
 	HalfEdge createEdge();
 	Face createFace();
-	HalfEdge splitFaceInternal(HalfEdge & edgeA, HalfEdge & edgeB, EdgeAssign edgeAssign);
-
 	// As we initialize a DCEL, we start with 2 faces.
 	// Inside the polygon and outside of it, respectively.
 	// The indices we choose are a convention on our part.
@@ -229,7 +216,6 @@ public:
 	/// Note that this is not an iterator as understood by the standard library.
 	struct HalfEdgesIterator {
 	private:
-		bool m_MovedOnce { false };
 		const std::size_t m_InitialIndex;
 		HalfEdge m_Current;
 
@@ -242,11 +228,10 @@ public:
 			, m_InitialIndex(face.getOuterComponent().getIndex()) { }
 		HalfEdge getCurrent() const { return m_Current; }
 		bool moveNext() {
-			if (m_MovedOnce && m_Current.getIndex() == m_InitialIndex) {
+			m_Current = m_Current.getNext();
+			if (m_Current.getIndex() == m_InitialIndex) {
 				return false;
 			}
-			m_MovedOnce = true;
-			m_Current = m_Current.getNext();
 			return true;
 		};
 	};
@@ -261,10 +246,11 @@ public:
 		std::size_t m_Index;
 
 	public:
+		// Note that we bypass the outer face by starting at the inner index.
 		FacesIterator(ofDoublyConnectedEdgeList & dcel)
 			: m_Dcel(&dcel)
-			, m_Current(Face(m_Dcel, 0))
-			, m_Index(0) { }
+			, m_Current(Face(m_Dcel, k_InnerFaceIndex))
+			, m_Index(k_InnerFaceIndex) { }
 		Face getCurrent() const { return m_Current; }
 		bool moveNext() {
 			if (m_Index < m_Dcel->m_Faces.size() - 1) {
@@ -274,6 +260,27 @@ public:
 			}
 
 			return false;
+		}
+	};
+
+	struct FacesOnVertexIterator {
+	private:
+		const std::size_t m_IncidentEdgeIndex;
+		HalfEdge m_Current;
+	public:
+		FacesOnVertexIterator(const Vertex & vertex)
+			: m_IncidentEdgeIndex(vertex.getIncidentEdge().getIndex())
+			, m_Current(vertex.getIncidentEdge()) {
+			assert(m_Current.getIncidentFace().getIndex() != k_OuterFaceIndex);
+		}
+		HalfEdge getCurrent() const { return m_Current; }
+		bool moveNext() {
+			m_Current = m_Current.getPrev().getTwin();
+			// Skip outer face.
+			if (m_Current.getIncidentFace().getIndex() == k_OuterFaceIndex) {
+				m_Current = m_Current.getPrev().getTwin();
+			}
+			return m_Current.getIndex() != m_IncidentEdgeIndex;
 		}
 	};
 };
