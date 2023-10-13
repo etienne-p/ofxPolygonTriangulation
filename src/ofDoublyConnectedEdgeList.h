@@ -34,7 +34,11 @@ public:
 		/// @brief Right chain.
 		Right,
 		/// @brief Left chain.
-		Left
+		Left,
+		/// @brief Top vertex.
+		Top,
+		/// @brief Bottom vertex.
+		Bottom
 	};
 
 	/// @brief Describes the reassignment of a vertex' incident edge when splitting faces.
@@ -156,6 +160,10 @@ public:
 	/// The 3rd dimensions is ignored and accepted as a parameter for compatibility reasons.
 	void initializeFromCCWVertices(const std::vector<glm::vec3> & vertices);
 
+	bool canSplitFace(
+		HalfEdge & edgeA,
+		HalfEdge & edgeB,
+		int & halfEdgesOnFace, std::string & errorMessage);
 	HalfEdge splitFace(HalfEdge & edge, Vertex & vertex, EdgeAssign edgeAssign);
 	HalfEdge splitFace(HalfEdge & edgeA, HalfEdge & edgeB, EdgeAssign edgeAssign);
 

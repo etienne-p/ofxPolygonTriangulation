@@ -1,7 +1,8 @@
 #pragma once
 
+#include "ofSplitToMonotone.h"
+#include "ofTriangulateMonotone.h"
 #include "ofMain.h"
-#include "ofPolygonTriangulation.h"
 #include "ofxGui.h"
 
 class ofApp : public ofBaseApp {
@@ -12,26 +13,48 @@ public:
 	void update();
 	void draw();
 
+	void keyPressed(int key);
+	void keyReleased(int key);
+	void mouseMoved(int x, int y);
+	void mouseDragged(int x, int y, int button);
+	void mousePressed(int x, int y, int button);
+	void mouseReleased(int x, int y, int button);
+	void mouseEntered(int x, int y);
+	void mouseExited(int x, int y);
+	void windowResized(int w, int h);
+	void dragEvent(ofDragInfo dragInfo);
+	void gotMessage(ofMessage msg);
+
 private:
 	bool m_IsMonotone;
-	ofDoublyConnectedEdgeList m_Dcel;
-	ofPolygonTriangulation m_PolygonTriangulation;
-	ofPolyline m_Line;
-	ofMesh m_Mesh;
-	vector<glm::vec3> m_Vertices;
-	vector<ofIndexType> m_Indices;
 
 	// GUI
 	size_t m_NumPoints { 9 };
 	ofxPanel m_Gui;
 	ofxToggle m_IsMonotoneToggle;
 	ofxIntSlider m_NumPointsSlider;
+	ofxButton m_SplitToMonotoneButton;
 	ofxButton m_TriangulateButton;
 	ofxButton m_ResetButton;
-
 	void numPointsChanged(int & numPoints);
 	void isMonotoneChanged(bool & isMonotone);
+	void splitToMonotoneButtonPressed();
 	void triangulateButtonPressed();
 	void resetButtonPressed();
-	void updatePolygon();
+
+	ofDoublyConnectedEdgeList m_Dcel;
+	ofSplitToMonotone m_SplitToMonotone;
+	ofTriangulateMonotone m_TriangulateMonotone;
+
+	vector<ofPolyline> m_Lines;
+	ofMesh m_Mesh;
+
+	// Cached cause there's an issue with ofSetRandomSeed afaik
+	vector<ofColor> m_LineColors;
+	// Can we use vec2?
+	vector<glm::vec3> m_Vertices;
+	vector<ofIndexType> m_Indices;
+	stack<ofDoublyConnectedEdgeList::Face> m_FacesPendingTriangulation;
+
+	void updatePolygon(ofPolyline & line);
 };

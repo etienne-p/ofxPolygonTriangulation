@@ -93,7 +93,7 @@ void dcel::extractTriangles(
 	}
 }
 
-bool canSplitFace(
+bool dcel::canSplitFace(
 	dcel::HalfEdge & edgeA,
 	dcel::HalfEdge & edgeB,
 	int & halfEdgesOnFace, std::string & errorMessage) {
@@ -197,6 +197,9 @@ dcel::HalfEdge dcel::splitFaceInternal(
 		edge = edge.getNext();
 	} while (edge != newEdgeTwin);
 
+#if _DEBUG
+	//assert(ofDoublyConnectedEdgeList::getOrder(newFace) == ofPolygonWindingOrder::CounterClockWise);
+#endif
 	return newEdge;
 }
 
@@ -204,6 +207,7 @@ dcel::HalfEdge dcel::splitFace(
 	dcel::HalfEdge & edgeA, dcel::HalfEdge & edgeB, dcel::EdgeAssign edgeAssign) {
 #if _DEBUG
 	auto halfEdgesOnFace = 0;
+	// TODO inefficient str manip
 	std::string errorMessage;
 	if (!canSplitFace(edgeA, edgeB, halfEdgesOnFace, errorMessage)) {
 		throw std::runtime_error(errorMessage);

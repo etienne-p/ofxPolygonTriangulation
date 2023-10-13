@@ -94,13 +94,11 @@ void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnec
 
 		case ofSplitToMonotone::VertexType::Regular: {
 			auto vertex = *it;
-
-			// if (glm::orientedAngle(glm::vec2(1, 0), glm::normalize(vertex.getIncidentEdge().getDirection())) <= 0)
-			auto prevY = vertex.getIncidentEdge().getPrev().getOrigin().getY();
-			auto nextY = vertex.getIncidentEdge().getDestination().getY();
+			auto direction = vertex.getIncidentEdge().getDirection();
+			auto isRight = direction.y == 0.0 ? direction.x > 0.0 : direction.y < 0;
 
 			// If the interior of the polygon lies to the right of vertex.
-			if (prevY > nextY) {
+			if (isRight) {
 				diagonalToPreviousEdgeHelper(dcel, vertex);
 				m_SweepLineStatus.emplace(vertex.getIncidentEdge(), vertex);
 			} else {

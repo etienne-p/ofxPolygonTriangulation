@@ -51,9 +51,10 @@ void ofPolygonTriangulation::execute(ofDoublyConnectedEdgeList & dcel) {
 			// Quad is trivially reduced to triangles,
 			// no need to run a full monotone triangulation.
 		case FaceType::Quad: {
-			auto edgeA = face.getOuterComponent();
-			auto edgeB = edgeA.getNext().getNext();
-			dcel.splitFace(edgeA, edgeB, ofDoublyConnectedEdgeList::EdgeAssign::None);
+			//auto edgeA = face.getOuterComponent();
+			//auto edgeB = edgeA.getNext().getNext();
+			//dcel.splitFace(edgeA, edgeB, ofDoublyConnectedEdgeList::EdgeAssign::None);
+			m_FacesPendingTriangulation.push(face);
 		}
 			continue;
 
@@ -70,7 +71,7 @@ void ofPolygonTriangulation::execute(ofDoublyConnectedEdgeList & dcel) {
 #if _DEBUG
 
 		// By this point, we are iterating through the faces of the original DCEL.
-		//assert(ofDoublyConnectedEdgeList::getOrder(face) == ofPolygonWindingOrder::CounterClockWise);
+		assert(ofDoublyConnectedEdgeList::getOrder(face) == ofPolygonWindingOrder::CounterClockWise);
 #endif
 
 		// We must ensure that all the vertices we are about to process have an incident edge on the current face.
