@@ -70,7 +70,7 @@ public:
 
 		bool trew = false;
 		try {
-			dcel.splitFace(vertexA, vertexB);
+			dcel.addHalfEdge(vertexA, vertexB);
 		} catch (std::runtime_error error) {
 			trew = true;
 		}
@@ -94,7 +94,7 @@ public:
 		auto edge = dcel.getInnerFace().getOuterComponent();
 		auto vertexA = edge.getOrigin();
 		auto vertexB = edge.getNext().getDestination();
-		dcel.splitFace(vertexA, vertexB);
+		dcel.addHalfEdge(vertexA, vertexB);
 
 		auto faceIt = ofDoublyConnectedEdgeList::FacesIterator(dcel);
 
@@ -129,7 +129,7 @@ public:
 		auto vertexA = edge.getOrigin();
 		auto vertexB = edge.getNext().getDestination();
 		auto vertexC = edge.getNext().getNext().getDestination();
-		dcel.splitFace(vertexA, vertexB);
+		dcel.addHalfEdge(vertexA, vertexB);
 		//dcel.splitFace(vertexA, vertexC);
 
 		// Note: full triangulation by now.

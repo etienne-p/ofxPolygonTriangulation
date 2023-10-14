@@ -1,23 +1,81 @@
-ofxAddonTemplate
-================
+# ofxPolygonTriangulation
 
-OpenFrameworks addon template for easier development of structurally correct addons.
+This an OpenFrameworks addon for Computational Geometry. At present it features a Doubly Connected Edge List and Polygon Triangulation. It is mainly based on the book [Computational Geometry Algorithms and Applications](https://link.springer.com/book/10.1007/978-3-540-77974-2). The addon comes with an example, unit tests, and doxygen generated documentation.
 
-This template aids you as an addon author in creating an addon in a "proper" way. Doing this enables the openFrameworks community to easily use your addon, and having addons adhere to an established structure makes it easier for the openFrameworks developers to create features around contributed addons, like the addons index at ofxaddons.com.
+We developed the addon with OpenFrameworks 0.12.0, however we expect easy compatibility with other versions as dependencies are very limited and we essentially lean on basic standard library features. We generally stick to OpenFrameworks conventions.
 
-Download
---------
-The template contains all you need to start developing your addon. Download the template using the Download button on the right side of the github page. Unzip, rename and copy it to your addons folder.
-**PLEASE DON'T FORK** the addon template repo if you plan on creating your own addon, this will lead to confusion on the Github inheritance/forking graph, and you will unnecessarily have this repository's history in your own git repo.
+## Example
 
-Further Steps
--------------
-`README_AUTHOR.md` contains instructions and explanations for you.
-`README_DEPLOY.md` is filled with a template for an informative README file you might want to use with your addon.
+The example allows users to:
 
-Before announcing your addon to the world, you should remove this file (`README.md`) and the author instructions, and rename `README_DEPLOY.md` to `README.md`.
-Also, if you have special instructions which people should see when submitting a pull request or open an issue in your addon repository, add a `CONTRIBUTING.md` file at the root of your repository. For more details, see https://github.com/blog/1184-contributing-guidelines
+* Select the number of points for a procedurally generated polygon.
+* Whether or not that polygon is monotone.
+* Whether or not it is displayed as wireframe.
+* Splitting the polygon to monotone polygons.
+* Fully triangulating the polygon.
 
-This template reflects the help text found at http://ofxaddons.com/howto, and will be updated from time to time by the OF developers.
+![Example](./images/example.gif)
 
-Thanks for listening, and happy coding!
+## Usage
+
+Triangulating a polygon is done as follows:
+
+```
+// The polygon as a vector of vec2 or vec3 points.
+// These are expected to be in counter clockwise order,
+// if not, an error will be thrown.
+vector<glm::vec3> m_Polygon;
+
+// The doubly connected edge list.
+ofDoublyConnectedEdgeList m_Dcel;
+
+// The triangulation class.
+ofPolygonTriangulation m_Triangulation;
+
+// A mesh to write the triangulation to.
+ofMesh m_Mesh;
+
+// Vectors holding the geometry vertices and indices.
+vector<glm::vec3> m_Vertices;
+vector<ofIndexType> m_Indices;
+
+// Initialize the doubly connected edge list based on the polygon.
+m_Dcel.initializeFromCCWVertices(m_Vertices);
+
+// Triangulate the doubly connected edge list.
+m_Triangulation.execute(m_Dcel);
+
+// Write the calculated triangulation to the geometry buffers.
+m_Dcel.extractTriangles(m_Vertices, m_Indices);
+
+// Update the mesh geometry.
+m_Mesh.clear();
+m_Mesh.addVertices(m_Vertices);
+m_Mesh.addIndices(m_Indices);
+```
+
+It is possible to work with the inner steps of polygon triangulation directly. Namely, splitting a polygon to monotone polygons and triangulating a monotone polygon. This is expected to be a niche usage and we refer to the documentation as well as tests and example code for these usages.
+
+## Design
+
+The core component is the doubly connected edge list, `ofDoublyConnectedEdgeList`. We store all data in 3 collections of vertices, half edges and faces. This avoids allocating each element independently, and allows us to connect these elements using indices rather than pointers. The goal is to have a straightforward, easy to manipulate and reason about memory layout. For code readability and to provide an easy to work with API, we introduce a concept of handles to elements.
+
+For example, a vertex is stored as a `VertexData` item in a `std::vector<VertexData>`. It is manipulated using its handle, `Vertex`, so that we can write `vertex.getIncidentEdge().getIncidentFace()`. The handle only stores a pointer to the doubly connected edge list and the index of its data in the collection it belongs to. Internally, the handle manipulates the collections, for example:
+
+```
+dcel::HalfEdge dcel::Vertex::getIncidentEdge() const {
+	return dcel::HalfEdge(m_Dcel, m_Dcel->m_Vertices[m_Index].incidentEdge);
+}
+```
+
+We need to circulate over the doubly connected edge list, for example, iterating over the half edges of a face, or over the faces adjacent to a vertex. We implemented iterators for these scenarios, such as `FacesOnVertexIterator`. These aren't full fledged iterators as C++ understands them. Such an implementation would have been needlessly convoluted. Rather we use a very simple interface:
+
+```
+auto it = dcel::FacesOnVertexIterator(vertex);
+do {
+	// Access the current element.
+	it.getCurrent();
+} while (it.moveNext()); // Move to the next element, if any.
+```
+
+Triangulation is mainly implemented in 3 classes, reflecting the overall algorithm: `ofSplitToMonotone`, `ofTriangulateMonotone`, and `ofPolygonTriangulation` encapsulating them. These classes, responsible for operating on the doubly connected edge list, typically expose an `execute` method, and do not store a reference to the doubly connected edge list. However they manage required internal data structures and it's more efficient to keep instances of those for reuse rather than instantiate and destroy them whenever triangulation must be computed.
