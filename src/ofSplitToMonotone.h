@@ -27,6 +27,13 @@ public:
 		Regular
 	};
 
+	/// @brief Classify a vertex for splitting to monotone.
+	/// @param vertex The vertex.
+	/// @return The classification.
+	/// 
+	/// This is mainly exposed for unit tests.
+	static VertexType classifyVertex(const ofDoublyConnectedEdgeList::Vertex & vertex);
+
 	/// @brief Split a face of a doubly connected edge list into monotone polygons.
 	/// @param dcel The doubly connected edge list.
 	/// @param face The face.

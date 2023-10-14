@@ -252,6 +252,7 @@ public:
 	/// @brief A utility to iterate over the faces of the doubly connected edge list.
 	///
 	/// Note that this is not an iterator as understood by the standard library.
+	/// The outer face is bypassed.
 	struct FacesIterator {
 	private:
 		ofDoublyConnectedEdgeList * m_Dcel;
@@ -276,6 +277,10 @@ public:
 		}
 	};
 
+	/// @brief A utility to iterate over the faces a vertex belongs to.
+	///
+	/// Note that this is not an iterator as understood by the standard library.
+	/// The outer face is bypassed.
 	struct FacesOnVertexIterator {
 	private:
 		const std::size_t m_IncidentEdgeIndex;

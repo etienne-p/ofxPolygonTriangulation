@@ -1,13 +1,15 @@
 #include "ofAppNoWindow.h"
 #include "ofDoublyConnectedEdgeList.h"
 #include "ofMain.h"
+#include "ofPolygonTriangulation.h"
+#include "ofPolygonUtility.h"
 #include "ofxUnitTests.h"
 
 class ofApp : public ofxUnitTestsApp {
 private:
 	ofDoublyConnectedEdgeList m_Dcel;
 
-	void title(const string& str) {
+	void title(const string & str) {
 		ofLogNotice() << "====(( "
 					  << str
 					  << " ))====";
@@ -140,11 +142,115 @@ public:
 		ofxTest(count == 2, "Faces on vertex iterator traverses proper faces.");
 	}
 
+	void TestSplitToMonotone() {
+		title("Split To Monotone");
+
+		auto dcel = ofDoublyConnectedEdgeList();
+		auto splitToMonotone = ofSplitToMonotone();
+		vector<glm::vec3> vertices;
+
+		for (auto i = 12; i != 64; ++i) {
+			vertices.resize(i);
+			ofPolygonUtility::createPolygonRandom(vertices);
+			dcel.initializeFromCCWVertices(vertices);
+			splitToMonotone.execute(dcel, dcel.getInnerFace());
+
+			// Check that all the faces are monotone.
+			auto facesIt = ofDoublyConnectedEdgeList::FacesIterator(dcel);
+			do {
+				const auto face = facesIt.getCurrent();
+				if (ofDoublyConnectedEdgeList::getWindingOrder(face) != ofPolygonWindingOrder::CounterClockWise) {
+					ofxTest(false, "Face is clockwise.");
+				}
+				auto edgesIt = ofDoublyConnectedEdgeList::HalfEdgesIterator(face);
+				do {
+					// A polygon is monotone if it has no split nor merge vertices.
+					auto vertex = edgesIt.getCurrent().getOrigin();
+					auto classification = ofSplitToMonotone::classifyVertex(vertex);
+					if (classification == ofSplitToMonotone::VertexType::Merge || classification == ofSplitToMonotone::VertexType::Split) {
+						ofxTest(false, "Split to monotone failed.");
+						return;
+					}
+				} while (edgesIt.moveNext());
+			} while (facesIt.moveNext());
+		}
+		ofxTest(true, "Split to monotone succeeded.");
+	}
+
+	void TestTriangulateMonotone() {
+		title("Triangulate Monotone");
+
+		auto dcel = ofDoublyConnectedEdgeList();
+		auto triangulateMonotone = ofTriangulateMonotone();
+		vector<glm::vec3> vertices;
+
+		for (auto i = 12; i != 64; ++i) {
+			vertices.resize(i);
+			ofPolygonUtility::createPolygonRandomMonotone(vertices);
+			dcel.initializeFromCCWVertices(vertices);
+			triangulateMonotone.execute(dcel, dcel.getInnerFace());
+
+			// Check that all the faces are triangles.
+			auto facesIt = ofDoublyConnectedEdgeList::FacesIterator(dcel);
+			do {
+				const auto face = facesIt.getCurrent();
+				if (ofDoublyConnectedEdgeList::getWindingOrder(face) != ofPolygonWindingOrder::CounterClockWise) {
+					ofxTest(false, "Face is clockwise.");
+				}
+				auto edgesIt = ofDoublyConnectedEdgeList::HalfEdgesIterator(face);
+				auto count = 0;
+				do {
+					++count;
+				} while (edgesIt.moveNext());
+				if (count != 3) {
+					ofxTest(false, "Triangulate monotone failed.");
+				}
+			} while (facesIt.moveNext());
+		}
+		ofxTest(true, "Triangulate monotone succeeded.");
+	}
+
+	void TestTriangulate() {
+		title("Triangulate");
+
+		auto dcel = ofDoublyConnectedEdgeList();
+		auto polygonTriangulation = ofPolygonTriangulation();
+		vector<glm::vec3> vertices;
+
+		for (auto i = 12; i != 64; ++i) {
+			vertices.resize(i);
+			ofPolygonUtility::createPolygonRandom(vertices);
+			dcel.initializeFromCCWVertices(vertices);
+			polygonTriangulation.execute(dcel);
+
+			// Check that all the faces are triangles.
+			auto facesIt = ofDoublyConnectedEdgeList::FacesIterator(dcel);
+			do {
+				const auto face = facesIt.getCurrent();
+				if (ofDoublyConnectedEdgeList::getWindingOrder(face) != ofPolygonWindingOrder::CounterClockWise) {
+					ofxTest(false, "Face is clockwise.");
+				}
+				auto edgesIt = ofDoublyConnectedEdgeList::HalfEdgesIterator(face);
+				auto count = 0;
+				do {
+					++count;
+				} while (edgesIt.moveNext());
+				if (count != 3) {
+					ofxTest(false, "Triangulate failed.");
+				}
+			} while (facesIt.moveNext());
+		}
+		ofxTest(true, "Triangulate succeeded.");
+	}
+
 	void run() {
 		TestDcelConstruction();
 		TestDcelSplitFaceAdjacentFails();
 		TestDcelSplit();
 		TestFacesOnVertexIterator();
+		TestSplitToMonotone();
+		TestTriangulateMonotone();
+		TestTriangulate();
 	}
 };
 

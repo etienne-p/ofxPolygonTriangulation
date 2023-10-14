@@ -3,7 +3,7 @@
 #include <glm/gtx/vector_angle.hpp>
 #include <stdexcept>
 
-ofSplitToMonotone::VertexType classifyVertex(ofDoublyConnectedEdgeList::Vertex vertex) {
+ofSplitToMonotone::VertexType ofSplitToMonotone::classifyVertex(const ofDoublyConnectedEdgeList::Vertex & vertex) {
 	const auto angle = glm::orientedAngle(
 		glm::normalize(vertex.getIncidentEdge().getPrev().getDirection()),
 		glm::normalize(vertex.getIncidentEdge().getDirection()));
