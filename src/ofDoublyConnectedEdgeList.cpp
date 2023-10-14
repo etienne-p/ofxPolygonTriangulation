@@ -223,7 +223,7 @@ void dcel::extractTriangles(
 	}
 }
 
-dcel::HalfEdge dcel::splitFace(dcel::HalfEdge & edgeA, dcel::HalfEdge & edgeB) {
+dcel::HalfEdge dcel::addHalfEdge(dcel::HalfEdge & edgeA, dcel::HalfEdge & edgeB) {
 	if (edgeA.getIncidentFace().getIndex() == k_OuterFaceIndex) {
 		throw std::runtime_error("Cannot split outer face.");
 	}
@@ -279,11 +279,11 @@ dcel::HalfEdge dcel::splitFace(dcel::HalfEdge & edgeA, dcel::HalfEdge & edgeB) {
 	return newEdge;
 }
 
-dcel::HalfEdge dcel::splitFace(dcel::Vertex & vertexA, dcel::Vertex & vertexB) {
+dcel::HalfEdge dcel::addHalfEdge(dcel::Vertex & vertexA, dcel::Vertex & vertexB) {
 	HalfEdge halfEdgeA;
 	HalfEdge halfEdgeB;
 	if (tryFindSharedFace(vertexA, vertexB, halfEdgeA, halfEdgeB)) {
-		splitFace(halfEdgeA, halfEdgeB);
+		addHalfEdge(halfEdgeA, halfEdgeB);
 	} else {
 		throw std::runtime_error("Vertices do not share a face.");
 	}
