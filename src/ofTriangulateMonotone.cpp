@@ -1,54 +1,21 @@
-#include "ofTriangulateMonotone.h"
-#include "ofVertexSweepComparer.h"
 #include <cassert>
 #include <glm/gtx/vector_angle.hpp>
-// TODO temp
-#include "ofLog.h"
-
-bool __isInside(
-	const ofDoublyConnectedEdgeList::Vertex & vertex,
-	const ofDoublyConnectedEdgeList::Vertex & popped,
-	const ofDoublyConnectedEdgeList::Vertex & prevPopped) {
-	auto currentEdge = popped.getPosition() - vertex.getPosition();
-	auto prevEdge = prevPopped.getPosition() - vertex.getPosition();
-	auto alpha = glm::orientedAngle(glm::normalize(prevEdge), glm::normalize(currentEdge));
-
-	if (vertex.getChain() == ofDoublyConnectedEdgeList::Chain::Left) {
-		return alpha > 0;
-	}
-
-	return alpha < 0;
-}
-
-float cross(glm::vec2 a, glm::vec2 b) {
-	return a.x * b.y - b.x * a.y;
-}
+#include "ofTriangulateMonotone.h"
+#include "ofVertexSweepComparer.h"
 
 bool isInside(
 	const ofDoublyConnectedEdgeList::Vertex & vertex,
-	const ofDoublyConnectedEdgeList::Vertex & popped,
+	const ofDoublyConnectedEdgeList::Vertex & stackTop,
 	const ofDoublyConnectedEdgeList::Vertex & lastPopped) {
+	// Equivalent to calculating the interior angle.
+	auto angle = glm::orientedAngle(
+		glm::normalize(lastPopped.getPosition() - vertex.getPosition()),
+		glm::normalize(stackTop.getPosition() - vertex.getPosition()));
 
-	if (popped.getChain() != lastPopped.getChain()) {
-		ofLogNotice("prevPopped & popped, diff chains.");
-	}
-
-	if (popped.getChain() != vertex.getChain()) {
-		ofLogNotice("vertex & popped, diff chains.");
-		//return true;
-	}
-
-	float cross_;
 	if (vertex.getChain() == ofDoublyConnectedEdgeList::Chain::Left) {
-		auto v1 = popped.getPosition() - lastPopped.getPosition();
-		auto v2 = vertex.getPosition() - lastPopped.getPosition();
-		cross_ = cross(v1, v2);
-	} else {
-		auto v1 = lastPopped.getPosition() - vertex.getPosition();
-		auto v2 = lastPopped.getPosition() - popped.getPosition();
-		cross_ = cross(v1, v2);
+		return angle < 0.0f;
 	}
-	return cross_ < 0.0f;
+	return angle > 0.0f;
 }
 
 void getTopAndBottomVertices(
@@ -102,9 +69,6 @@ void ofTriangulateMonotone::sortSweepMonotone(
 	// We use a queue for the left chain as we'll receive top vertices first.
 	// We use a stack for the right chain as we'll receive bottom vertices first.
 	// To merge we'll start from the top.
-	assert(m_SweepQueue.empty());
-	assert(m_SweepStack.empty());
-
 	auto edge = top;
 
 	// Left chain goes in the queue.
@@ -142,13 +106,6 @@ void ofTriangulateMonotone::sortSweepMonotone(
 	}
 }
 
-template <class T>
-void clearStack(std::stack<T> & stack) {
-	while (!stack.empty()) {
-		stack.pop();
-	}
-}
-
 void ofTriangulateMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face) {
 	ofDoublyConnectedEdgeList::HalfEdge top;
 	ofDoublyConnectedEdgeList::HalfEdge bottom;
@@ -166,10 +123,10 @@ void ofTriangulateMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyCo
 	for (auto i = 2; i != m_Vertices.size() - 1; ++i) {
 		// If current vertex and the vertex on top of stack are on different chains.
 		if (m_Vertices[i].getChain() != m_VertexStack.top().getChain()) {
-			// For all vertices on stack except the last one,
+			// Add a diagonal for all vertices on the stack except the last one,
 			// for it is connected to the current vertex by an edge.
 			while (m_VertexStack.size() > 1) {
-				dcel.splitFace(m_VertexStack.top(), m_Vertices[i]);
+				dcel.splitFace(m_Vertices[i], m_VertexStack.top());
 				m_VertexStack.pop();
 			}
 			// Clear vertex stack, last vertex is not connected.
@@ -187,9 +144,8 @@ void ofTriangulateMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyCo
 			// Is the vertex at the top of the stack visible from the current vertex?
 			// We can deduce that knowing the previously popped vertex.
 			while (!m_VertexStack.empty() && isInside(m_Vertices[i], m_VertexStack.top(), lastPopped)) {
-				auto topVertex = m_VertexStack.top();
-				dcel.splitFace(m_Vertices[i], topVertex);
-				lastPopped = topVertex;
+				dcel.splitFace(m_Vertices[i], m_VertexStack.top());
+				lastPopped = m_VertexStack.top();
 				m_VertexStack.pop();
 			}
 

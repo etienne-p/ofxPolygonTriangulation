@@ -43,43 +43,65 @@ inline void dcel::Face::setOuterComponent(const dcel::HalfEdge & halfEdge) {
 	m_Dcel->m_Faces[m_Index].outerComponent = halfEdge.getIndex();
 }
 
-// TODO Use cross product
-ofPolygonWindingOrder dcel::getOrder(const dcel::Face & face) {
-	auto halfEdgeIterator = dcel::HalfEdgesIterator(face);
-	auto sum = 0.0f;
-
-	do {
-		auto edge = halfEdgeIterator.getCurrent();
-		auto p1 = edge.getOrigin().getPosition();
-		auto p2 = edge.getDestination().getPosition();
-		sum += (p2.x - p1.x) * (p2.y + p1.y);
-	} while (halfEdgeIterator.moveNext());
-
-	// Handled out of due diligence but unlikely.
-	if (sum == 0.0f) {
-		return ofPolygonWindingOrder::None;
-	}
-
-	return sum > 0 ? ofPolygonWindingOrder::ClockWise : ofPolygonWindingOrder::CounterClockWise;
+float cross2d(const glm::vec2 v1, const glm::vec2 v2) {
+	return v1.x * v2.y - v2.x * v1.y;
 }
 
+ofPolygonWindingOrder signedAreaToWindingOrder(float area) {
+	// Handled out of due diligence but unlikely.
+	if (area == 0.0f) {
+		return ofPolygonWindingOrder::Undefined;
+	}
+
+	return area > 0 ? ofPolygonWindingOrder::CounterClockWise : ofPolygonWindingOrder::ClockWise;
+}
+
+// https : //demonstrations.wolfram.com/SignedAreaOfAPolygon/
 template <class vecN>
-ofPolygonWindingOrder getVerticesOrder(const std::vector<vecN> & vertices) {
-	auto sum = 0.0f;
+float getSignedArea(const std::vector<vecN> & vertices) {
+	auto area = 0.0f;
 	auto len = vertices.size();
 
 	for (auto i = 0; i != len; ++i) {
 		auto p1 = vertices[i];
 		auto p2 = vertices[(i + 1) % len];
-		sum += (p2.x - p1.x) * (p2.y + p1.y);
+		area += cross2d(p1, p2);
 	}
 
-	// Handled out of due diligence but unlikely.
-	if (sum == 0.0f) {
-		return ofPolygonWindingOrder::None;
-	}
+	return area;
+}
 
-	return sum > 0 ? ofPolygonWindingOrder::ClockWise : ofPolygonWindingOrder::CounterClockWise;
+float getSignedArea(const dcel::Face & face) {
+	auto halfEdgeIterator = dcel::HalfEdgesIterator(face);
+	auto area = 0.0f;
+
+	do {
+		auto edge = halfEdgeIterator.getCurrent();
+		auto p1 = edge.getOrigin().getPosition();
+		auto p2 = edge.getDestination().getPosition();
+		area += cross2d(p1, p2);
+	} while (halfEdgeIterator.moveNext());
+
+	return area;
+}
+
+ofPolygonWindingOrder dcel::getWindingOrder(const dcel::Face & face) {
+	auto area = getSignedArea(face);
+	return signedAreaToWindingOrder(area);
+}
+
+template <class vecN>
+ofPolygonWindingOrder dcel::getWindingOrder(const std::vector<vecN> & vertices) {
+	auto area = getSignedArea(vertices);
+	return signedAreaToWindingOrder(area);
+}
+
+ofPolygonWindingOrder dcel::getWindingOrder(const std::vector<glm::vec3> & vertices) {
+	return dcel::getWindingOrder<glm::vec3>(vertices);
+}
+
+ofPolygonWindingOrder dcel::getWindingOrder(const std::vector<glm::vec2> & vertices) {
+	return dcel::getWindingOrder<glm::vec2>(vertices);
 }
 
 bool dcel::tryFindSharedFace(
@@ -129,7 +151,7 @@ dcel::Face dcel::getInnerFace() {
 template <class vecN>
 void dcel::initializeFromCCWVertices(const std::vector<vecN> & vertices) {
 #if _DEBUG
-	if (getVerticesOrder(vertices) != ofPolygonWindingOrder::CounterClockWise) {
+	if (getWindingOrder(vertices) != ofPolygonWindingOrder::CounterClockWise) {
 		throw std::runtime_error("Passed vertices should be in counter clockwise order.");
 	}
 #endif
@@ -262,7 +284,7 @@ dcel::HalfEdge dcel::splitFace(dcel::HalfEdge & edgeA, dcel::HalfEdge & edgeB) {
 	newEdge.setIncidentFace(face);
 	auto edge = newEdgeTwin;
 	do {
-		edge.setIncidentFace(newFace); 
+		edge.setIncidentFace(newFace);
 		edge = edge.getNext();
 	} while (edge != newEdgeTwin);
 

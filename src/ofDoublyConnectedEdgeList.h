@@ -8,7 +8,7 @@
 /// \brief Winding order of a polygon vertices.
 enum class ofPolygonWindingOrder {
 	/// @brief Vertices are in undetermined order.
-	None,
+	Undefined,
 	/// @brief Vertices are in clockwise order.
 	ClockWise,
 	/// @brief Vertices are in counter clockWise order.
@@ -131,27 +131,6 @@ public:
 		ofDoublyConnectedEdgeList * m_Dcel;
 	};
 
-	/// @brief Exposes the inner face of the doubly connected edge list.
-	/// @return The inner face of the doubly connected edge list.
-	Face getInnerFace();
-
-	/// @brief Initializes the doubly connected edge list from a list of points representing a polygon.
-	/// @param vertices A vector of polygon points in 2 dimensions.
-	///
-	/// Points are expected to be sorted in count clockwise order.
-	void initializeFromCCWVertices(const std::vector<glm::vec2> & vertices);
-
-	/// @brief Initializes the doubly connected edge list from a list of points representing a polygon.
-	/// @param vertices A vector of polygon points in 3 dimensions.
-	///
-	/// Points are expected to be sorted in count clockwise order.
-	/// The 3rd dimensions is ignored and accepted as a parameter for compatibility reasons.
-	void initializeFromCCWVertices(const std::vector<glm::vec3> & vertices);
-
-	HalfEdge splitFace(Vertex & vertexA, Vertex & vertexB);
-
-	HalfEdge splitFace(HalfEdge & edgeA, HalfEdge & edgeB);
-
 private:
 	struct VertexData {
 		glm::vec2 position;
@@ -178,6 +157,8 @@ private:
 	// Private template, DRY but safe API.
 	template <class vecN>
 	void initializeFromCCWVertices(const std::vector<vecN> & vertices);
+	template <class vecN>
+	static ofPolygonWindingOrder getWindingOrder(const std::vector<vecN> & vertices);
 
 	HalfEdge createEdge();
 	Face createFace();
@@ -192,6 +173,26 @@ private:
 	std::vector<FaceData> m_Faces;
 
 public:
+	/// @brief Exposes the inner face of the doubly connected edge list.
+	/// @return The inner face of the doubly connected edge list.
+	Face getInnerFace();
+
+	/// @brief Initializes the doubly connected edge list from a list of points representing a polygon.
+	/// @param vertices A vector of polygon points in 2 dimensions.
+	///
+	/// Points are expected to be sorted in count clockwise order.
+	void initializeFromCCWVertices(const std::vector<glm::vec2> & vertices);
+
+	/// @brief Initializes the doubly connected edge list from a list of points representing a polygon.
+	/// @param vertices A vector of polygon points in 3 dimensions.
+	///
+	/// Points are expected to be sorted in count clockwise order.
+	/// The 3rd dimensions is ignored and accepted as a parameter for compatibility reasons.
+	void initializeFromCCWVertices(const std::vector<glm::vec3> & vertices);
+
+	HalfEdge splitFace(Vertex & vertexA, Vertex & vertexB);
+
+	HalfEdge splitFace(HalfEdge & edgeA, HalfEdge & edgeB);
 	/// @brief Write the doubly connected edge list topology in arrays of vertices and indices.
 	/// @param vertices The geometry vertices.
 	/// @param indices The geometry indices.
@@ -208,8 +209,20 @@ public:
 
 	/// @brief Evaluates the winding order of the vertices of a face.
 	/// @param face The face.
-	/// @return The winding order of the vertices
-	static ofPolygonWindingOrder getOrder(const Face & face);
+	/// @return The winding order of the face
+	static ofPolygonWindingOrder getWindingOrder(const Face & face);
+
+	/// @brief Evaluates the winding order of the vertices (2d) of a polygon.
+	/// @param vertices The vertices of the polygon.
+	/// @return The winding order of the polygon
+	static ofPolygonWindingOrder getWindingOrder(const std::vector<glm::vec2> & vertices);
+
+	/// @brief Evaluates the winding order of the vertices (3d) of a polygon.
+	/// @param vertices The vertices of the polygon.
+	/// @return The winding order of the polygon
+	///
+	/// The 3rd dimensions is ignored and accepted as a parameter for compatibility reasons.
+	static ofPolygonWindingOrder getWindingOrder(const std::vector<glm::vec3> & vertices);
 
 	/// @brief A utility to iterate over the half edges of a face.
 	///
@@ -226,8 +239,8 @@ public:
 		HalfEdgesIterator(const Face & face)
 			: m_Current(face.getOuterComponent())
 			, m_InitialIndex(face.getOuterComponent().getIndex()) { }
-		HalfEdge getCurrent() const { return m_Current; }
-		bool moveNext() {
+		inline HalfEdge getCurrent() const { return m_Current; }
+		inline bool moveNext() {
 			m_Current = m_Current.getNext();
 			if (m_Current.getIndex() == m_InitialIndex) {
 				return false;
@@ -251,8 +264,8 @@ public:
 			: m_Dcel(&dcel)
 			, m_Current(Face(m_Dcel, k_InnerFaceIndex))
 			, m_Index(k_InnerFaceIndex) { }
-		Face getCurrent() const { return m_Current; }
-		bool moveNext() {
+		inline Face getCurrent() const { return m_Current; }
+		inline bool moveNext() {
 			if (m_Index < m_Dcel->m_Faces.size() - 1) {
 				++m_Index;
 				m_Current = Face(m_Dcel, m_Index);
@@ -267,14 +280,15 @@ public:
 	private:
 		const std::size_t m_IncidentEdgeIndex;
 		HalfEdge m_Current;
+
 	public:
 		FacesOnVertexIterator(const Vertex & vertex)
 			: m_IncidentEdgeIndex(vertex.getIncidentEdge().getIndex())
 			, m_Current(vertex.getIncidentEdge()) {
 			assert(m_Current.getIncidentFace().getIndex() != k_OuterFaceIndex);
 		}
-		HalfEdge getCurrent() const { return m_Current; }
-		bool moveNext() {
+		inline HalfEdge getCurrent() const { return m_Current; }
+		inline bool moveNext() {
 			m_Current = m_Current.getPrev().getTwin();
 			// Skip outer face.
 			if (m_Current.getIncidentFace().getIndex() == k_OuterFaceIndex) {

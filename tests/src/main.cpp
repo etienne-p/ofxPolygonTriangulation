@@ -7,8 +7,16 @@ class ofApp : public ofxUnitTestsApp {
 private:
 	ofDoublyConnectedEdgeList m_Dcel;
 
+	void title(const string& str) {
+		ofLogNotice() << "====(( "
+					  << str
+					  << " ))====";
+	}
+
 public:
 	void TestDcelConstruction() {
+		title("Testing Dcel Construction");
+
 		vector<glm::vec2> vertices = {
 			{ 0, 0 },
 			{ 1, 0 },
@@ -42,6 +50,8 @@ public:
 	}
 
 	void TestDcelSplitFaceAdjacentFails() {
+		title("Testing Dcel Split Face Adjacent Fails");
+
 		vector<glm::vec2> vertices = {
 			{ 0, 0 },
 			{ 1, 0 },
@@ -67,6 +77,8 @@ public:
 	}
 
 	void TestDcelSplit() {
+		title("Testing Dcel Split Face");
+
 		vector<glm::vec2> vertices = {
 			{ 0, 0 },
 			{ 1, 0 },
@@ -98,6 +110,8 @@ public:
 	}
 
 	void TestFacesOnVertexIterator() {
+		title("Testing Test Faces On Vertex Iterator");
+
 		vector<glm::vec2> vertices = {
 			{ 0, 0 },
 			{ 1, 0 },

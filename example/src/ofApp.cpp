@@ -145,13 +145,14 @@ void ofApp::triangulateButtonPressed() {
 		case FaceType::Triangle:
 			break;
 
+			// TODO Cut with a diagonal INSIDE if you do it here.
 		// Quad is trivially decomposed into triangles,
 		// no need to run a full monotone triangulation.
-		case FaceType::Quad: {
+		case FaceType::Quad: /* {
 			auto edgeA = face.getOuterComponent();
 			auto edgeB = edgeA.getNext().getNext();
 			m_Dcel.splitFace(edgeA, edgeB);
-		} break;
+		} break;*/
 
 		// Needs monotone triangulation.
 		case FaceType::Other:
