@@ -126,7 +126,7 @@ void ofTriangulateMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyCo
 			// Add a diagonal for all vertices on the stack except the last one,
 			// for it is connected to the current vertex by an edge.
 			while (m_VertexStack.size() > 1) {
-				dcel.splitFace(m_Vertices[i], m_VertexStack.top());
+				dcel.addHalfEdge(m_Vertices[i], m_VertexStack.top());
 				m_VertexStack.pop();
 			}
 			// Clear vertex stack, last vertex is not connected.
@@ -144,7 +144,7 @@ void ofTriangulateMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyCo
 			// Is the vertex at the top of the stack visible from the current vertex?
 			// We can deduce that knowing the previously popped vertex.
 			while (!m_VertexStack.empty() && isInside(m_Vertices[i], m_VertexStack.top(), lastPopped)) {
-				dcel.splitFace(m_Vertices[i], m_VertexStack.top());
+				dcel.addHalfEdge(m_Vertices[i], m_VertexStack.top());
 				lastPopped = m_VertexStack.top();
 				m_VertexStack.pop();
 			}
@@ -161,7 +161,7 @@ void ofTriangulateMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyCo
 	m_VertexStack.pop();
 
 	while (m_VertexStack.size() > 1) {
-		dcel.splitFace(m_Vertices.back(), m_VertexStack.top());
+		dcel.addHalfEdge(m_Vertices.back(), m_VertexStack.top());
 		m_VertexStack.pop();
 	}
 	// Clear vertex stack, last vertex is not connected.

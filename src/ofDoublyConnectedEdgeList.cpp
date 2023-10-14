@@ -26,8 +26,6 @@ dcel::Face dcel::HalfEdge::getIncidentFace() const {
 }
 
 void dcel::HalfEdge::setIncidentFace(const dcel::Face & face) {
-	// TODO Temp.
-	assert(face.getIndex() != k_OuterFaceIndex);
 	m_Dcel->m_Edges[m_Index].incidentFace = face.getIndex();
 }
 
@@ -107,7 +105,6 @@ ofPolygonWindingOrder dcel::getWindingOrder(const std::vector<glm::vec2> & verti
 bool dcel::tryFindSharedFace(
 	const dcel::Vertex & vertexA, const dcel::Vertex & vertexB,
 	dcel::HalfEdge & halfEdgeA, dcel::HalfEdge & halfEdgeB) {
-	// TODO Use iterator, bypass outer face with iterator.
 	// Iterate over A's faces, try to find a matching face for B.
 	halfEdgeA = vertexA.getIncidentEdge();
 	halfEdgeB = vertexB.getIncidentEdge();
@@ -150,11 +147,9 @@ dcel::Face dcel::getInnerFace() {
 
 template <class vecN>
 void dcel::initializeFromCCWVertices(const std::vector<vecN> & vertices) {
-#if _DEBUG
 	if (getWindingOrder(vertices) != ofPolygonWindingOrder::CounterClockWise) {
 		throw std::runtime_error("Passed vertices should be in counter clockwise order.");
 	}
-#endif
 
 	const auto len = vertices.size();
 
@@ -220,13 +215,6 @@ void dcel::extractTriangles(
 		indices[index + 1] = edge.origin;
 		edge = m_Edges[edge.next];
 		indices[index + 2] = edge.origin;
-#if _DEBUG
-
-		// Check that the face actually is a triangle.
-		if (m_Faces[i].outerComponent != edge.next) {
-			//throw std::runtime_error("extractTriangles: encountered non triangular face.");
-		}
-#endif
 	}
 
 	for (auto i = 0; i != m_Vertices.size(); ++i) {

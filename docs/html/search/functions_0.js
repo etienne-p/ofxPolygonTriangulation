@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['createpolygonrandom_0',['createPolygonRandom',['../classof_polygon_utility.html#aa4b14612660862dafd1fecbedd458255',1,'ofPolygonUtility']]],
-  ['createpolygonrandommonotone_1',['createPolygonRandomMonotone',['../classof_polygon_utility.html#a15afab2ae62132efc5f61f54431a373c',1,'ofPolygonUtility']]]
+  ['addhalfedge_0',['addhalfedge',['../classof_doubly_connected_edge_list.html#a8a5f140a503aaec658e3e8a220572463',1,'ofDoublyConnectedEdgeList::addHalfEdge(Vertex &amp;vertexA, Vertex &amp;vertexB)'],['../classof_doubly_connected_edge_list.html#a01334cf1e6601ab9926dc51281d51637',1,'ofDoublyConnectedEdgeList::addHalfEdge(HalfEdge &amp;edgeA, HalfEdge &amp;edgeB)']]]
 ];

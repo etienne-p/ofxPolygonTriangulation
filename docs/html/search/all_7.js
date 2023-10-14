@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['left_0',['Left',['../classof_doubly_connected_edge_list.html#a7c08c99c641d37568d57d09a98b9d0f5a945d5e233cf7d6240f6b783b36a374ff',1,'ofDoublyConnectedEdgeList']]]
+  ['initializefromccwvertices_0',['initializefromccwvertices',['../classof_doubly_connected_edge_list.html#ae94bbda3ff0fe1edaac3b44a04a34da6',1,'ofDoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector&lt; glm::vec2 &gt; &amp;vertices)'],['../classof_doubly_connected_edge_list.html#ab1b3aad64207e9e1ef602b934b9b8379',1,'ofDoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector&lt; glm::vec3 &gt; &amp;vertices)']]]
 ];

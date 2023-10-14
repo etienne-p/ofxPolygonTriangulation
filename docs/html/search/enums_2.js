@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ofpolygonwindingorder_0',['ofPolygonWindingOrder',['../of_doubly_connected_edge_list_8h.html#adaff366ff825ec11520dc27eaaf36c46',1,'ofDoublyConnectedEdgeList.h']]]
+  ['vertextype_0',['VertexType',['../classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adf',1,'ofSplitToMonotone']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ofhalfedgesweepcomparer_0',['ofHalfEdgeSweepComparer',['../structof_half_edge_sweep_comparer.html#ae57f24ea3d2d6c31e70dea772193151c',1,'ofHalfEdgeSweepComparer']]]
+  ['initializefromccwvertices_0',['initializefromccwvertices',['../classof_doubly_connected_edge_list.html#ae94bbda3ff0fe1edaac3b44a04a34da6',1,'ofDoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector&lt; glm::vec2 &gt; &amp;vertices)'],['../classof_doubly_connected_edge_list.html#ab1b3aad64207e9e1ef602b934b9b8379',1,'ofDoublyConnectedEdgeList::initializeFromCCWVertices(const std::vector&lt; glm::vec3 &gt; &amp;vertices)']]]
 ];

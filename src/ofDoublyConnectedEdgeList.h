@@ -190,9 +190,18 @@ public:
 	/// The 3rd dimensions is ignored and accepted as a parameter for compatibility reasons.
 	void initializeFromCCWVertices(const std::vector<glm::vec3> & vertices);
 
-	HalfEdge splitFace(Vertex & vertexA, Vertex & vertexB);
+	/// @brief Adds an half edge connecting two vertices.
+	/// @param vertexA The first vertex.
+	/// @param vertexB The second vertex.
+	/// @return The newly created half edge.
+	HalfEdge addHalfEdge(Vertex & vertexA, Vertex & vertexB);
 
-	HalfEdge splitFace(HalfEdge & edgeA, HalfEdge & edgeB);
+	/// @brief Adds an half edge connecting two half edges.
+	/// @param edgeA The first half edge.
+	/// @param edgeB The second half edge.
+	/// @return The newly created half edge.
+	HalfEdge addHalfEdge(HalfEdge & edgeA, HalfEdge & edgeB);
+
 	/// @brief Write the doubly connected edge list topology in arrays of vertices and indices.
 	/// @param vertices The geometry vertices.
 	/// @param indices The geometry indices.

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['destination_0',['Destination',['../classof_doubly_connected_edge_list.html#afd79abe1e36db5b3c373452a22f813c0a12007e1d59f4d09c87dbe2c438256244',1,'ofDoublyConnectedEdgeList']]]
+  ['bottom_0',['Bottom',['../classof_doubly_connected_edge_list.html#a7c08c99c641d37568d57d09a98b9d0f5a2ad9d63b69c4a10a5cc9cad923133bc4',1,'ofDoublyConnectedEdgeList']]]
 ];
