@@ -276,7 +276,11 @@ public:
 		TestSplitToMonotone();
 		TestTriangulateMonotone();
 		TestTriangulate();
+
+		// Speed tests, no need to run by default.
+#if false
 		SpeedTestTriangulateMonotone();
+#endif
 	}
 };
 
