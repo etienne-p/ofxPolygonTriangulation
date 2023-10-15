@@ -243,6 +243,31 @@ public:
 		ofxTest(true, "Triangulate succeeded.");
 	}
 
+	void SpeedTestTriangulateMonotone() {
+		title("Triangulate Monotone (Speed)");
+
+		auto dcel = ofDoublyConnectedEdgeList();
+		auto triangulateMonotone = ofTriangulateMonotone();
+		vector<glm::vec3> vertices;
+		double duration = 0.0;
+
+		for (auto k = 0; k != 1024; ++k) {
+			for (auto i = 12; i != 64; ++i) {
+				vertices.resize(i);
+				ofPolygonUtility::createPolygonRandomMonotone(vertices);
+				dcel.initializeFromCCWVertices(vertices);
+				auto start = std::chrono::high_resolution_clock::now();
+				triangulateMonotone.execute(dcel, dcel.getInnerFace());
+				auto end = std::chrono::high_resolution_clock::now();
+				duration += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+			}
+		}
+
+		duration *= 1e-9; // To seconds.
+
+		ofLogNotice() << "duration: " << duration << "sec.";
+	}
+
 	void run() {
 		TestDcelConstruction();
 		TestDcelSplitFaceAdjacentFails();
@@ -251,6 +276,7 @@ public:
 		TestSplitToMonotone();
 		TestTriangulateMonotone();
 		TestTriangulate();
+		SpeedTestTriangulateMonotone();
 	}
 };
 
