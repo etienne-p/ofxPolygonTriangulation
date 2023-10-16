@@ -268,6 +268,31 @@ public:
 		ofLogNotice() << "duration: " << duration << "sec.";
 	}
 
+	void SpeedTestTriangulate() {
+		title("Triangulate (Speed)");
+
+		auto dcel = ofDoublyConnectedEdgeList();
+		auto polygonTriangulation = ofPolygonTriangulation();
+		vector<glm::vec3> vertices;
+		double duration = 0.0;
+
+		for (auto k = 0; k != 1024; ++k) {
+			for (auto i = 12; i != 64; ++i) {
+				vertices.resize(i);
+				ofPolygonUtility::createPolygonRandom(vertices);
+				dcel.initializeFromCCWVertices(vertices);
+				auto start = std::chrono::high_resolution_clock::now();
+				polygonTriangulation.execute(dcel);
+				auto end = std::chrono::high_resolution_clock::now();
+				duration += std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+			}
+		}
+
+		duration *= 1e-9; // To seconds.
+
+		ofLogNotice() << "duration: " << duration << "sec.";
+	}
+
 	void run() {
 		TestDcelConstruction();
 		TestDcelSplitFaceAdjacentFails();
@@ -279,6 +304,7 @@ public:
 
 		// Speed tests, no need to run by default.
 #if false
+		SpeedTestTriangulate();
 		SpeedTestTriangulateMonotone();
 #endif
 	}
