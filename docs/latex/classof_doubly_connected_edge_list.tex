@@ -1,0 +1,269 @@
+\doxysection{of\+Doubly\+Connected\+Edge\+List Class Reference}
+\hypertarget{classof_doubly_connected_edge_list}{}\label{classof_doubly_connected_edge_list}\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+
+
+A class implementing a doubly connected edge list data structure.  
+
+
+
+
+{\ttfamily \#include $<$of\+Doubly\+Connected\+Edge\+List.\+h$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_face}{Face}}
+\begin{DoxyCompactList}\small\item\em A handle to a face. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_faces_iterator}{Faces\+Iterator}}
+\begin{DoxyCompactList}\small\item\em A utility to iterate over the faces of the doubly connected edge list. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_faces_on_vertex_iterator}{Faces\+On\+Vertex\+Iterator}}
+\begin{DoxyCompactList}\small\item\em A utility to iterate over the faces a vertex belongs to. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{Half\+Edge}}
+\begin{DoxyCompactList}\small\item\em A handle to an half edge. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edges_iterator}{Half\+Edges\+Iterator}}
+\begin{DoxyCompactList}\small\item\em A utility to iterate over the half edges of a face. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{Vertex}}
+\begin{DoxyCompactList}\small\item\em A handle to a vertex. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5}{Chain}} \{ \newline
+\mbox{\hyperlink{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a6adf97f83acf6453d4a6a4b1070f3754}{None}}
+, \mbox{\hyperlink{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a92b09c7c48c520c3c55e497875da437c}{Right}}
+, \mbox{\hyperlink{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a945d5e233cf7d6240f6b783b36a374ff}{Left}}
+, \mbox{\hyperlink{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5aa4ffdcf0dc1f31b9acaf295d75b51d00}{Top}}
+, \newline
+\mbox{\hyperlink{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a2ad9d63b69c4a10a5cc9cad923133bc4}{Bottom}}
+ \}
+\begin{DoxyCompactList}\small\item\em Identifies vertex chains on monotone polygons. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_face}{Face}} \mbox{\hyperlink{classof_doubly_connected_edge_list_a857d51ac551f4dc0d8b51f706eff9a0a}{get\+Inner\+Face}} ()
+\begin{DoxyCompactList}\small\item\em Exposes the inner face of the doubly connected edge list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classof_doubly_connected_edge_list_ae94bbda3ff0fe1edaac3b44a04a34da6}{initialize\+From\+CCWVertices}} (const std\+::vector$<$ glm\+::vec2 $>$ \&vertices)
+\begin{DoxyCompactList}\small\item\em Initializes the doubly connected edge list from a list of points representing a polygon. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classof_doubly_connected_edge_list_ab1b3aad64207e9e1ef602b934b9b8379}{initialize\+From\+CCWVertices}} (const std\+::vector$<$ glm\+::vec3 $>$ \&vertices)
+\begin{DoxyCompactList}\small\item\em Initializes the doubly connected edge list from a list of points representing a polygon. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{Half\+Edge}} \mbox{\hyperlink{classof_doubly_connected_edge_list_a66bcd5fea3106910240d8a07e1137ed6}{add\+Half\+Edge}} (\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{Vertex}} \&vertexA, \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{Vertex}} \&vertexB)
+\begin{DoxyCompactList}\small\item\em Adds an half edge connecting two vertices. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{Half\+Edge}} \mbox{\hyperlink{classof_doubly_connected_edge_list_ae48437ff77fd369020603ca971f78d9e}{add\+Half\+Edge}} (\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{Half\+Edge}} \&edgeA, \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{Half\+Edge}} \&edgeB)
+\begin{DoxyCompactList}\small\item\em Adds an half edge connecting two half edges. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classof_doubly_connected_edge_list_a85e950859c8902402e0ec0b84da21c28}{extract\+Triangles}} (std\+::vector$<$ glm\+::vec3 $>$ \&vertices, std\+::vector$<$ unsigned int $>$ \&indices)
+\begin{DoxyCompactList}\small\item\em Write the doubly connected edge list topology in arrays of vertices and indices. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classof_doubly_connected_edge_list_a242c699bdaf05e7fab48ae05c05a47d6}\label{classof_doubly_connected_edge_list_a242c699bdaf05e7fab48ae05c05a47d6} 
+static constexpr int {\bfseries get\+Outer\+Face\+Index} ()
+\begin{DoxyCompactList}\small\item\em Returns the index of the outer face. \end{DoxyCompactList}\item 
+\Hypertarget{classof_doubly_connected_edge_list_aecd77b0794640121395b7926e4acec5c}\label{classof_doubly_connected_edge_list_aecd77b0794640121395b7926e4acec5c} 
+static constexpr int {\bfseries get\+Inner\+Face\+Index} ()
+\begin{DoxyCompactList}\small\item\em Returns the index of the inner face. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{of_doubly_connected_edge_list_8h_adaff366ff825ec11520dc27eaaf36c46}{of\+Polygon\+Winding\+Order}} \mbox{\hyperlink{classof_doubly_connected_edge_list_a68bc74b802212193f6c90cc94d5e4d28}{get\+Winding\+Order}} (const \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_face}{Face}} \&face)
+\begin{DoxyCompactList}\small\item\em Evaluates the winding order of the vertices of a face. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{of_doubly_connected_edge_list_8h_adaff366ff825ec11520dc27eaaf36c46}{of\+Polygon\+Winding\+Order}} \mbox{\hyperlink{classof_doubly_connected_edge_list_a347fdfd82a809393321a8292436b037f}{get\+Winding\+Order}} (const std\+::vector$<$ glm\+::vec2 $>$ \&vertices)
+\begin{DoxyCompactList}\small\item\em Evaluates the winding order of the vertices (2d) of a polygon. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{of_doubly_connected_edge_list_8h_adaff366ff825ec11520dc27eaaf36c46}{of\+Polygon\+Winding\+Order}} \mbox{\hyperlink{classof_doubly_connected_edge_list_a8ed93b14efef5af44c29e6a132cccd0a}{get\+Winding\+Order}} (const std\+::vector$<$ glm\+::vec3 $>$ \&vertices)
+\begin{DoxyCompactList}\small\item\em Evaluates the winding order of the vertices (3d) of a polygon. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class implementing a doubly connected edge list data structure. 
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5}\label{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5} 
+\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!Chain@{Chain}}
+\index{Chain@{Chain}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+\doxysubsubsection{\texorpdfstring{Chain}{Chain}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5}{of\+Doubly\+Connected\+Edge\+List\+::\+Chain}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Identifies vertex chains on monotone polygons. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{None@{None}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!None@{None}}}\Hypertarget{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a6adf97f83acf6453d4a6a4b1070f3754}\label{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a6adf97f83acf6453d4a6a4b1070f3754} 
+None&The chain is undetermined. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Right@{Right}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!Right@{Right}}}\Hypertarget{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a92b09c7c48c520c3c55e497875da437c}\label{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a92b09c7c48c520c3c55e497875da437c} 
+Right&Right chain. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Left@{Left}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!Left@{Left}}}\Hypertarget{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a945d5e233cf7d6240f6b783b36a374ff}\label{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a945d5e233cf7d6240f6b783b36a374ff} 
+Left&Left chain. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Top@{Top}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!Top@{Top}}}\Hypertarget{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5aa4ffdcf0dc1f31b9acaf295d75b51d00}\label{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5aa4ffdcf0dc1f31b9acaf295d75b51d00} 
+Top&Top vertex. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Bottom@{Bottom}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!Bottom@{Bottom}}}\Hypertarget{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a2ad9d63b69c4a10a5cc9cad923133bc4}\label{classof_doubly_connected_edge_list_a7c08c99c641d37568d57d09a98b9d0f5a2ad9d63b69c4a10a5cc9cad923133bc4} 
+Bottom&Bottom vertex. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classof_doubly_connected_edge_list_ae48437ff77fd369020603ca971f78d9e}\label{classof_doubly_connected_edge_list_ae48437ff77fd369020603ca971f78d9e} 
+\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!addHalfEdge@{addHalfEdge}}
+\index{addHalfEdge@{addHalfEdge}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+\doxysubsubsection{\texorpdfstring{addHalfEdge()}{addHalfEdge()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{dcel\+::\+Half\+Edge}} dcel\+::add\+Half\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{dcel\+::\+Half\+Edge}} \&}]{edgeA,  }\item[{\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{dcel\+::\+Half\+Edge}} \&}]{edgeB }\end{DoxyParamCaption})}
+
+
+
+Adds an half edge connecting two half edges. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em edgeA} & The first half edge. \\
+\hline
+{\em edgeB} & The second half edge. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The newly created half edge. 
+\end{DoxyReturn}
+\Hypertarget{classof_doubly_connected_edge_list_a66bcd5fea3106910240d8a07e1137ed6}\label{classof_doubly_connected_edge_list_a66bcd5fea3106910240d8a07e1137ed6} 
+\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!addHalfEdge@{addHalfEdge}}
+\index{addHalfEdge@{addHalfEdge}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+\doxysubsubsection{\texorpdfstring{addHalfEdge()}{addHalfEdge()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{dcel\+::\+Half\+Edge}} dcel\+::add\+Half\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{dcel\+::\+Vertex}} \&}]{vertexA,  }\item[{\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{dcel\+::\+Vertex}} \&}]{vertexB }\end{DoxyParamCaption})}
+
+
+
+Adds an half edge connecting two vertices. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertexA} & The first vertex. \\
+\hline
+{\em vertexB} & The second vertex. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The newly created half edge. 
+\end{DoxyReturn}
+\Hypertarget{classof_doubly_connected_edge_list_a85e950859c8902402e0ec0b84da21c28}\label{classof_doubly_connected_edge_list_a85e950859c8902402e0ec0b84da21c28} 
+\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!extractTriangles@{extractTriangles}}
+\index{extractTriangles@{extractTriangles}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+\doxysubsubsection{\texorpdfstring{extractTriangles()}{extractTriangles()}}
+{\footnotesize\ttfamily void dcel\+::extract\+Triangles (\begin{DoxyParamCaption}\item[{std\+::vector$<$ glm\+::vec3 $>$ \&}]{vertices,  }\item[{std\+::vector$<$ unsigned int $>$ \&}]{indices }\end{DoxyParamCaption})}
+
+
+
+Write the doubly connected edge list topology in arrays of vertices and indices. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertices} & The geometry vertices. \\
+\hline
+{\em indices} & The geometry indices.\\
+\hline
+\end{DoxyParams}
+Intended for rendering. The doubly connected edge list must have been triangulated beforehand. \Hypertarget{classof_doubly_connected_edge_list_a857d51ac551f4dc0d8b51f706eff9a0a}\label{classof_doubly_connected_edge_list_a857d51ac551f4dc0d8b51f706eff9a0a} 
+\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!getInnerFace@{getInnerFace}}
+\index{getInnerFace@{getInnerFace}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+\doxysubsubsection{\texorpdfstring{getInnerFace()}{getInnerFace()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_face}{dcel\+::\+Face}} dcel\+::get\+Inner\+Face (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Exposes the inner face of the doubly connected edge list. 
+
+\begin{DoxyReturn}{Returns}
+The inner face of the doubly connected edge list. 
+\end{DoxyReturn}
+\Hypertarget{classof_doubly_connected_edge_list_a68bc74b802212193f6c90cc94d5e4d28}\label{classof_doubly_connected_edge_list_a68bc74b802212193f6c90cc94d5e4d28} 
+\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!getWindingOrder@{getWindingOrder}}
+\index{getWindingOrder@{getWindingOrder}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+\doxysubsubsection{\texorpdfstring{getWindingOrder()}{getWindingOrder()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{of_doubly_connected_edge_list_8h_adaff366ff825ec11520dc27eaaf36c46}{of\+Polygon\+Winding\+Order}} dcel\+::get\+Winding\+Order (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_face}{Face}} \&}]{face }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Evaluates the winding order of the vertices of a face. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em face} & The face. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The winding order of the face 
+\end{DoxyReturn}
+\Hypertarget{classof_doubly_connected_edge_list_a347fdfd82a809393321a8292436b037f}\label{classof_doubly_connected_edge_list_a347fdfd82a809393321a8292436b037f} 
+\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!getWindingOrder@{getWindingOrder}}
+\index{getWindingOrder@{getWindingOrder}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+\doxysubsubsection{\texorpdfstring{getWindingOrder()}{getWindingOrder()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{of_doubly_connected_edge_list_8h_adaff366ff825ec11520dc27eaaf36c46}{of\+Polygon\+Winding\+Order}} dcel\+::get\+Winding\+Order (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ glm\+::vec2 $>$ \&}]{vertices }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Evaluates the winding order of the vertices (2d) of a polygon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertices} & The vertices of the polygon. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The winding order of the polygon 
+\end{DoxyReturn}
+\Hypertarget{classof_doubly_connected_edge_list_a8ed93b14efef5af44c29e6a132cccd0a}\label{classof_doubly_connected_edge_list_a8ed93b14efef5af44c29e6a132cccd0a} 
+\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!getWindingOrder@{getWindingOrder}}
+\index{getWindingOrder@{getWindingOrder}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+\doxysubsubsection{\texorpdfstring{getWindingOrder()}{getWindingOrder()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{of_doubly_connected_edge_list_8h_adaff366ff825ec11520dc27eaaf36c46}{of\+Polygon\+Winding\+Order}} dcel\+::get\+Winding\+Order (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ glm\+::vec3 $>$ \&}]{vertices }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Evaluates the winding order of the vertices (3d) of a polygon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertices} & The vertices of the polygon. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The winding order of the polygon
+\end{DoxyReturn}
+The 3rd dimensions is ignored and accepted as a parameter for compatibility reasons. \Hypertarget{classof_doubly_connected_edge_list_ae94bbda3ff0fe1edaac3b44a04a34da6}\label{classof_doubly_connected_edge_list_ae94bbda3ff0fe1edaac3b44a04a34da6} 
+\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!initializeFromCCWVertices@{initializeFromCCWVertices}}
+\index{initializeFromCCWVertices@{initializeFromCCWVertices}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+\doxysubsubsection{\texorpdfstring{initializeFromCCWVertices()}{initializeFromCCWVertices()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void dcel\+::initialize\+From\+CCWVertices (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ glm\+::vec2 $>$ \&}]{vertices }\end{DoxyParamCaption})}
+
+
+
+Initializes the doubly connected edge list from a list of points representing a polygon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertices} & A vector of polygon points in 2 dimensions.\\
+\hline
+\end{DoxyParams}
+Points are expected to be sorted in count clockwise order. \Hypertarget{classof_doubly_connected_edge_list_ab1b3aad64207e9e1ef602b934b9b8379}\label{classof_doubly_connected_edge_list_ab1b3aad64207e9e1ef602b934b9b8379} 
+\index{ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}!initializeFromCCWVertices@{initializeFromCCWVertices}}
+\index{initializeFromCCWVertices@{initializeFromCCWVertices}!ofDoublyConnectedEdgeList@{ofDoublyConnectedEdgeList}}
+\doxysubsubsection{\texorpdfstring{initializeFromCCWVertices()}{initializeFromCCWVertices()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void dcel\+::initialize\+From\+CCWVertices (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ glm\+::vec3 $>$ \&}]{vertices }\end{DoxyParamCaption})}
+
+
+
+Initializes the doubly connected edge list from a list of points representing a polygon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertices} & A vector of polygon points in 3 dimensions.\\
+\hline
+\end{DoxyParams}
+Points are expected to be sorted in count clockwise order. The 3rd dimensions is ignored and accepted as a parameter for compatibility reasons. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/etien/\+Dev/of\+\_\+v0.\+12.\+0\+\_\+vs\+\_\+release/addons/ofx\+Polygon\+Triangulation/src/\mbox{\hyperlink{of_doubly_connected_edge_list_8h}{of\+Doubly\+Connected\+Edge\+List.\+h}}\item 
+C\+:/\+Users/etien/\+Dev/of\+\_\+v0.\+12.\+0\+\_\+vs\+\_\+release/addons/ofx\+Polygon\+Triangulation/src/of\+Doubly\+Connected\+Edge\+List.\+cpp\end{DoxyCompactItemize}

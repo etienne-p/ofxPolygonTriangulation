@@ -1,0 +1,23 @@
+\doxysection{of\+Vertex\+Sweep\+Comparer.\+h}
+\hypertarget{of_vertex_sweep_comparer_8h_source}{}\label{of_vertex_sweep_comparer_8h_source}\index{C:/Users/etien/Dev/of\_v0.12.0\_vs\_release/addons/ofxPolygonTriangulation/src/ofVertexSweepComparer.h@{C:/Users/etien/Dev/of\_v0.12.0\_vs\_release/addons/ofxPolygonTriangulation/src/ofVertexSweepComparer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{of_doubly_connected_edge_list_8h}{ofDoublyConnectedEdgeList.h}}"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structof_vertex_sweep_comparer}{ofVertexSweepComparer}}\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ operator()(}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{ofDoublyConnectedEdgeList::Vertex}}\ \&\ first,}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{ofDoublyConnectedEdgeList::Vertex}}\ \&\ last)\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Strict\ comparison\ is\ deliberate.}}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (first.getY()\ ==\ last.getY())\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ first.getX()\ <\ last.getX();}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ purpose,\ we\ go\ in\ descending\ Y\ order.}}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ last.getY()\ <\ first.getY();}
+\DoxyCodeLine{00017\ \ \ \ \ \}}
+\DoxyCodeLine{00018\ \};}
+
+\end{DoxyCode}

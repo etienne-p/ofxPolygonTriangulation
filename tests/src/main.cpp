@@ -16,6 +16,28 @@ private:
 	}
 
 public:
+	void TestPolygonSimplification() {
+		title("Testing Polygon Simplification");
+
+		vector<glm::vec2> points = {
+			{ 0, 0 },
+			{ 1, 0 },
+			{ 1, 0.5f },
+			{ 1, 1 },
+			{ 0, 1 }
+		};
+
+		vector<glm::vec2> points_simplified = {
+			{ 0, 0 },
+			{ 1, 0 },
+			{ 1, 1 },
+			{ 0, 1 }
+		};
+
+		ofPolygonUtility::removeDuplicatesAndCollinear(points, 1e-3f);
+
+		ofxTest(points == points_simplified, "Polygon simplified properly.");
+	}
 	void TestDcelConstruction() {
 		title("Testing Dcel Construction");
 
@@ -294,6 +316,7 @@ public:
 	}
 
 	void run() {
+		TestPolygonSimplification();
 		TestDcelConstruction();
 		TestDcelSplitFaceAdjacentFails();
 		TestDcelSplit();

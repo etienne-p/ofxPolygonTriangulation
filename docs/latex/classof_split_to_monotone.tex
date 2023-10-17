@@ -1,0 +1,115 @@
+\doxysection{of\+Split\+To\+Monotone Class Reference}
+\hypertarget{classof_split_to_monotone}{}\label{classof_split_to_monotone}\index{ofSplitToMonotone@{ofSplitToMonotone}}
+
+
+A class implementing the split of a polygon into monotone polygons.  
+
+
+
+
+{\ttfamily \#include $<$of\+Split\+To\+Monotone.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adf}{Vertex\+Type}} \{ \newline
+\mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfaa6122a65eaa676f700ae68d393054a37}{Start}}
+, \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa11a755d598c0c417f9a36758c3da7481}{Stop}}
+, \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa8a9e64d86ed12ad40de129bc7f4683b2}{Split}}
+, \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa68be4837f6c739877233e527a996dd00}{Merge}}
+, \newline
+\mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfad2203cb1237cb6460cbad94564e39345}{Regular}}
+ \}
+\begin{DoxyCompactList}\small\item\em Vertex classification when splitting a polygon to monotone polygons. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classof_split_to_monotone_a608f84021c99b0303e4616e7ca9bdcf9}{execute}} (\mbox{\hyperlink{classof_doubly_connected_edge_list}{of\+Doubly\+Connected\+Edge\+List}} \&\mbox{\hyperlink{classof_doubly_connected_edge_list}{dcel}}, \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_face}{of\+Doubly\+Connected\+Edge\+List\+::\+Face}} \&face)
+\begin{DoxyCompactList}\small\item\em Split a face of a doubly connected edge list into monotone polygons. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adf}{Vertex\+Type}} \mbox{\hyperlink{classof_split_to_monotone_abee10b500db3563445b5cac589f81939}{classify\+Vertex}} (const \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{of\+Doubly\+Connected\+Edge\+List\+::\+Vertex}} \&vertex)
+\begin{DoxyCompactList}\small\item\em Classify a vertex for splitting to monotone. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class implementing the split of a polygon into monotone polygons. 
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adf}\label{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adf} 
+\index{ofSplitToMonotone@{ofSplitToMonotone}!VertexType@{VertexType}}
+\index{VertexType@{VertexType}!ofSplitToMonotone@{ofSplitToMonotone}}
+\doxysubsubsection{\texorpdfstring{VertexType}{VertexType}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adf}{of\+Split\+To\+Monotone\+::\+Vertex\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Vertex classification when splitting a polygon to monotone polygons. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Start@{Start}!ofSplitToMonotone@{ofSplitToMonotone}}\index{ofSplitToMonotone@{ofSplitToMonotone}!Start@{Start}}}\Hypertarget{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfaa6122a65eaa676f700ae68d393054a37}\label{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfaa6122a65eaa676f700ae68d393054a37} 
+Start&A vertex whose neighbors lie below and the interior angle is less than pi. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Stop@{Stop}!ofSplitToMonotone@{ofSplitToMonotone}}\index{ofSplitToMonotone@{ofSplitToMonotone}!Stop@{Stop}}}\Hypertarget{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa11a755d598c0c417f9a36758c3da7481}\label{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa11a755d598c0c417f9a36758c3da7481} 
+Stop&A vertex whose neighbors lie above and the interior angle is less than pi. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Split@{Split}!ofSplitToMonotone@{ofSplitToMonotone}}\index{ofSplitToMonotone@{ofSplitToMonotone}!Split@{Split}}}\Hypertarget{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa8a9e64d86ed12ad40de129bc7f4683b2}\label{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa8a9e64d86ed12ad40de129bc7f4683b2} 
+Split&A vertex whose neighbors lie below and the interior angle is greater than pi. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Merge@{Merge}!ofSplitToMonotone@{ofSplitToMonotone}}\index{ofSplitToMonotone@{ofSplitToMonotone}!Merge@{Merge}}}\Hypertarget{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa68be4837f6c739877233e527a996dd00}\label{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa68be4837f6c739877233e527a996dd00} 
+Merge&A vertex whose neighbors lie above and the interior angle is greater than pi. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Regular@{Regular}!ofSplitToMonotone@{ofSplitToMonotone}}\index{ofSplitToMonotone@{ofSplitToMonotone}!Regular@{Regular}}}\Hypertarget{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfad2203cb1237cb6460cbad94564e39345}\label{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfad2203cb1237cb6460cbad94564e39345} 
+Regular&A vertex whose neighbors lie above and below. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classof_split_to_monotone_abee10b500db3563445b5cac589f81939}\label{classof_split_to_monotone_abee10b500db3563445b5cac589f81939} 
+\index{ofSplitToMonotone@{ofSplitToMonotone}!classifyVertex@{classifyVertex}}
+\index{classifyVertex@{classifyVertex}!ofSplitToMonotone@{ofSplitToMonotone}}
+\doxysubsubsection{\texorpdfstring{classifyVertex()}{classifyVertex()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adf}{of\+Split\+To\+Monotone\+::\+Vertex\+Type}} of\+Split\+To\+Monotone\+::classify\+Vertex (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{of\+Doubly\+Connected\+Edge\+List\+::\+Vertex}} \&}]{vertex }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Classify a vertex for splitting to monotone. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex} & The vertex. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The classification.
+\end{DoxyReturn}
+This is mainly exposed for unit tests. \Hypertarget{classof_split_to_monotone_a608f84021c99b0303e4616e7ca9bdcf9}\label{classof_split_to_monotone_a608f84021c99b0303e4616e7ca9bdcf9} 
+\index{ofSplitToMonotone@{ofSplitToMonotone}!execute@{execute}}
+\index{execute@{execute}!ofSplitToMonotone@{ofSplitToMonotone}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily void of\+Split\+To\+Monotone\+::execute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classof_doubly_connected_edge_list}{of\+Doubly\+Connected\+Edge\+List}} \&}]{dcel,  }\item[{\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_face}{of\+Doubly\+Connected\+Edge\+List\+::\+Face}} \&}]{face }\end{DoxyParamCaption})}
+
+
+
+Split a face of a doubly connected edge list into monotone polygons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dcel} & The doubly connected edge list. \\
+\hline
+{\em face} & The face. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/etien/\+Dev/of\+\_\+v0.\+12.\+0\+\_\+vs\+\_\+release/addons/ofx\+Polygon\+Triangulation/src/\mbox{\hyperlink{of_split_to_monotone_8h}{of\+Split\+To\+Monotone.\+h}}\item 
+C\+:/\+Users/etien/\+Dev/of\+\_\+v0.\+12.\+0\+\_\+vs\+\_\+release/addons/ofx\+Polygon\+Triangulation/src/of\+Split\+To\+Monotone.\+cpp\end{DoxyCompactItemize}

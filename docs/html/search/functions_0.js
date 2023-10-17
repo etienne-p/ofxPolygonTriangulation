@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['addhalfedge_0',['addhalfedge',['../classof_doubly_connected_edge_list.html#a8a5f140a503aaec658e3e8a220572463',1,'ofDoublyConnectedEdgeList::addHalfEdge(Vertex &amp;vertexA, Vertex &amp;vertexB)'],['../classof_doubly_connected_edge_list.html#a01334cf1e6601ab9926dc51281d51637',1,'ofDoublyConnectedEdgeList::addHalfEdge(HalfEdge &amp;edgeA, HalfEdge &amp;edgeB)']]]
+  ['addhalfedge_0',['addhalfedge',['../classof_doubly_connected_edge_list.html#a66bcd5fea3106910240d8a07e1137ed6',1,'ofDoublyConnectedEdgeList::addHalfEdge(Vertex &amp;vertexA, Vertex &amp;vertexB)'],['../classof_doubly_connected_edge_list.html#ae48437ff77fd369020603ca971f78d9e',1,'ofDoublyConnectedEdgeList::addHalfEdge(HalfEdge &amp;edgeA, HalfEdge &amp;edgeB)']]]
 ];

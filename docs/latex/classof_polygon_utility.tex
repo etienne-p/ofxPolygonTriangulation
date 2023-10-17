@@ -1,0 +1,100 @@
+\doxysection{of\+Polygon\+Utility Class Reference}
+\hypertarget{classof_polygon_utility}{}\label{classof_polygon_utility}\index{ofPolygonUtility@{ofPolygonUtility}}
+
+
+Utilities to procedurally generate polygons.  
+
+
+
+
+{\ttfamily \#include $<$of\+Polygon\+Utility.\+h$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classof_polygon_utility_a7c58c03b0cdca7ab9ef01f8e65afdb45}{create\+Polygon\+Random}} (std\+::vector$<$ glm\+::vec3 $>$ \&points)
+\begin{DoxyCompactList}\small\item\em Generate a random polygon. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classof_polygon_utility_a5f64af71507c3929b83a8949ed532efa}{create\+Polygon\+Random\+Monotone}} (std\+::vector$<$ glm\+::vec3 $>$ \&points)
+\begin{DoxyCompactList}\small\item\em Generate a random monotone polygon. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classof_polygon_utility_ae1c403433be15ef7c9c7b88f0f58a42e}{remove\+Duplicates\+And\+Collinear}} (std\+::vector$<$ glm\+::vec2 $>$ \&points, float epsilon)
+\begin{DoxyCompactList}\small\item\em Removes duplicate and collinear points from a polygon. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classof_polygon_utility_ae1643441daf0dec13840b41794372f8d}{remove\+Duplicates\+And\+Collinear}} (std\+::vector$<$ glm\+::vec3 $>$ \&points, float epsilon)
+\begin{DoxyCompactList}\small\item\em Removes duplicate and collinear points from a polygon. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Utilities to procedurally generate polygons. 
+
+Used for tests and demos. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classof_polygon_utility_a7c58c03b0cdca7ab9ef01f8e65afdb45}\label{classof_polygon_utility_a7c58c03b0cdca7ab9ef01f8e65afdb45} 
+\index{ofPolygonUtility@{ofPolygonUtility}!createPolygonRandom@{createPolygonRandom}}
+\index{createPolygonRandom@{createPolygonRandom}!ofPolygonUtility@{ofPolygonUtility}}
+\doxysubsubsection{\texorpdfstring{createPolygonRandom()}{createPolygonRandom()}}
+{\footnotesize\ttfamily void of\+Polygon\+Utility\+::create\+Polygon\+Random (\begin{DoxyParamCaption}\item[{std\+::vector$<$ glm\+::vec3 $>$ \&}]{points }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Generate a random polygon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em points} & The vector to write generated points into.\\
+\hline
+\end{DoxyParams}
+The polygon has no self intersection by construction. Despite the use of random numbers the function is deterministic. \Hypertarget{classof_polygon_utility_a5f64af71507c3929b83a8949ed532efa}\label{classof_polygon_utility_a5f64af71507c3929b83a8949ed532efa} 
+\index{ofPolygonUtility@{ofPolygonUtility}!createPolygonRandomMonotone@{createPolygonRandomMonotone}}
+\index{createPolygonRandomMonotone@{createPolygonRandomMonotone}!ofPolygonUtility@{ofPolygonUtility}}
+\doxysubsubsection{\texorpdfstring{createPolygonRandomMonotone()}{createPolygonRandomMonotone()}}
+{\footnotesize\ttfamily void of\+Polygon\+Utility\+::create\+Polygon\+Random\+Monotone (\begin{DoxyParamCaption}\item[{std\+::vector$<$ glm\+::vec3 $>$ \&}]{points }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Generate a random monotone polygon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em points} & The vector to write generated points into.\\
+\hline
+\end{DoxyParams}
+Despite the use of random numbers the function is deterministic. \Hypertarget{classof_polygon_utility_ae1c403433be15ef7c9c7b88f0f58a42e}\label{classof_polygon_utility_ae1c403433be15ef7c9c7b88f0f58a42e} 
+\index{ofPolygonUtility@{ofPolygonUtility}!removeDuplicatesAndCollinear@{removeDuplicatesAndCollinear}}
+\index{removeDuplicatesAndCollinear@{removeDuplicatesAndCollinear}!ofPolygonUtility@{ofPolygonUtility}}
+\doxysubsubsection{\texorpdfstring{removeDuplicatesAndCollinear()}{removeDuplicatesAndCollinear()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void of\+Polygon\+Utility\+::remove\+Duplicates\+And\+Collinear (\begin{DoxyParamCaption}\item[{std\+::vector$<$ glm\+::vec2 $>$ \&}]{points,  }\item[{float}]{epsilon }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Removes duplicate and collinear points from a polygon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em points} & The polygon. \\
+\hline
+{\em epsilon} & The angular tolerance to establish collinearity. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classof_polygon_utility_ae1643441daf0dec13840b41794372f8d}\label{classof_polygon_utility_ae1643441daf0dec13840b41794372f8d} 
+\index{ofPolygonUtility@{ofPolygonUtility}!removeDuplicatesAndCollinear@{removeDuplicatesAndCollinear}}
+\index{removeDuplicatesAndCollinear@{removeDuplicatesAndCollinear}!ofPolygonUtility@{ofPolygonUtility}}
+\doxysubsubsection{\texorpdfstring{removeDuplicatesAndCollinear()}{removeDuplicatesAndCollinear()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void of\+Polygon\+Utility\+::remove\+Duplicates\+And\+Collinear (\begin{DoxyParamCaption}\item[{std\+::vector$<$ glm\+::vec3 $>$ \&}]{points,  }\item[{float}]{epsilon }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Removes duplicate and collinear points from a polygon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em points} & The polygon. \\
+\hline
+{\em epsilon} & The angular tolerance to establish collinearity.\\
+\hline
+\end{DoxyParams}
+Note that the z component is ignored. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/etien/\+Dev/of\+\_\+v0.\+12.\+0\+\_\+vs\+\_\+release/addons/ofx\+Polygon\+Triangulation/src/of\+Polygon\+Utility.\+h\item 
+C\+:/\+Users/etien/\+Dev/of\+\_\+v0.\+12.\+0\+\_\+vs\+\_\+release/addons/ofx\+Polygon\+Triangulation/src/of\+Polygon\+Utility.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,122 @@
+\doxysection{of\+Split\+To\+Monotone.\+h}
+\hypertarget{of_split_to_monotone_8h_source}{}\label{of_split_to_monotone_8h_source}\index{C:/Users/etien/Dev/of\_v0.12.0\_vs\_release/addons/ofxPolygonTriangulation/src/ofSplitToMonotone.h@{C:/Users/etien/Dev/of\_v0.12.0\_vs\_release/addons/ofxPolygonTriangulation/src/ofSplitToMonotone.h}}
+\mbox{\hyperlink{of_split_to_monotone_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{of_doubly_connected_edge_list_8h}{ofDoublyConnectedEdgeList.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}ofHalfEdgeSweepComparer.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classof_split_to_monotone}{ofSplitToMonotone}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adf}{VertexType}}\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfaa6122a65eaa676f700ae68d393054a37}{Start}},}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa11a755d598c0c417f9a36758c3da7481}{Stop}},}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa8a9e64d86ed12ad40de129bc7f4683b2}{Split}},}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfa68be4837f6c739877233e527a996dd00}{Merge}},}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adfad2203cb1237cb6460cbad94564e39345}{Regular}}}
+\DoxyCodeLine{00028\ \ \ \ \ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classof_split_to_monotone_afb2a4dd0abd017a1856a12e596316adf}{VertexType}}\ \mbox{\hyperlink{classof_split_to_monotone_abee10b500db3563445b5cac589f81939}{classifyVertex}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{ofDoublyConnectedEdgeList::Vertex}}\ \&\ vertex);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classof_split_to_monotone_a608f84021c99b0303e4616e7ca9bdcf9}{execute}}(\mbox{\hyperlink{classof_doubly_connected_edge_list}{ofDoublyConnectedEdgeList}}\ \&\ \mbox{\hyperlink{classof_doubly_connected_edge_list}{dcel}},\ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_face}{ofDoublyConnectedEdgeList::Face}}\ \&\ face);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{class\ }SweepLineStatus\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ getCoordinate()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_Coordinate;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setCoordinate(\textcolor{keywordtype}{float}\ coordinate)\ \{\ m\_Coordinate\ =\ coordinate;\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clear()\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ m\_EdgeToHelperMap.clear();}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ m\_HalfEdges.clear();}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{ofDoublyConnectedEdgeList::Vertex}}\ getHelper(\textcolor{keyword}{const}\ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{ofDoublyConnectedEdgeList::HalfEdge}}\ \&\ edge)\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ m\_EdgeToHelperMap.find(edge);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ m\_EdgeToHelperMap.end())\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Could\ not\ find\ helper."{}});}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ it-\/>second;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ std::map<ofDoublyConnectedEdgeList::HalfEdge,\ ofDoublyConnectedEdgeList::Vertex>::const\_iterator\ EdgesAndHelpersIterator;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ edge\ directly\ to\ the\ left.}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{ofDoublyConnectedEdgeList::HalfEdge}}\ findLeft(\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{ofDoublyConnectedEdgeList::Vertex}}\ vertex)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ oneOrMoreIntersectionFound\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lastIntersectX\ =\ -\/std::numeric\_limits<float>::max();}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{ofDoublyConnectedEdgeList::HalfEdge}}\ leftEdge;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ m\_HalfEdges.begin();\ it\ !=\ m\_HalfEdges.end();\ ++it)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ edge\ =\ *it;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.getDestination()\ ==\ vertex)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ intersectionFound\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ intersect\ =\ \mbox{\hyperlink{structof_half_edge_sweep_comparer_a3ccfe481ba292c391fadfdb861f130db}{ofHalfEdgeSweepComparer::sweepIntersection}}(edge,\ m\_Coordinate,\ intersectionFound);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (intersectionFound\ \&\&\ vertex.getX()\ >\ intersect.x\ \&\&\ intersect.x\ >\ lastIntersectX)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ oneOrMoreIntersectionFound\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lastIntersectX\ =\ intersect.x;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ leftEdge\ =\ edge;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!oneOrMoreIntersectionFound)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Could\ not\ find\ left\ edge."{}});}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ leftEdge;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ emplace(\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{ofDoublyConnectedEdgeList::HalfEdge}}\ edge,\ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{ofDoublyConnectedEdgeList::Vertex}}\ helper)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ m\_EdgeToHelperMap.emplace(edge,\ helper);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ m\_HalfEdges.push\_back(edge);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ std::sort(m\_HalfEdges.begin(),\ m\_HalfEdges.end(),\ \mbox{\hyperlink{structof_half_edge_sweep_comparer}{ofHalfEdgeSweepComparer}}(m\_Coordinate));}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ remove(\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{ofDoublyConnectedEdgeList::HalfEdge}}\ edge)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ m\_EdgeToHelperMap.erase(edge);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ m\_HalfEdges.erase(std::remove(m\_HalfEdges.begin(),\ m\_HalfEdges.end(),\ edge),\ m\_HalfEdges.end());}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ updateHelper(\mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{ofDoublyConnectedEdgeList::HalfEdge}}\ edge,\ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{ofDoublyConnectedEdgeList::Vertex}}\ helper)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ m\_EdgeToHelperMap.find(edge);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ m\_EdgeToHelperMap.end())\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Could\ not\ find\ helper\ edge\ for\ update."{}});}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ m\_EdgeToHelperMap[edge]\ =\ helper;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ std::map<ofDoublyConnectedEdgeList::HalfEdge,\ ofDoublyConnectedEdgeList::Vertex>\ m\_EdgeToHelperMap;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ std::vector<ofDoublyConnectedEdgeList::HalfEdge>\ m\_HalfEdges;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ m\_Coordinate;}
+\DoxyCodeLine{00118\ \ \ \ \ \};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ SweepLineStatus\ m\_SweepLineStatus;}
+\DoxyCodeLine{00121\ \ \ \ \ std::map<std::size\_t,\ VertexType>\ m\_VerticesClassification;}
+\DoxyCodeLine{00122\ \ \ \ \ std::vector<ofDoublyConnectedEdgeList::Vertex>\ m\_Vertices;}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ diagonalToPreviousEdgeHelper(}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classof_doubly_connected_edge_list}{ofDoublyConnectedEdgeList}}\ \&\ \mbox{\hyperlink{classof_doubly_connected_edge_list}{dcel}},}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{ofDoublyConnectedEdgeList::Vertex}}\ \&\ vertex);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ diagonalToLeftEdgeHelper(}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classof_doubly_connected_edge_list}{ofDoublyConnectedEdgeList}}\ \&\ \mbox{\hyperlink{classof_doubly_connected_edge_list}{dcel}},}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_vertex}{ofDoublyConnectedEdgeList::Vertex}}\ \&\ vertex);}
+\DoxyCodeLine{00131\ \};}
+
+\end{DoxyCode}

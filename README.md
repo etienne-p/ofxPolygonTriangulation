@@ -79,3 +79,5 @@ do {
 ```
 
 Triangulation is mainly implemented in 3 classes, reflecting the overall algorithm: `ofSplitToMonotone`, `ofTriangulateMonotone`, and `ofPolygonTriangulation` encapsulating them. These classes, responsible for operating on the doubly connected edge list, typically expose an `execute` method, and do not store a reference to the doubly connected edge list. However they manage required internal data structures and it's more efficient to keep instances of those for reuse rather than instantiate and destroy them whenever triangulation must be computed.
+
+Note that at the moment the Doubly Connected Edge List does not handle holes in the represented polygon.

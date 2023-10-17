@@ -1,0 +1,75 @@
+\doxysection{of\+Half\+Edge\+Sweep\+Comparer Struct Reference}
+\hypertarget{structof_half_edge_sweep_comparer}{}\label{structof_half_edge_sweep_comparer}\index{ofHalfEdgeSweepComparer@{ofHalfEdgeSweepComparer}}
+
+
+A functor implementing the comparison of half edges.  
+
+
+
+
+{\ttfamily \#include $<$of\+Half\+Edge\+Sweep\+Comparer.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structof_half_edge_sweep_comparer_ae57f24ea3d2d6c31e70dea772193151c}{of\+Half\+Edge\+Sweep\+Comparer}} (float sweep\+LineY)
+\begin{DoxyCompactList}\small\item\em Construct a functor with an initial sweep line coordinate. \end{DoxyCompactList}\item 
+\Hypertarget{structof_half_edge_sweep_comparer_abd5750368bdde95ac83b3f28b17cade8}\label{structof_half_edge_sweep_comparer_abd5750368bdde95ac83b3f28b17cade8} 
+bool {\bfseries operator()} (const \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{of\+Doubly\+Connected\+Edge\+List\+::\+Half\+Edge}} \&first, const \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{of\+Doubly\+Connected\+Edge\+List\+::\+Half\+Edge}} \&last)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static glm\+::vec2 \mbox{\hyperlink{structof_half_edge_sweep_comparer_a3ccfe481ba292c391fadfdb861f130db}{sweep\+Intersection}} (const \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{of\+Doubly\+Connected\+Edge\+List\+::\+Half\+Edge}} \&edge, float sweepY, bool \&found)
+\begin{DoxyCompactList}\small\item\em Determines the intersection of the sweep line and an half edge. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A functor implementing the comparison of half edges. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structof_half_edge_sweep_comparer_ae57f24ea3d2d6c31e70dea772193151c}\label{structof_half_edge_sweep_comparer_ae57f24ea3d2d6c31e70dea772193151c} 
+\index{ofHalfEdgeSweepComparer@{ofHalfEdgeSweepComparer}!ofHalfEdgeSweepComparer@{ofHalfEdgeSweepComparer}}
+\index{ofHalfEdgeSweepComparer@{ofHalfEdgeSweepComparer}!ofHalfEdgeSweepComparer@{ofHalfEdgeSweepComparer}}
+\doxysubsubsection{\texorpdfstring{ofHalfEdgeSweepComparer()}{ofHalfEdgeSweepComparer()}}
+{\footnotesize\ttfamily of\+Half\+Edge\+Sweep\+Comparer\+::of\+Half\+Edge\+Sweep\+Comparer (\begin{DoxyParamCaption}\item[{float}]{sweep\+LineY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a functor with an initial sweep line coordinate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sweep\+LineY} & The sweep line coordinate. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structof_half_edge_sweep_comparer_a3ccfe481ba292c391fadfdb861f130db}\label{structof_half_edge_sweep_comparer_a3ccfe481ba292c391fadfdb861f130db} 
+\index{ofHalfEdgeSweepComparer@{ofHalfEdgeSweepComparer}!sweepIntersection@{sweepIntersection}}
+\index{sweepIntersection@{sweepIntersection}!ofHalfEdgeSweepComparer@{ofHalfEdgeSweepComparer}}
+\doxysubsubsection{\texorpdfstring{sweepIntersection()}{sweepIntersection()}}
+{\footnotesize\ttfamily static glm\+::vec2 of\+Half\+Edge\+Sweep\+Comparer\+::sweep\+Intersection (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structof_doubly_connected_edge_list_1_1_half_edge}{of\+Doubly\+Connected\+Edge\+List\+::\+Half\+Edge}} \&}]{edge,  }\item[{float}]{sweepY,  }\item[{bool \&}]{found }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Determines the intersection of the sweep line and an half edge. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em edge} & The half edge. \\
+\hline
+{\em sweepY} & The sweep line coordinate. \\
+\hline
+{\em found} & True if an intersection was found, false otherwise. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The intersection coordinates. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/etien/\+Dev/of\+\_\+v0.\+12.\+0\+\_\+vs\+\_\+release/addons/ofx\+Polygon\+Triangulation/src/of\+Half\+Edge\+Sweep\+Comparer.\+h\end{DoxyCompactItemize}

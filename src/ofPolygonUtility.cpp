@@ -1,5 +1,6 @@
 #include "ofPolygonUtility.h"
 #include "ofMain.h"
+#include <glm/gtx/vector_angle.hpp>
 
 void ofPolygonUtility::createPolygonRandom(std::vector<glm::vec3> & points) {
 	constexpr auto angleNoiseY = 0.4f;
@@ -52,4 +53,46 @@ void ofPolygonUtility::createPolygonRandomMonotone(std::vector<glm::vec3> & poin
 		noiseX += noiseDx;
 		yAcc += dY;
 	}
+}
+
+template <typename vecN>
+void ofPolygonUtility::removeDuplicatesAndCollinear(std::vector<vecN> & points, float epsilon) {
+	while (points.size() > 3) {
+		auto rmIndex = -1;
+		auto count = points.size();
+		for (auto i = 0; i != count; ++i) {
+			auto point = points[i];
+			auto nextPoint = points[(i + 1) % count];
+
+			// Remove duplicates.
+			if (abs(point.x - nextPoint.x) < epsilon && abs(point.y - nextPoint.y) < epsilon) {
+				rmIndex = i;
+				break;
+			}
+
+			// Remove collinear.
+			auto prev = points[(i + count - 1) % count];
+			auto dPrev = glm::normalize(point - prev);
+			auto dNext = glm::normalize(nextPoint - point);
+			if (glm::angle(dPrev, dNext) < epsilon) {
+				rmIndex = i;
+				break;
+			}
+		}
+
+		// Nothing left to do, exit.
+		if (rmIndex == -1) {
+			break;
+		}
+
+		points.erase(points.begin() + rmIndex);
+	}
+}
+
+void ofPolygonUtility::removeDuplicatesAndCollinear(std::vector<glm::vec2> & points, float epsilon) {
+	removeDuplicatesAndCollinear<glm::vec2>(points, epsilon);
+}
+
+void ofPolygonUtility::removeDuplicatesAndCollinear(std::vector<glm::vec3> & points, float epsilon) {
+	removeDuplicatesAndCollinear<glm::vec3>(points, epsilon);
 }

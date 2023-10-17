@@ -20,4 +20,20 @@ public:
 	///
 	/// Despite the use of random numbers the function is deterministic.
 	static void createPolygonRandomMonotone(std::vector<glm::vec3> & points);
+
+	/// @brief Removes duplicate and collinear points from a polygon.
+	/// @param points The polygon.
+	/// @param epsilon The angular tolerance to establish collinearity.
+	static void removeDuplicatesAndCollinear(std::vector<glm::vec2> & points, float epsilon);
+
+	/// @brief Removes duplicate and collinear points from a polygon.
+	/// @param points The polygon.
+	/// @param epsilon The angular tolerance to establish collinearity.
+	///
+	/// Note that the z component is ignored.
+	static void removeDuplicatesAndCollinear(std::vector<glm::vec3> & points, float epsilon);
+
+private:
+	template <typename vecN>
+	static void removeDuplicatesAndCollinear(std::vector<vecN> & points, float epsilon);
 };
