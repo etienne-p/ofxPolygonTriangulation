@@ -152,7 +152,7 @@ private:
 
 	bool tryFindSharedFace(
 		const Vertex & vertexA, const Vertex & vertexB,
-		HalfEdge & halfEdgeA, HalfEdge & halfEdgeB);
+		HalfEdge & halfEdgeA, HalfEdge & halfEdgeB) const;
 
 	// Private template, DRY but safe API.
 	template <class vecN>

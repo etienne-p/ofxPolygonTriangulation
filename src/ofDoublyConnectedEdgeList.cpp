@@ -104,7 +104,7 @@ ofPolygonWindingOrder dcel::getWindingOrder(const std::vector<glm::vec2> & verti
 
 bool dcel::tryFindSharedFace(
 	const dcel::Vertex & vertexA, const dcel::Vertex & vertexB,
-	dcel::HalfEdge & halfEdgeA, dcel::HalfEdge & halfEdgeB) {
+	dcel::HalfEdge & halfEdgeA, dcel::HalfEdge & halfEdgeB) const {
 	// Iterate over A's faces, try to find a matching face for B.
 	halfEdgeA = vertexA.getIncidentEdge();
 	halfEdgeB = vertexB.getIncidentEdge();
