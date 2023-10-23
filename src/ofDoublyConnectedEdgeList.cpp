@@ -1,5 +1,6 @@
 #include "ofDoublyConnectedEdgeList.h"
 #include <cassert>
+#include <glm/gtx/vector_angle.hpp>
 #include <stdexcept>
 
 // Lighten below code.
@@ -100,6 +101,38 @@ ofPolygonWindingOrder dcel::getWindingOrder(const std::vector<glm::vec3> & verti
 
 ofPolygonWindingOrder dcel::getWindingOrder(const std::vector<glm::vec2> & vertices) {
 	return dcel::getWindingOrder<glm::vec2>(vertices);
+}
+
+// Calculates the oriented angle,
+// returning the result in the [0, 2PI] range,
+// instead of the [-PI, PI] range.
+float angle(glm::vec2 a, glm::vec2 b) {
+	auto angle = glm::orientedAngle(a, b);
+	if (angle < 0) {
+		return angle + 2.0f * glm::pi<float>();
+	}
+	return angle;
+}
+
+float dcel::findMaxInnerAngle(ofDoublyConnectedEdgeList & dcel, const Face & face, HalfEdge & halfEdge) {
+	// Find maximal inner angle.
+	auto it = ofDoublyConnectedEdgeList::HalfEdgesIterator(face);
+	auto prevDir = glm::vec2();
+	auto currentDir = glm::normalize(it.getCurrent().getPrev().getDirection());
+	auto maxInnerAngle = 0.0f;
+
+	do {
+		prevDir = currentDir;
+		currentDir = glm::normalize(it.getCurrent().getDirection());
+		auto innerAngle = angle(currentDir, - prevDir);
+		if (maxInnerAngle < innerAngle) {
+			maxInnerAngle = innerAngle;
+			halfEdge = it.getCurrent();
+		}
+
+	} while (it.moveNext());
+
+	return maxInnerAngle;
 }
 
 bool dcel::tryFindSharedFace(

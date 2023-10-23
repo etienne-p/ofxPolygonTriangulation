@@ -233,6 +233,13 @@ public:
 	/// The 3rd dimensions is ignored and accepted as a parameter for compatibility reasons.
 	static ofPolygonWindingOrder getWindingOrder(const std::vector<glm::vec3> & vertices);
 
+	/// @brief Finds the maximal inner angle within a face.
+	/// @param dcel The doubly connected edge list.
+	/// @param face The face to examine.
+	/// @param halfEdge The half edge whose origin has the maximal inner angle.
+	/// @return The maximal inner angle.
+	static float findMaxInnerAngle(ofDoublyConnectedEdgeList & dcel, const Face & face, HalfEdge & halfEdge);
+
 	/// @brief A utility to iterate over the half edges of a face.
 	///
 	/// Note that this is not an iterator as understood by the standard library.

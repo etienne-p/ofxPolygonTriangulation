@@ -1,5 +1,5 @@
-#include <glm/gtx/vector_angle.hpp>
 #include "ofPolygonTriangulation.h"
+#include <glm/gtx/vector_angle.hpp>
 
 enum class FaceType {
 	Triangle,
@@ -44,36 +44,10 @@ FaceType getFaceType(ofDoublyConnectedEdgeList::Face face) {
 	return FaceType::Polygon;
 }
 
-// Calculates the oriented angle, 
-// returning the result in the [0, 2PI] range,
-// instead of the [-PI, PI] range.
-float angle(glm::vec2 a, glm::vec2 b) {
-	auto angle = glm::orientedAngle(a, b);
-	if (angle < 0) {
-		return angle + 2.0f * glm::pi<float>();
-	}
-	return angle;
-}
-
 void triangulateQuad(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face face) {
 	// Find maximal inner angle.
-	auto it = ofDoublyConnectedEdgeList::HalfEdgesIterator(face);
-	auto prevDir = glm::vec2();
-	auto currentDir = glm::normalize(it.getCurrent().getPrev().getDirection());
 	auto maxInnerAngleEdge = ofDoublyConnectedEdgeList::HalfEdge();
-	auto maxInnerAngle = 0.0f;
-
-	do {
-		prevDir = currentDir;
-		currentDir = glm::normalize(it.getCurrent().getDirection());
-		auto innerAngle = angle(currentDir, prevDir);
-		if (maxInnerAngle < innerAngle)
-		{
-			maxInnerAngle = innerAngle;
-			maxInnerAngleEdge = it.getCurrent();
-		}
-
-	} while (it.moveNext());
+	ofDoublyConnectedEdgeList::findMaxInnerAngle(dcel, face, maxInnerAngleEdge);
 
 	// Add a diagonal starting at the max inner angle vertex.
 	dcel.addHalfEdge(maxInnerAngleEdge, maxInnerAngleEdge.getNext().getNext());

@@ -15,7 +15,71 @@ private:
 					  << " ))====";
 	}
 
+	bool ApproximatelyEqual(float a, float b, float epsilon = 1e-6f)
+	{
+		return glm::abs(a - b) < epsilon;
+	}
+
 public:
+	void TestWindingOrder() {
+		title("Testing Winding Order");
+
+		vector<glm::vec2> points = {
+			{ 0, 0 },
+			{ 1, 0 },
+			{ 1, 1 },
+			{ 0, 1 }
+		};
+
+		{
+			auto windingOrder = ofDoublyConnectedEdgeList::getWindingOrder(points);
+			ofxTest(windingOrder == ofPolygonWindingOrder::CounterClockWise, "Correct polygon winding order.");
+		}
+		{
+			auto dcel = ofDoublyConnectedEdgeList();
+			dcel.initializeFromCCWVertices(points);
+			auto windingOrder = ofDoublyConnectedEdgeList::getWindingOrder(dcel.getInnerFace());
+			ofxTest(windingOrder == ofPolygonWindingOrder::CounterClockWise, "Correct dcel winding order.");
+		}
+
+		std::reverse(points.begin(), points.end());
+
+		{
+			auto windingOrder = ofDoublyConnectedEdgeList::getWindingOrder(points);
+			ofxTest(windingOrder == ofPolygonWindingOrder::ClockWise, "Correct polygon winding order.");
+		}
+		{
+			auto dcel = ofDoublyConnectedEdgeList();
+			bool trew = false;
+			try {
+				dcel.initializeFromCCWVertices(points);
+			} catch (std::runtime_error error) {
+				trew = true;
+			}
+
+			ofxTest(trew, "Initialize dcel with clockwise vertices throws.");
+		}
+	}
+
+	void TestMaxInnerAngle() {
+		title("Testing Max Inner Angle");
+
+		vector<glm::vec2> points = {
+			{ 0, 3 },
+			{ -1, -1 },
+			{ 3, 0 },
+			{ 0, 0 }
+		};
+
+		auto dcel = ofDoublyConnectedEdgeList();
+		dcel.initializeFromCCWVertices(points);
+
+		auto halfEdge = ofDoublyConnectedEdgeList::HalfEdge();
+		auto innerAngle = ofDoublyConnectedEdgeList::findMaxInnerAngle(dcel, dcel.getInnerFace(), halfEdge);
+
+		ofxTest(ApproximatelyEqual(innerAngle, 1.5f * glm::pi<float>()), "Correct max inner angle.");
+	}
+
 	void TestPolygonSimplification() {
 		title("Testing Polygon Simplification");
 
@@ -316,6 +380,8 @@ public:
 	}
 
 	void run() {
+		TestWindingOrder();
+		TestMaxInnerAngle();
 		TestPolygonSimplification();
 		TestDcelConstruction();
 		TestDcelSplitFaceAdjacentFails();
