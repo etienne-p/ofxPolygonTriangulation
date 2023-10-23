@@ -1,26 +1,12 @@
 #include "ofPolygonTriangulation.h"
 #include <glm/gtx/vector_angle.hpp>
 
+// Used to identify trivial polygons.
 enum class FaceType {
 	Triangle,
 	Quad,
 	Polygon
 };
-
-bool isTriangle(ofDoublyConnectedEdgeList::Face face) {
-	const auto firstEdge = face.getOuterComponent();
-	auto edge = firstEdge;
-
-	// Jump along the 2 next edges.
-	edge = edge.getNext().getNext();
-
-	// If the current edge point to the first, we have 3 edges and a triangle.
-	if (edge.getNext() == firstEdge) {
-		return true;
-	}
-
-	return false;
-}
 
 FaceType getFaceType(ofDoublyConnectedEdgeList::Face face) {
 	const auto firstEdge = face.getOuterComponent();
@@ -61,11 +47,7 @@ void ofPolygonTriangulation::execute(ofDoublyConnectedEdgeList & dcel) {
 
 	do {
 		auto face = facesIterator.getCurrent();
-		// Bypass already triangulated faces.
-		if (isTriangle(face)) {
-			continue;
-		}
-
+		
 		switch (getFaceType(face)) {
 		case FaceType::Triangle:
 			// Bypass already triangulated faces.
