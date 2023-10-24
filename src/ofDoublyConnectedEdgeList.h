@@ -168,6 +168,10 @@ private:
 	static constexpr int k_InnerFaceIndex = 1;
 
 public:
+	/// @brief Returns the total number of vertices.
+	/// @return The number of vertices.
+	inline std::size_t getNumVertices() const { return m_VerticesPosition.size(); };
+
 	/// @brief Exposes the inner face of the doubly connected edge list.
 	/// @return The inner face of the doubly connected edge list.
 	Face getInnerFace();

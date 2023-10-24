@@ -118,7 +118,7 @@ private:
 	};
 
 	SweepLineStatus m_SweepLineStatus;
-	std::map<index_t, VertexType> m_VerticesClassification;
+	std::vector<VertexType> m_VerticesClassification;
 	std::vector<ofDoublyConnectedEdgeList::Vertex> m_Vertices;
 
 	void diagonalToPreviousEdgeHelper(

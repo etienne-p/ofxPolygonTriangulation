@@ -53,12 +53,14 @@ void ofSplitToMonotone::diagonalToLeftEdgeHelper(
 }
 
 void ofSplitToMonotone::execute(ofDoublyConnectedEdgeList & dcel, ofDoublyConnectedEdgeList::Face & face) {
+	m_VerticesClassification.resize(dcel.getNumVertices());
+	
 	// Collect and label vertices on face.
 	auto edge = face.getOuterComponent();
 	do {
 		auto vertex = edge.getOrigin();
 		m_Vertices.push_back(vertex);
-		m_VerticesClassification.emplace(vertex.getIndex(), classifyVertex(vertex));
+		m_VerticesClassification[vertex.getIndex()] = classifyVertex(vertex);
 		edge = edge.getNext();
 	} while (edge != face.getOuterComponent());
 
