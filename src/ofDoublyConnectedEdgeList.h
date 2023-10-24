@@ -59,12 +59,12 @@ public:
 
 		inline index_t getIndex() const { return m_Index; }
 
-		inline glm::vec2 getPosition() const { return m_Dcel->m_Vertices[m_Index].position; }
+		inline glm::vec2 getPosition() const { return m_Dcel->m_VerticesPosition[m_Index]; }
 		inline float getX() const { return getPosition().x; }
 		inline float getY() const { return getPosition().y; }
 
-		inline Chain getChain() const { return m_Dcel->m_Vertices[m_Index].chain; }
-		inline void setChain(Chain chain) { m_Dcel->m_Vertices[m_Index].chain = chain; }
+		inline Chain getChain() const { return m_Dcel->m_VerticesChain[m_Index]; }
+		inline void setChain(Chain chain) { m_Dcel->m_VerticesChain[m_Index] = chain; }
 
 		HalfEdge getIncidentEdge() const;
 		void setIncidentEdge(const HalfEdge & halfEdge);
@@ -89,14 +89,14 @@ public:
 
 		inline index_t getIndex() const { return m_Index; }
 
-		inline HalfEdge getTwin() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].twin); }
-		inline void setTwin(const HalfEdge & halfEdge) { m_Dcel->m_Edges[m_Index].twin = halfEdge.getIndex(); }
+		inline HalfEdge getTwin() const { return HalfEdge(m_Dcel, m_Dcel->m_HalfEdgesTwin[m_Index]); }
+		inline void setTwin(const HalfEdge & halfEdge) { m_Dcel->m_HalfEdgesTwin[m_Index] = halfEdge.getIndex(); }
 
-		inline HalfEdge getPrev() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].prev); }
-		inline void setPrev(const HalfEdge & halfEdge) { m_Dcel->m_Edges[m_Index].prev = halfEdge.getIndex(); }
+		inline HalfEdge getPrev() const { return HalfEdge(m_Dcel, m_Dcel->m_HalfEdgesPrev[m_Index]); }
+		inline void setPrev(const HalfEdge & halfEdge) { m_Dcel->m_HalfEdgesPrev[m_Index] = halfEdge.getIndex(); }
 
-		inline HalfEdge getNext() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].next); }
-		inline void setNext(const HalfEdge & halfEdge) { m_Dcel->m_Edges[m_Index].next = halfEdge.getIndex(); }
+		inline HalfEdge getNext() const { return HalfEdge(m_Dcel, m_Dcel->m_HalfEdgesNext[m_Index]); }
+		inline void setNext(const HalfEdge & halfEdge) { m_Dcel->m_HalfEdgesNext[m_Index] = halfEdge.getIndex(); }
 
 		Vertex getOrigin() const;
 		void setOrigin(const Vertex & vertex);
@@ -134,23 +134,20 @@ public:
 	};
 
 private:
-	struct VertexData {
-		glm::vec2 position;
-		Chain chain;
-		index_t incidentEdge;
-	};
+	// Vertices.
+	std::vector<glm::vec2> m_VerticesPosition;
+	std::vector<Chain> m_VerticesChain;
+	std::vector<index_t> m_VerticesIncidentEdge;
 
-	struct FaceData {
-		index_t outerComponent;
-	};
+	// Faces.
+	std::vector<index_t> m_FacesOuterComponent;
 
-	struct HalfEdgeData {
-		index_t origin;
-		index_t incidentFace;
-		index_t twin;
-		index_t prev;
-		index_t next;
-	};
+	// Half edges.
+	std::vector<index_t> m_HalfEdgesOrigin;
+	std::vector<index_t> m_HalfEdgesIncidentFace;
+	std::vector<index_t> m_HalfEdgesTwin;
+	std::vector<index_t> m_HalfEdgesPrev;
+	std::vector<index_t> m_HalfEdgesNext;
 
 	bool tryFindSharedFace(
 		const Vertex & vertexA, const Vertex & vertexB,
@@ -169,10 +166,6 @@ private:
 	// The indices we choose are a convention on our part.
 	static constexpr int k_OuterFaceIndex = 0;
 	static constexpr int k_InnerFaceIndex = 1;
-
-	std::vector<VertexData> m_Vertices;
-	std::vector<HalfEdgeData> m_Edges;
-	std::vector<FaceData> m_Faces;
 
 public:
 	/// @brief Exposes the inner face of the doubly connected edge list.
@@ -285,7 +278,7 @@ public:
 			, m_Index(k_InnerFaceIndex) { }
 		inline Face getCurrent() const { return m_Current; }
 		inline bool moveNext() {
-			if (m_Index < m_Dcel->m_Faces.size() - 1) {
+			if (m_Index < m_Dcel->m_FacesOuterComponent.size() - 1) {
 				++m_Index;
 				m_Current = Face(m_Dcel, m_Index);
 				return true;
