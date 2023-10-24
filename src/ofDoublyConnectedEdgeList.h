@@ -15,6 +15,8 @@ enum class ofPolygonWindingOrder {
 	CounterClockWise,
 };
 
+using index_t = std::size_t;
+
 /// @brief A class implementing a doubly connected edge list data structure.
 class ofDoublyConnectedEdgeList {
 private:
@@ -51,11 +53,11 @@ public:
 		Vertex()
 			: m_Dcel(nullptr)
 			, m_Index(0) { }
-		Vertex(ofDoublyConnectedEdgeList * dcel, std::size_t index)
+		Vertex(ofDoublyConnectedEdgeList * dcel, index_t index)
 			: m_Dcel(dcel)
 			, m_Index(index) { }
 
-		inline std::size_t getIndex() const { return m_Index; }
+		inline index_t getIndex() const { return m_Index; }
 
 		inline glm::vec2 getPosition() const { return m_Dcel->m_Vertices[m_Index].position; }
 		inline float getX() const { return getPosition().x; }
@@ -68,7 +70,7 @@ public:
 		void setIncidentEdge(const HalfEdge & halfEdge);
 
 	private:
-		std::size_t m_Index;
+		index_t m_Index;
 		ofDoublyConnectedEdgeList * m_Dcel;
 	};
 
@@ -78,14 +80,14 @@ public:
 		HalfEdge()
 			: m_Dcel(nullptr)
 			, m_Index(0) { }
-		HalfEdge(ofDoublyConnectedEdgeList * dcel, std::size_t index)
+		HalfEdge(ofDoublyConnectedEdgeList * dcel, index_t index)
 			: m_Dcel(dcel)
 			, m_Index(index) { }
 		HalfEdge(const HalfEdge & other)
 			: m_Dcel(other.m_Dcel)
 			, m_Index(other.m_Index) { }
 
-		inline std::size_t getIndex() const { return m_Index; }
+		inline index_t getIndex() const { return m_Index; }
 
 		inline HalfEdge getTwin() const { return HalfEdge(m_Dcel, m_Dcel->m_Edges[m_Index].twin); }
 		inline void setTwin(const HalfEdge & halfEdge) { m_Dcel->m_Edges[m_Index].twin = halfEdge.getIndex(); }
@@ -107,7 +109,7 @@ public:
 		glm::vec2 getDirection() const;
 
 	private:
-		std::size_t m_Index;
+		index_t m_Index;
 		ofDoublyConnectedEdgeList * m_Dcel;
 	};
 
@@ -117,17 +119,17 @@ public:
 		Face()
 			: m_Dcel(nullptr)
 			, m_Index(0) { }
-		Face(ofDoublyConnectedEdgeList * dcel, std::size_t index)
+		Face(ofDoublyConnectedEdgeList * dcel, index_t index)
 			: m_Dcel(dcel)
 			, m_Index(index) { }
 
-		inline std::size_t getIndex() const { return m_Index; }
+		inline index_t getIndex() const { return m_Index; }
 
 		inline HalfEdge getOuterComponent() const;
 		inline void setOuterComponent(const HalfEdge & halfEdge);
 
 	private:
-		std::size_t m_Index;
+		index_t m_Index;
 		ofDoublyConnectedEdgeList * m_Dcel;
 	};
 
@@ -135,19 +137,19 @@ private:
 	struct VertexData {
 		glm::vec2 position;
 		Chain chain;
-		std::size_t incidentEdge;
+		index_t incidentEdge;
 	};
 
 	struct FaceData {
-		std::size_t outerComponent;
+		index_t outerComponent;
 	};
 
 	struct HalfEdgeData {
-		std::size_t origin;
-		std::size_t incidentFace;
-		std::size_t twin;
-		std::size_t prev;
-		std::size_t next;
+		index_t origin;
+		index_t incidentFace;
+		index_t twin;
+		index_t prev;
+		index_t next;
 	};
 
 	bool tryFindSharedFace(
@@ -245,7 +247,7 @@ public:
 	/// Note that this is not an iterator as understood by the standard library.
 	struct HalfEdgesIterator {
 	private:
-		const std::size_t m_InitialIndex;
+		index_t m_InitialIndex;
 		HalfEdge m_Current;
 
 	public:
@@ -273,7 +275,7 @@ public:
 	private:
 		ofDoublyConnectedEdgeList * m_Dcel;
 		Face m_Current;
-		std::size_t m_Index;
+		index_t m_Index;
 
 	public:
 		// Note that we bypass the outer face by starting at the inner index.
@@ -299,7 +301,7 @@ public:
 	/// The outer face is bypassed.
 	struct FacesOnVertexIterator {
 	private:
-		const std::size_t m_IncidentEdgeIndex;
+		const index_t m_IncidentEdgeIndex;
 		HalfEdge m_Current;
 
 	public:
