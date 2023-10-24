@@ -38,7 +38,7 @@ dcel::HalfEdge dcel::Face::getOuterComponent() const {
 	return dcel::HalfEdge(m_Dcel, m_Dcel->m_Faces[m_Index].outerComponent);
 }
 
-inline void dcel::Face::setOuterComponent(const dcel::HalfEdge & halfEdge) {
+void dcel::Face::setOuterComponent(const dcel::HalfEdge & halfEdge) {
 	m_Dcel->m_Faces[m_Index].outerComponent = halfEdge.getIndex();
 }
 

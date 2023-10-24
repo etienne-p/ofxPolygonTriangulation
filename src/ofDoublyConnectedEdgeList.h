@@ -125,8 +125,8 @@ public:
 
 		inline index_t getIndex() const { return m_Index; }
 
-		inline HalfEdge getOuterComponent() const;
-		inline void setOuterComponent(const HalfEdge & halfEdge);
+		HalfEdge getOuterComponent() const;
+		void setOuterComponent(const HalfEdge & halfEdge);
 
 	private:
 		index_t m_Index;
