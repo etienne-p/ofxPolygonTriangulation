@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['merge_0',['Merge',['../classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfa68be4837f6c739877233e527a996dd00',1,'ofSplitToMonotone']]]
+  ['left_0',['Left',['../classof_doubly_connected_edge_list.html#a7c08c99c641d37568d57d09a98b9d0f5a945d5e233cf7d6240f6b783b36a374ff',1,'ofDoublyConnectedEdgeList']]]
 ];

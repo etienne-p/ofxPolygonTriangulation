@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ofxPolygonTriangulation: Main Page</title>
+<title>ofxPolygonTriangulation: ofxPolygonTriangulation</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,6 +27,7 @@
   <td id="projectalign">
    <div id="projectname">ofxPolygonTriangulation
    </div>
+   <div id="projectbrief">An OpenFrameworks addon for Computational Geometry.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,22 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -68,14 +89,81 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">ofxPolygonTriangulation Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">ofxPolygonTriangulation </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md__c_1_2_users_2etien_2_dev_2of__v0_812_80__vs__release_2addons_2ofx_polygon_triangulation_2_r_e_a_d_m_e"></a> This an OpenFrameworks addon for Computational Geometry. At present it features a Doubly Connected Edge List and Polygon Triangulation. It is mainly based on the book <a href="https://link.springer.com/book/10.1007/978-3-540-77974-2">Computational Geometry Algorithms and Applications</a>. The addon comes with an example, unit tests, and doxygen generated documentation.</p>
+<p>We developed the addon with OpenFrameworks 0.12.0, however we expect easy compatibility with other versions as dependencies are very limited and we essentially lean on basic standard library features. We generally stick to OpenFrameworks conventions.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Example</h1>
+<p>The example allows users to:</p>
+<ul>
+<li>Select the number of points for a procedurally generated polygon.</li>
+<li>Whether or not that polygon is monotone.</li>
+<li>Whether or not it is displayed as wireframe.</li>
+<li>Splitting the polygon to monotone polygons.</li>
+<li>Fully triangulating the polygon.</li>
+</ul>
+<p><img src="./images/example.gif" alt="Example" class="inline"/></p>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Usage</h1>
+<p>Triangulating a polygon is done as follows:</p>
+<div class="fragment"><div class="line">// The polygon as a vector of vec2 or vec3 points.</div>
+<div class="line">// These are expected to be in counter clockwise order,</div>
+<div class="line">// if not, an error will be thrown.</div>
+<div class="line">vector&lt;glm::vec3&gt; m_Polygon;</div>
+<div class="line"> </div>
+<div class="line">// The doubly connected edge list.</div>
+<div class="line">ofDoublyConnectedEdgeList m_Dcel;</div>
+<div class="line"> </div>
+<div class="line">// The triangulation class.</div>
+<div class="line">ofPolygonTriangulation m_Triangulation;</div>
+<div class="line"> </div>
+<div class="line">// A mesh to write the triangulation to.</div>
+<div class="line">ofMesh m_Mesh;</div>
+<div class="line"> </div>
+<div class="line">// Vectors holding the geometry vertices and indices.</div>
+<div class="line">vector&lt;glm::vec3&gt; m_Vertices;</div>
+<div class="line">vector&lt;ofIndexType&gt; m_Indices;</div>
+<div class="line"> </div>
+<div class="line">// Initialize the doubly connected edge list based on the polygon.</div>
+<div class="line">m_Dcel.initializeFromCCWVertices(m_Vertices);</div>
+<div class="line"> </div>
+<div class="line">// Triangulate the doubly connected edge list.</div>
+<div class="line">m_Triangulation.execute(m_Dcel);</div>
+<div class="line"> </div>
+<div class="line">// Write the calculated triangulation to the geometry buffers.</div>
+<div class="line">m_Dcel.extractTriangles(m_Vertices, m_Indices);</div>
+<div class="line"> </div>
+<div class="line">// Update the mesh geometry.</div>
+<div class="line">m_Mesh.clear();</div>
+<div class="line">m_Mesh.addVertices(m_Vertices);</div>
+<div class="line">m_Mesh.addIndices(m_Indices);</div>
+</div><!-- fragment --><p>It is possible to work with the inner steps of polygon triangulation directly. Namely, splitting a polygon to monotone polygons and triangulating a monotone polygon. This is expected to be a niche usage and we refer to the documentation as well as tests and example code for these usages.</p>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Design</h1>
+<p>The core component is the doubly connected edge list, <code><a class="el" href="classof_doubly_connected_edge_list.html" title="A class implementing a doubly connected edge list data structure.">ofDoublyConnectedEdgeList</a></code>. We store all data in collections of properties of vertices, half edges and faces. This avoids allocating each element independently, and allows us to connect these elements using indices rather than pointers. The goal is to have a straightforward data oriented design, making it easy to reason about memory layout. The Doubly Connected Edge List can then trivially be copied for example. We can also add properties to elements without slowing down other parts of the code as the corresponding memory is only accessed when needed. For code readability and to provide an easy to work with API, we introduce a concept of handles to elements.</p>
+<p>For example, a vertex' properties are stored in collections of positions, chains, and incident half edges. It is manipulated using its handle, <code>Vertex</code>, so that we can write <code>vertex.getIncidentEdge().getIncidentFace()</code>. The handle only stores a pointer to the doubly connected edge list and the index of its data in the collections it belongs to. Internally, the handle manipulates the collections:</p>
+<div class="fragment"><div class="line">dcel::HalfEdge dcel::Vertex::getIncidentEdge() const {</div>
+<div class="line">    return dcel::HalfEdge(m_Dcel, m_Dcel-&gt;m_VerticesIncidentEdge[m_Index]);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>We need to circulate over the doubly connected edge list, for example, iterating over the half edges of a face, or over the faces adjacent to a vertex. We implemented iterators for these scenarios, such as <code>FacesOnVertexIterator</code>. These aren't full fledged iterators as C++ understands them. Such an implementation would have been needlessly convoluted. Rather we use a very simple interface:</p>
+<div class="fragment"><div class="line">auto it = dcel::FacesOnVertexIterator(vertex);</div>
+<div class="line">do {</div>
+<div class="line">    // Access the current element.</div>
+<div class="line">    it.getCurrent();</div>
+<div class="line">} while (it.moveNext()); // Move to the next element, if any.</div>
+</div><!-- fragment --><p>Triangulation is mainly implemented in 3 classes, reflecting the overall algorithm: <code><a class="el" href="classof_split_to_monotone.html" title="A class implementing the split of a polygon into monotone polygons.">ofSplitToMonotone</a></code>, <code><a class="el" href="classof_triangulate_monotone.html" title="A class implementing the triangulation of monotone polygons.">ofTriangulateMonotone</a></code>, and <code><a class="el" href="classof_polygon_triangulation.html" title="A class implementing polygon triangulation.">ofPolygonTriangulation</a></code> encapsulating them. These classes, responsible for operating on the doubly connected edge list, typically expose an <code>execute</code> method, and do not store a reference to the doubly connected edge list. However they manage required internal data structures and it's more efficient to keep instances of those for reuse rather than instantiate and destroy them whenever triangulation must be computed.</p>
+<p>Note that at the moment the Doubly Connected Edge List does not handle holes in the represented polygon. </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,6 +27,7 @@
   <td id="projectalign">
    <div id="projectname">ofxPolygonTriangulation
    </div>
+   <div id="projectbrief">An OpenFrameworks addon for Computational Geometry.</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classof_doubly_connected_edge_list.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -67,7 +89,6 @@ $(function() {
 </div>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">ofDoublyConnectedEdgeList Member List</div></div>
 </div><!--header-->
@@ -79,8 +100,10 @@ $(function() {
   <tr class="odd"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#ae48437ff77fd369020603ca971f78d9e">addHalfEdge</a>(HalfEdge &amp;edgeA, HalfEdge &amp;edgeB)</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#a7c08c99c641d37568d57d09a98b9d0f5">Chain</a> enum name</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#a85e950859c8902402e0ec0b84da21c28">extractTriangles</a>(std::vector&lt; glm::vec3 &gt; &amp;vertices, std::vector&lt; unsigned int &gt; &amp;indices)</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#a857d51ac551f4dc0d8b51f706eff9a0a">getInnerFace</a>()</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#aecd77b0794640121395b7926e4acec5c">getInnerFaceIndex</a>()</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#a5f9cf4511039752be9c1c9360781b451">findMaxInnerAngle</a>(ofDoublyConnectedEdgeList &amp;dcel, const Face &amp;face, HalfEdge &amp;halfEdge)</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#a857d51ac551f4dc0d8b51f706eff9a0a">getInnerFace</a>()</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#aecd77b0794640121395b7926e4acec5c">getInnerFaceIndex</a>()</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#a2a7173fdaedd89f9c0fb71a7a9750f72">getNumVertices</a>() const</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#a242c699bdaf05e7fab48ae05c05a47d6">getOuterFaceIndex</a>()</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#a68bc74b802212193f6c90cc94d5e4d28">getWindingOrder</a>(const Face &amp;face)</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#a347fdfd82a809393321a8292436b037f">getWindingOrder</a>(const std::vector&lt; glm::vec2 &gt; &amp;vertices)</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
@@ -88,9 +111,12 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#ae94bbda3ff0fe1edaac3b44a04a34da6">initializeFromCCWVertices</a>(const std::vector&lt; glm::vec2 &gt; &amp;vertices)</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html#ab1b3aad64207e9e1ef602b934b9b8379">initializeFromCCWVertices</a>(const std::vector&lt; glm::vec3 &gt; &amp;vertices)</td><td class="entry"><a class="el" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
 </body>
 </html>

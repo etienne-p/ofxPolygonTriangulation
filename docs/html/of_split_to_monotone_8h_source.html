@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ofxPolygonTriangulation: C:/Users/etien/Dev/of_v0.12.0_vs_release/addons/ofxPolygonTriangulation/src/ofSplitToMonotone.h Source File</title>
+<title>ofxPolygonTriangulation: ofSplitToMonotone.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,6 +27,7 @@
   <td id="projectalign">
    <div id="projectname">ofxPolygonTriangulation
    </div>
+   <div id="projectbrief">An OpenFrameworks addon for Computational Geometry.</div>
   </td>
  </tr>
  </tbody>
@@ -51,6 +56,23 @@ $(function() {
 $(document).ready(function() { init_codefold(0); });
 /* @license-end */
 </script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('of_split_to_monotone_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -72,11 +94,6 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_1233bc0a3e869c10318208e4553a4fcb.html">addons</a></li><li class="navelem"><a class="el" href="dir_9ac95c46f2a9863ac64b48c0ab65e4f0.html">ofxPolygonTriangulation</a></li><li class="navelem"><a class="el" href="dir_a2f8c89ca6bc73832bcefca4dedf6751.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">ofSplitToMonotone.h</div></div>
 </div><!--header-->
@@ -85,142 +102,151 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="of_doubly_connected_edge_list_8h.html">ofDoublyConnectedEdgeList.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;ofHalfEdgeSweepComparer.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classof_split_to_monotone.html">   14</a></span><span class="keyword">class </span><a class="code hl_class" href="classof_split_to_monotone.html">ofSplitToMonotone</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adf">   17</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adf">VertexType</a> {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <a class="code hl_enumvalue" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfaa6122a65eaa676f700ae68d393054a37">Start</a>,</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_enumvalue" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfa11a755d598c0c417f9a36758c3da7481">Stop</a>,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_enumvalue" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfa8a9e64d86ed12ad40de129bc7f4683b2">Split</a>,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_enumvalue" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfa68be4837f6c739877233e527a996dd00">Merge</a>,</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_enumvalue" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfad2203cb1237cb6460cbad94564e39345">Regular</a></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    };</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;ofHalfEdgeSweepComparer.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classof_split_to_monotone.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="classof_split_to_monotone.html">ofSplitToMonotone</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adf">   16</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adf">VertexType</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_enumvalue" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfaa6122a65eaa676f700ae68d393054a37">Start</a>,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_enumvalue" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfa11a755d598c0c417f9a36758c3da7481">Stop</a>,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_enumvalue" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfa8a9e64d86ed12ad40de129bc7f4683b2">Split</a>,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_enumvalue" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfa68be4837f6c739877233e527a996dd00">Merge</a>,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_enumvalue" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfad2203cb1237cb6460cbad94564e39345">Regular</a></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    };</div>
 </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">static</span> <a class="code hl_enumeration" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adf">VertexType</a> <a class="code hl_function" href="classof_split_to_monotone.html#abee10b500db3563445b5cac589f81939">classifyVertex</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> &amp; vertex);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classof_split_to_monotone.html#a608f84021c99b0303e4616e7ca9bdcf9">execute</a>(<a class="code hl_class" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a> &amp; <a class="code hl_class" href="classof_doubly_connected_edge_list.html">dcel</a>, <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_face.html">ofDoublyConnectedEdgeList::Face</a> &amp; face);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">class </span>SweepLineStatus {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">float</span> getCoordinate()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_Coordinate; }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">void</span> setCoordinate(<span class="keywordtype">float</span> coordinate) { m_Coordinate = coordinate; }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">void</span> clear() {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            m_EdgeToHelperMap.clear();</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            m_HalfEdges.clear();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> getHelper(<span class="keyword">const</span> <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> &amp; edge) {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keyword">auto</span> it = m_EdgeToHelperMap.find(edge);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">if</span> (it == m_EdgeToHelperMap.end()) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Could not find helper.&quot;</span>);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            }</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">return</span> it-&gt;second;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">typedef</span> <span class="keyword">typename</span> std::map&lt;ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex&gt;::const_iterator EdgesAndHelpersIterator;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="comment">// Find the edge directly to the left.</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> findLeft(<a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> vertex) {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keyword">auto</span> oneOrMoreIntersectionFound = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keyword">auto</span> lastIntersectX = -std::numeric_limits&lt;float&gt;::max();</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> leftEdge;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_HalfEdges.begin(); it != m_HalfEdges.end(); ++it) {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                <span class="keyword">auto</span> edge = *it;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                <span class="keywordflow">if</span> (edge.getDestination() == vertex) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                }</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                <span class="keyword">auto</span> intersectionFound = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                <span class="keyword">auto</span> intersect = <a class="code hl_function" href="structof_half_edge_sweep_comparer.html#a3ccfe481ba292c391fadfdb861f130db">ofHalfEdgeSweepComparer::sweepIntersection</a>(edge, m_Coordinate, intersectionFound);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordflow">if</span> (intersectionFound &amp;&amp; vertex.getX() &gt; intersect.x &amp;&amp; intersect.x &gt; lastIntersectX) {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                    oneOrMoreIntersectionFound = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                    lastIntersectX = intersect.x;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                    leftEdge = edge;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                }</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            }</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keywordflow">if</span> (!oneOrMoreIntersectionFound) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Could not find left edge.&quot;</span>);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">static</span> <a class="code hl_enumeration" href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adf">VertexType</a> <a class="code hl_function" href="classof_split_to_monotone.html#abee10b500db3563445b5cac589f81939">classifyVertex</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> &amp; vertex);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classof_split_to_monotone.html#a608f84021c99b0303e4616e7ca9bdcf9">execute</a>(<a class="code hl_class" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a> &amp; <a class="code hl_class" href="classof_doubly_connected_edge_list.html">dcel</a>, <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_face.html">ofDoublyConnectedEdgeList::Face</a> &amp; face);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">class </span>SweepLineStatus {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">float</span> getCoordinate()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_Coordinate; }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">void</span> setCoordinate(<span class="keywordtype">float</span> coordinate) { m_Coordinate = coordinate; }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">void</span> clear() {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            m_EdgeToHelperMap.clear();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            m_HalfEdges.clear();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> getHelper(<span class="keyword">const</span> <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> &amp; edge) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="keyword">auto</span> it = m_EdgeToHelperMap.find(edge);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keywordflow">if</span> (it == m_EdgeToHelperMap.end()) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Could not find helper.&quot;</span>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keywordflow">return</span> it-&gt;second;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="comment">// Find the edge directly to the left.</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> findLeft(<a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> vertex) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keyword">auto</span> oneOrMoreIntersectionFound = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keyword">auto</span> lastIntersectX = -std::numeric_limits&lt;float&gt;::max();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> leftEdge;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_HalfEdges.begin(); it != m_HalfEdges.end(); ++it) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                <span class="keyword">auto</span> edge = *it;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                <span class="keywordflow">if</span> (edge.getDestination() == vertex) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                    <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                <span class="keyword">auto</span> intersectionFound = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                <span class="keyword">auto</span> intersect = <a class="code hl_function" href="structof_half_edge_sweep_comparer.html#a3ccfe481ba292c391fadfdb861f130db">ofHalfEdgeSweepComparer::sweepIntersection</a>(edge, m_Coordinate, intersectionFound);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                <span class="keywordflow">if</span> (intersectionFound &amp;&amp; vertex.getX() &gt; intersect.x &amp;&amp; intersect.x &gt; lastIntersectX) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                    oneOrMoreIntersectionFound = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                    lastIntersectX = intersect.x;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                    leftEdge = edge;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keywordflow">if</span> (!oneOrMoreIntersectionFound) {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Could not find left edge.&quot;</span>);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            }</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">return</span> leftEdge;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        }</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <span class="keywordflow">return</span> leftEdge;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        }</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordtype">void</span> emplace(<a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> edge, <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> helper) {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            m_EdgeToHelperMap.emplace(edge, helper);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            m_HalfEdges.push_back(edge);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            std::sort(m_HalfEdges.begin(), m_HalfEdges.end(), <a class="code hl_struct" href="structof_half_edge_sweep_comparer.html">ofHalfEdgeSweepComparer</a>(m_Coordinate));</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">void</span> remove(<a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> edge) {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            m_EdgeToHelperMap.erase(edge);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            m_HalfEdges.erase(std::remove(m_HalfEdges.begin(), m_HalfEdges.end(), edge), m_HalfEdges.end());</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordtype">void</span> updateHelper(<a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> edge, <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> helper) {</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keyword">auto</span> it = m_EdgeToHelperMap.find(edge);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <span class="keywordflow">if</span> (it == m_EdgeToHelperMap.end()) {</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Could not find helper edge for update.&quot;</span>);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            }</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            m_EdgeToHelperMap[edge] = helper;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        }</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        std::map&lt;ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex&gt; m_EdgeToHelperMap;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        std::vector&lt;ofDoublyConnectedEdgeList::HalfEdge&gt; m_HalfEdges;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordtype">float</span> m_Coordinate;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    };</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    SweepLineStatus m_SweepLineStatus;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    std::map&lt;std::size_t, VertexType&gt; m_VerticesClassification;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    std::vector&lt;ofDoublyConnectedEdgeList::Vertex&gt; m_Vertices;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordtype">void</span> diagonalToPreviousEdgeHelper(</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <a class="code hl_class" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a> &amp; <a class="code hl_class" href="classof_doubly_connected_edge_list.html">dcel</a>,</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> &amp; vertex);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordtype">void</span> diagonalToLeftEdgeHelper(</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <a class="code hl_class" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a> &amp; <a class="code hl_class" href="classof_doubly_connected_edge_list.html">dcel</a>,</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> &amp; vertex);</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>};</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordtype">void</span> emplace(<a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> edge, <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> helper) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            m_EdgeToHelperMap.emplace(edge, helper);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="comment">// Keep the collection sorted.</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keyword">auto</span> insertion = std::upper_bound(m_HalfEdges.begin(), m_HalfEdges.end(), edge, <a class="code hl_struct" href="structof_half_edge_sweep_comparer.html">ofHalfEdgeSweepComparer</a>(m_Coordinate));</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            m_HalfEdges.insert(insertion, edge);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordtype">void</span> remove(<a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> edge) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            m_EdgeToHelperMap.erase(edge);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            <span class="keyword">auto</span> removal = std::remove(m_HalfEdges.begin(), m_HalfEdges.end(), edge);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            m_HalfEdges.erase(removal, m_HalfEdges.end());</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordtype">void</span> updateHelper(<a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> edge, <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> helper) {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keyword">auto</span> it = m_EdgeToHelperMap.find(edge);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <span class="keywordflow">if</span> (it == m_EdgeToHelperMap.end()) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Could not find helper edge for update.&quot;</span>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            m_EdgeToHelperMap[edge] = helper;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="comment">// We know that the index is enough to compute the key&#39;s hash.</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keyword">struct </span>ConstantHalfEdgeHash {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            std::size_t operator()(<a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a> <span class="keyword">const</span> &amp; s)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                <span class="keywordflow">return</span> s.getIndex();</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        };</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        std::unordered_map&lt;ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex, ConstantHalfEdgeHash&gt; m_EdgeToHelperMap;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        std::vector&lt;ofDoublyConnectedEdgeList::HalfEdge&gt; m_HalfEdges;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordtype">float</span> m_Coordinate;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    };</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    SweepLineStatus m_SweepLineStatus;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    std::vector&lt;VertexType&gt; m_VerticesClassification;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    std::vector&lt;ofDoublyConnectedEdgeList::Vertex&gt; m_Vertices;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordtype">void</span> diagonalToPreviousEdgeHelper(</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <a class="code hl_class" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a> &amp; <a class="code hl_class" href="classof_doubly_connected_edge_list.html">dcel</a>,</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> &amp; vertex);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordtype">void</span> diagonalToLeftEdgeHelper(</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <a class="code hl_class" href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a> &amp; <a class="code hl_class" href="classof_doubly_connected_edge_list.html">dcel</a>,</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <a class="code hl_struct" href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a> &amp; vertex);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>};</div>
 </div>
-<div class="ttc" id="aclassof_doubly_connected_edge_list_html"><div class="ttname"><a href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></div><div class="ttdoc">A class implementing a doubly connected edge list data structure.</div><div class="ttdef"><b>Definition</b> ofDoublyConnectedEdgeList.h:19</div></div>
-<div class="ttc" id="aclassof_split_to_monotone_html"><div class="ttname"><a href="classof_split_to_monotone.html">ofSplitToMonotone</a></div><div class="ttdoc">A class implementing the split of a polygon into monotone polygons.</div><div class="ttdef"><b>Definition</b> ofSplitToMonotone.h:14</div></div>
+<div class="ttc" id="aclassof_doubly_connected_edge_list_html"><div class="ttname"><a href="classof_doubly_connected_edge_list.html">ofDoublyConnectedEdgeList</a></div><div class="ttdoc">A class implementing a doubly connected edge list data structure.</div><div class="ttdef"><b>Definition</b> ofDoublyConnectedEdgeList.h:21</div></div>
+<div class="ttc" id="aclassof_split_to_monotone_html"><div class="ttname"><a href="classof_split_to_monotone.html">ofSplitToMonotone</a></div><div class="ttdoc">A class implementing the split of a polygon into monotone polygons.</div><div class="ttdef"><b>Definition</b> ofSplitToMonotone.h:13</div></div>
 <div class="ttc" id="aclassof_split_to_monotone_html_a608f84021c99b0303e4616e7ca9bdcf9"><div class="ttname"><a href="classof_split_to_monotone.html#a608f84021c99b0303e4616e7ca9bdcf9">ofSplitToMonotone::execute</a></div><div class="ttdeci">void execute(ofDoublyConnectedEdgeList &amp;dcel, ofDoublyConnectedEdgeList::Face &amp;face)</div><div class="ttdoc">Split a face of a doubly connected edge list into monotone polygons.</div><div class="ttdef"><b>Definition</b> ofSplitToMonotone.cpp:55</div></div>
 <div class="ttc" id="aclassof_split_to_monotone_html_abee10b500db3563445b5cac589f81939"><div class="ttname"><a href="classof_split_to_monotone.html#abee10b500db3563445b5cac589f81939">ofSplitToMonotone::classifyVertex</a></div><div class="ttdeci">static VertexType classifyVertex(const ofDoublyConnectedEdgeList::Vertex &amp;vertex)</div><div class="ttdoc">Classify a vertex for splitting to monotone.</div><div class="ttdef"><b>Definition</b> ofSplitToMonotone.cpp:6</div></div>
-<div class="ttc" id="aclassof_split_to_monotone_html_afb2a4dd0abd017a1856a12e596316adf"><div class="ttname"><a href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adf">ofSplitToMonotone::VertexType</a></div><div class="ttdeci">VertexType</div><div class="ttdoc">Vertex classification when splitting a polygon to monotone polygons.</div><div class="ttdef"><b>Definition</b> ofSplitToMonotone.h:17</div></div>
+<div class="ttc" id="aclassof_split_to_monotone_html_afb2a4dd0abd017a1856a12e596316adf"><div class="ttname"><a href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adf">ofSplitToMonotone::VertexType</a></div><div class="ttdeci">VertexType</div><div class="ttdoc">Vertex classification when splitting a polygon to monotone polygons.</div><div class="ttdef"><b>Definition</b> ofSplitToMonotone.h:16</div></div>
 <div class="ttc" id="aclassof_split_to_monotone_html_afb2a4dd0abd017a1856a12e596316adfa11a755d598c0c417f9a36758c3da7481"><div class="ttname"><a href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfa11a755d598c0c417f9a36758c3da7481">ofSplitToMonotone::VertexType::Stop</a></div><div class="ttdeci">@ Stop</div><div class="ttdoc">A vertex whose neighbors lie above and the interior angle is less than pi.</div></div>
 <div class="ttc" id="aclassof_split_to_monotone_html_afb2a4dd0abd017a1856a12e596316adfa68be4837f6c739877233e527a996dd00"><div class="ttname"><a href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfa68be4837f6c739877233e527a996dd00">ofSplitToMonotone::VertexType::Merge</a></div><div class="ttdeci">@ Merge</div><div class="ttdoc">A vertex whose neighbors lie above and the interior angle is greater than pi.</div></div>
 <div class="ttc" id="aclassof_split_to_monotone_html_afb2a4dd0abd017a1856a12e596316adfa8a9e64d86ed12ad40de129bc7f4683b2"><div class="ttname"><a href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfa8a9e64d86ed12ad40de129bc7f4683b2">ofSplitToMonotone::VertexType::Split</a></div><div class="ttdeci">@ Split</div><div class="ttdoc">A vertex whose neighbors lie below and the interior angle is greater than pi.</div></div>
 <div class="ttc" id="aclassof_split_to_monotone_html_afb2a4dd0abd017a1856a12e596316adfaa6122a65eaa676f700ae68d393054a37"><div class="ttname"><a href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfaa6122a65eaa676f700ae68d393054a37">ofSplitToMonotone::VertexType::Start</a></div><div class="ttdeci">@ Start</div><div class="ttdoc">A vertex whose neighbors lie below and the interior angle is less than pi.</div></div>
 <div class="ttc" id="aclassof_split_to_monotone_html_afb2a4dd0abd017a1856a12e596316adfad2203cb1237cb6460cbad94564e39345"><div class="ttname"><a href="classof_split_to_monotone.html#afb2a4dd0abd017a1856a12e596316adfad2203cb1237cb6460cbad94564e39345">ofSplitToMonotone::VertexType::Regular</a></div><div class="ttdeci">@ Regular</div><div class="ttdoc">A vertex whose neighbors lie above and below.</div></div>
-<div class="ttc" id="aof_doubly_connected_edge_list_8h_html"><div class="ttname"><a href="of_doubly_connected_edge_list_8h.html">ofDoublyConnectedEdgeList.h</a></div></div>
-<div class="ttc" id="astructof_doubly_connected_edge_list_1_1_face_html"><div class="ttname"><a href="structof_doubly_connected_edge_list_1_1_face.html">ofDoublyConnectedEdgeList::Face</a></div><div class="ttdoc">A handle to a face.</div><div class="ttdef"><b>Definition</b> ofDoublyConnectedEdgeList.h:115</div></div>
-<div class="ttc" id="astructof_doubly_connected_edge_list_1_1_half_edge_html"><div class="ttname"><a href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a></div><div class="ttdoc">A handle to an half edge.</div><div class="ttdef"><b>Definition</b> ofDoublyConnectedEdgeList.h:76</div></div>
-<div class="ttc" id="astructof_doubly_connected_edge_list_1_1_vertex_html"><div class="ttname"><a href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a></div><div class="ttdoc">A handle to a vertex.</div><div class="ttdef"><b>Definition</b> ofDoublyConnectedEdgeList.h:49</div></div>
+<div class="ttc" id="astructof_doubly_connected_edge_list_1_1_face_html"><div class="ttname"><a href="structof_doubly_connected_edge_list_1_1_face.html">ofDoublyConnectedEdgeList::Face</a></div><div class="ttdoc">A handle to a face.</div><div class="ttdef"><b>Definition</b> ofDoublyConnectedEdgeList.h:117</div></div>
+<div class="ttc" id="astructof_doubly_connected_edge_list_1_1_half_edge_html"><div class="ttname"><a href="structof_doubly_connected_edge_list_1_1_half_edge.html">ofDoublyConnectedEdgeList::HalfEdge</a></div><div class="ttdoc">A handle to an half edge.</div><div class="ttdef"><b>Definition</b> ofDoublyConnectedEdgeList.h:78</div></div>
+<div class="ttc" id="astructof_doubly_connected_edge_list_1_1_vertex_html"><div class="ttname"><a href="structof_doubly_connected_edge_list_1_1_vertex.html">ofDoublyConnectedEdgeList::Vertex</a></div><div class="ttdoc">A handle to a vertex.</div><div class="ttdef"><b>Definition</b> ofDoublyConnectedEdgeList.h:51</div></div>
 <div class="ttc" id="astructof_half_edge_sweep_comparer_html"><div class="ttname"><a href="structof_half_edge_sweep_comparer.html">ofHalfEdgeSweepComparer</a></div><div class="ttdoc">A functor implementing the comparison of half edges.</div><div class="ttdef"><b>Definition</b> ofHalfEdgeSweepComparer.h:6</div></div>
 <div class="ttc" id="astructof_half_edge_sweep_comparer_html_a3ccfe481ba292c391fadfdb861f130db"><div class="ttname"><a href="structof_half_edge_sweep_comparer.html#a3ccfe481ba292c391fadfdb861f130db">ofHalfEdgeSweepComparer::sweepIntersection</a></div><div class="ttdeci">static glm::vec2 sweepIntersection(const ofDoublyConnectedEdgeList::HalfEdge &amp;edge, float sweepY, bool &amp;found)</div><div class="ttdoc">Determines the intersection of the sweep line and an half edge.</div><div class="ttdef"><b>Definition</b> ofHalfEdgeSweepComparer.h:13</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="of_split_to_monotone_8h.html">ofSplitToMonotone.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<tagfile doxygen_version="1.9.8" doxygen_gitid="c2fe5c3e4986974eb2a97608b24086683502f07f">
+  <compound kind="file">
+    <name>ofDoublyConnectedEdgeList.h</name>
+    <path>C:/Users/etien/Dev/of_v0.12.0_vs_release/addons/ofxPolygonTriangulation/src/</path>
+    <filename>of_doubly_connected_edge_list_8h.html</filename>
+    <class kind="class">ofDoublyConnectedEdgeList</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::Vertex</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::HalfEdge</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::Face</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::HalfEdgesIterator</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::FacesIterator</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::FacesOnVertexIterator</class>
+    <member kind="enumeration">
+      <type></type>
+      <name>ofPolygonWindingOrder</name>
+      <anchorfile>of_doubly_connected_edge_list_8h.html</anchorfile>
+      <anchor>adaff366ff825ec11520dc27eaaf36c46</anchor>
+      <arglist></arglist>
+      <enumvalue file="of_doubly_connected_edge_list_8h.html" anchor="adaff366ff825ec11520dc27eaaf36c46aec0fc0100c4fc1ce4eea230c3dc10360">Undefined</enumvalue>
+      <enumvalue file="of_doubly_connected_edge_list_8h.html" anchor="adaff366ff825ec11520dc27eaaf36c46ad5a4d3410a83d1bcdf2ae918a53aabd6">ClockWise</enumvalue>
+      <enumvalue file="of_doubly_connected_edge_list_8h.html" anchor="adaff366ff825ec11520dc27eaaf36c46a5a8821d3fbf32174429e2b28bc3b031b">CounterClockWise</enumvalue>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>ofSplitToMonotone.h</name>
+    <path>C:/Users/etien/Dev/of_v0.12.0_vs_release/addons/ofxPolygonTriangulation/src/</path>
+    <filename>of_split_to_monotone_8h.html</filename>
+    <class kind="class">ofSplitToMonotone</class>
+  </compound>
+  <compound kind="struct">
+    <name>ofDoublyConnectedEdgeList::Face</name>
+    <filename>structof_doubly_connected_edge_list_1_1_face.html</filename>
+  </compound>
+  <compound kind="struct">
+    <name>ofDoublyConnectedEdgeList::FacesIterator</name>
+    <filename>structof_doubly_connected_edge_list_1_1_faces_iterator.html</filename>
+  </compound>
+  <compound kind="struct">
+    <name>ofDoublyConnectedEdgeList::FacesOnVertexIterator</name>
+    <filename>structof_doubly_connected_edge_list_1_1_faces_on_vertex_iterator.html</filename>
+  </compound>
+  <compound kind="struct">
+    <name>ofDoublyConnectedEdgeList::HalfEdge</name>
+    <filename>structof_doubly_connected_edge_list_1_1_half_edge.html</filename>
+  </compound>
+  <compound kind="struct">
+    <name>ofDoublyConnectedEdgeList::HalfEdgesIterator</name>
+    <filename>structof_doubly_connected_edge_list_1_1_half_edges_iterator.html</filename>
+  </compound>
+  <compound kind="class">
+    <name>ofDoublyConnectedEdgeList</name>
+    <filename>classof_doubly_connected_edge_list.html</filename>
+    <class kind="struct">ofDoublyConnectedEdgeList::Face</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::FacesIterator</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::FacesOnVertexIterator</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::HalfEdge</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::HalfEdgesIterator</class>
+    <class kind="struct">ofDoublyConnectedEdgeList::Vertex</class>
+    <member kind="enumeration">
+      <type></type>
+      <name>Chain</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>a7c08c99c641d37568d57d09a98b9d0f5</anchor>
+      <arglist></arglist>
+      <enumvalue file="classof_doubly_connected_edge_list.html" anchor="a7c08c99c641d37568d57d09a98b9d0f5a6adf97f83acf6453d4a6a4b1070f3754">None</enumvalue>
+      <enumvalue file="classof_doubly_connected_edge_list.html" anchor="a7c08c99c641d37568d57d09a98b9d0f5a92b09c7c48c520c3c55e497875da437c">Right</enumvalue>
+      <enumvalue file="classof_doubly_connected_edge_list.html" anchor="a7c08c99c641d37568d57d09a98b9d0f5a945d5e233cf7d6240f6b783b36a374ff">Left</enumvalue>
+      <enumvalue file="classof_doubly_connected_edge_list.html" anchor="a7c08c99c641d37568d57d09a98b9d0f5aa4ffdcf0dc1f31b9acaf295d75b51d00">Top</enumvalue>
+      <enumvalue file="classof_doubly_connected_edge_list.html" anchor="a7c08c99c641d37568d57d09a98b9d0f5a2ad9d63b69c4a10a5cc9cad923133bc4">Bottom</enumvalue>
+    </member>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>getNumVertices</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>a2a7173fdaedd89f9c0fb71a7a9750f72</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Face</type>
+      <name>getInnerFace</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>a857d51ac551f4dc0d8b51f706eff9a0a</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>initializeFromCCWVertices</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>ae94bbda3ff0fe1edaac3b44a04a34da6</anchor>
+      <arglist>(const std::vector&lt; glm::vec2 &gt; &amp;vertices)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>initializeFromCCWVertices</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>ab1b3aad64207e9e1ef602b934b9b8379</anchor>
+      <arglist>(const std::vector&lt; glm::vec3 &gt; &amp;vertices)</arglist>
+    </member>
+    <member kind="function">
+      <type>HalfEdge</type>
+      <name>addHalfEdge</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>a66bcd5fea3106910240d8a07e1137ed6</anchor>
+      <arglist>(Vertex &amp;vertexA, Vertex &amp;vertexB)</arglist>
+    </member>
+    <member kind="function">
+      <type>HalfEdge</type>
+      <name>addHalfEdge</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>ae48437ff77fd369020603ca971f78d9e</anchor>
+      <arglist>(HalfEdge &amp;edgeA, HalfEdge &amp;edgeB)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>extractTriangles</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>a85e950859c8902402e0ec0b84da21c28</anchor>
+      <arglist>(std::vector&lt; glm::vec3 &gt; &amp;vertices, std::vector&lt; unsigned int &gt; &amp;indices)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static constexpr int</type>
+      <name>getOuterFaceIndex</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>a242c699bdaf05e7fab48ae05c05a47d6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static constexpr int</type>
+      <name>getInnerFaceIndex</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>aecd77b0794640121395b7926e4acec5c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static ofPolygonWindingOrder</type>
+      <name>getWindingOrder</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>a68bc74b802212193f6c90cc94d5e4d28</anchor>
+      <arglist>(const Face &amp;face)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static ofPolygonWindingOrder</type>
+      <name>getWindingOrder</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>a347fdfd82a809393321a8292436b037f</anchor>
+      <arglist>(const std::vector&lt; glm::vec2 &gt; &amp;vertices)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static ofPolygonWindingOrder</type>
+      <name>getWindingOrder</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>a8ed93b14efef5af44c29e6a132cccd0a</anchor>
+      <arglist>(const std::vector&lt; glm::vec3 &gt; &amp;vertices)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static float</type>
+      <name>findMaxInnerAngle</name>
+      <anchorfile>classof_doubly_connected_edge_list.html</anchorfile>
+      <anchor>a5f9cf4511039752be9c1c9360781b451</anchor>
+      <arglist>(ofDoublyConnectedEdgeList &amp;dcel, const Face &amp;face, HalfEdge &amp;halfEdge)</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>ofHalfEdgeSweepComparer</name>
+    <filename>structof_half_edge_sweep_comparer.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ofHalfEdgeSweepComparer</name>
+      <anchorfile>structof_half_edge_sweep_comparer.html</anchorfile>
+      <anchor>ae57f24ea3d2d6c31e70dea772193151c</anchor>
+      <arglist>(float sweepLineY)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static glm::vec2</type>
+      <name>sweepIntersection</name>
+      <anchorfile>structof_half_edge_sweep_comparer.html</anchorfile>
+      <anchor>a3ccfe481ba292c391fadfdb861f130db</anchor>
+      <arglist>(const ofDoublyConnectedEdgeList::HalfEdge &amp;edge, float sweepY, bool &amp;found)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ofPolygonTriangulation</name>
+    <filename>classof_polygon_triangulation.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>execute</name>
+      <anchorfile>classof_polygon_triangulation.html</anchorfile>
+      <anchor>a3e1756e205c8deb68d3196da4ca06de7</anchor>
+      <arglist>(ofDoublyConnectedEdgeList &amp;dcel)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ofPolygonUtility</name>
+    <filename>classof_polygon_utility.html</filename>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>createPolygonRandom</name>
+      <anchorfile>classof_polygon_utility.html</anchorfile>
+      <anchor>a7c58c03b0cdca7ab9ef01f8e65afdb45</anchor>
+      <arglist>(std::vector&lt; glm::vec3 &gt; &amp;points)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>createPolygonRandomMonotone</name>
+      <anchorfile>classof_polygon_utility.html</anchorfile>
+      <anchor>a5f64af71507c3929b83a8949ed532efa</anchor>
+      <arglist>(std::vector&lt; glm::vec3 &gt; &amp;points)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>removeDuplicatesAndCollinear</name>
+      <anchorfile>classof_polygon_utility.html</anchorfile>
+      <anchor>ae1c403433be15ef7c9c7b88f0f58a42e</anchor>
+      <arglist>(std::vector&lt; glm::vec2 &gt; &amp;points, float epsilon)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>removeDuplicatesAndCollinear</name>
+      <anchorfile>classof_polygon_utility.html</anchorfile>
+      <anchor>ae1643441daf0dec13840b41794372f8d</anchor>
+      <arglist>(std::vector&lt; glm::vec3 &gt; &amp;points, float epsilon)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ofSplitToMonotone</name>
+    <filename>classof_split_to_monotone.html</filename>
+    <member kind="enumeration">
+      <type></type>
+      <name>VertexType</name>
+      <anchorfile>classof_split_to_monotone.html</anchorfile>
+      <anchor>afb2a4dd0abd017a1856a12e596316adf</anchor>
+      <arglist></arglist>
+      <enumvalue file="classof_split_to_monotone.html" anchor="afb2a4dd0abd017a1856a12e596316adfaa6122a65eaa676f700ae68d393054a37">Start</enumvalue>
+      <enumvalue file="classof_split_to_monotone.html" anchor="afb2a4dd0abd017a1856a12e596316adfa11a755d598c0c417f9a36758c3da7481">Stop</enumvalue>
+      <enumvalue file="classof_split_to_monotone.html" anchor="afb2a4dd0abd017a1856a12e596316adfa8a9e64d86ed12ad40de129bc7f4683b2">Split</enumvalue>
+      <enumvalue file="classof_split_to_monotone.html" anchor="afb2a4dd0abd017a1856a12e596316adfa68be4837f6c739877233e527a996dd00">Merge</enumvalue>
+      <enumvalue file="classof_split_to_monotone.html" anchor="afb2a4dd0abd017a1856a12e596316adfad2203cb1237cb6460cbad94564e39345">Regular</enumvalue>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>execute</name>
+      <anchorfile>classof_split_to_monotone.html</anchorfile>
+      <anchor>a608f84021c99b0303e4616e7ca9bdcf9</anchor>
+      <arglist>(ofDoublyConnectedEdgeList &amp;dcel, ofDoublyConnectedEdgeList::Face &amp;face)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static VertexType</type>
+      <name>classifyVertex</name>
+      <anchorfile>classof_split_to_monotone.html</anchorfile>
+      <anchor>abee10b500db3563445b5cac589f81939</anchor>
+      <arglist>(const ofDoublyConnectedEdgeList::Vertex &amp;vertex)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ofTriangulateMonotone</name>
+    <filename>classof_triangulate_monotone.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>execute</name>
+      <anchorfile>classof_triangulate_monotone.html</anchorfile>
+      <anchor>aec4b040e66740df01fbdf8a0bd604f00</anchor>
+      <arglist>(ofDoublyConnectedEdgeList &amp;dcel, ofDoublyConnectedEdgeList::Face &amp;face)</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>ofVertexSweepComparer</name>
+    <filename>structof_vertex_sweep_comparer.html</filename>
+  </compound>
+  <compound kind="struct">
+    <name>ofDoublyConnectedEdgeList::Vertex</name>
+    <filename>structof_doubly_connected_edge_list_1_1_vertex.html</filename>
+  </compound>
+  <compound kind="page">
+    <name>index</name>
+    <title>ofxPolygonTriangulation</title>
+    <filename>index.html</filename>
+    <docanchor file="index.html" title="ofxPolygonTriangulation">md__c_1_2_users_2etien_2_dev_2of__v0_812_80__vs__release_2addons_2ofx_polygon_triangulation_2_r_e_a_d_m_e</docanchor>
+  </compound>
+</tagfile>
