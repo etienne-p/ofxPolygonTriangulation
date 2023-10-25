@@ -2,11 +2,10 @@
 
 #pragma once
 
-#include "ofDoublyConnectedEdgeList.h"
 #include "ofHalfEdgeSweepComparer.h"
 #include <algorithm>
 #include <limits>
-#include <map>
+#include <unordered_map>
 #include <stdexcept>
 #include <vector>
 
@@ -30,7 +29,7 @@ public:
 	/// @brief Classify a vertex for splitting to monotone.
 	/// @param vertex The vertex.
 	/// @return The classification.
-	/// 
+	///
 	/// This is mainly exposed for unit tests.
 	static VertexType classifyVertex(const ofDoublyConnectedEdgeList::Vertex & vertex);
 
@@ -59,8 +58,6 @@ private:
 
 			return it->second;
 		}
-
-		typedef typename std::map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex>::const_iterator EdgesAndHelpersIterator;
 
 		// Find the edge directly to the left.
 		ofDoublyConnectedEdgeList::HalfEdge findLeft(ofDoublyConnectedEdgeList::Vertex vertex) {
@@ -92,13 +89,15 @@ private:
 
 		void emplace(ofDoublyConnectedEdgeList::HalfEdge edge, ofDoublyConnectedEdgeList::Vertex helper) {
 			m_EdgeToHelperMap.emplace(edge, helper);
-			m_HalfEdges.push_back(edge);
-			std::sort(m_HalfEdges.begin(), m_HalfEdges.end(), ofHalfEdgeSweepComparer(m_Coordinate));
+			// Keep the collection sorted.
+			auto insertion = std::upper_bound(m_HalfEdges.begin(), m_HalfEdges.end(), edge, ofHalfEdgeSweepComparer(m_Coordinate));
+			m_HalfEdges.insert(insertion, edge);
 		}
 
 		void remove(ofDoublyConnectedEdgeList::HalfEdge edge) {
 			m_EdgeToHelperMap.erase(edge);
-			m_HalfEdges.erase(std::remove(m_HalfEdges.begin(), m_HalfEdges.end(), edge), m_HalfEdges.end());
+			auto removal = std::remove(m_HalfEdges.begin(), m_HalfEdges.end(), edge);
+			m_HalfEdges.erase(removal, m_HalfEdges.end());
 		}
 
 		void updateHelper(ofDoublyConnectedEdgeList::HalfEdge edge, ofDoublyConnectedEdgeList::Vertex helper) {
@@ -112,7 +111,14 @@ private:
 		}
 
 	private:
-		std::map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex> m_EdgeToHelperMap;
+		// We know that the index is enough to compute the key's hash.
+		struct ConstantHalfEdgeHash {
+			std::size_t operator()(ofDoublyConnectedEdgeList::HalfEdge const & s) const {
+				return s.getIndex();
+			}
+		};
+
+		std::unordered_map<ofDoublyConnectedEdgeList::HalfEdge, ofDoublyConnectedEdgeList::Vertex, ConstantHalfEdgeHash> m_EdgeToHelperMap;
 		std::vector<ofDoublyConnectedEdgeList::HalfEdge> m_HalfEdges;
 		float m_Coordinate;
 	};

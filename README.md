@@ -58,13 +58,13 @@ It is possible to work with the inner steps of polygon triangulation directly. N
 
 ## Design
 
-The core component is the doubly connected edge list, `ofDoublyConnectedEdgeList`. We store all data in 3 collections of vertices, half edges and faces. This avoids allocating each element independently, and allows us to connect these elements using indices rather than pointers. The goal is to have a straightforward, easy to manipulate and reason about memory layout. For code readability and to provide an easy to work with API, we introduce a concept of handles to elements.
+The core component is the doubly connected edge list, `ofDoublyConnectedEdgeList`. We store all data in collections of properties of vertices, half edges and faces. This avoids allocating each element independently, and allows us to connect these elements using indices rather than pointers. The goal is to have a straightforward data oriented design, making it easy to reason about memory layout. The Doubly Connected Edge List can then trivially be copied for example. We can also add properties to elements without slowing down other parts of the code as the corresponding memory is only accessed when needed. For code readability and to provide an easy to work with API, we introduce a concept of handles to elements.
 
-For example, a vertex is stored as a `VertexData` item in a `std::vector<VertexData>`. It is manipulated using its handle, `Vertex`, so that we can write `vertex.getIncidentEdge().getIncidentFace()`. The handle only stores a pointer to the doubly connected edge list and the index of its data in the collection it belongs to. Internally, the handle manipulates the collections, for example:
+For example, a vertex' properties are stored in collections of positions, chains, and incident half edges. It is manipulated using its handle, `Vertex`, so that we can write `vertex.getIncidentEdge().getIncidentFace()`. The handle only stores a pointer to the doubly connected edge list and the index of its data in the collections it belongs to. Internally, the handle manipulates the collections:
 
 ```
 dcel::HalfEdge dcel::Vertex::getIncidentEdge() const {
-	return dcel::HalfEdge(m_Dcel, m_Dcel->m_Vertices[m_Index].incidentEdge);
+	return dcel::HalfEdge(m_Dcel, m_Dcel->m_VerticesIncidentEdge[m_Index]);
 }
 ```
 
